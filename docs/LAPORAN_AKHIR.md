@@ -3,7 +3,7 @@
 **Nama:** Anindya Rahma Luthfia  
 **NIM:** 25110200036  
 **Mata kuliah:** Algoritma Trading  
-**Tanggal laporan:** 2026-11-09 07:38 WIB (2026-11-09T00:38:42Z)  
+**Tanggal laporan:** 2026-11-09 07:40 WIB (2026-11-09T00:40:47Z)  
 **Strategi:** Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)  
 **Timeframe:** 4 jam · **Universe:** 6 pair IDR · **Modal simulasi:** Rp100.000.000
 
@@ -27,7 +27,7 @@
 | Unit test | 17 tes lulus | `tests/test_core.py` |
 | `.env.example`, `.gitignore`, tanpa secret di repo | Selesai | root repo |
 | Pembekuan (freeze) | **Terlambat** | `docs/FREEZE.md` |
-| Forward test 10 hari | Berjalan 3 menit (0.002 hari) | `data/local/`, `data/gap_analysis.json` |
+| Forward test 10 hari | Berjalan 5 menit (0.003 hari) | `data/local/`, `data/gap_analysis.json` |
 | Deploy Vercel/GitHub | Belum (butuh akun mahasiswa) | `data/project_status.json` |
 
 ## B. Hasil backtest
@@ -143,7 +143,7 @@ python3 scripts/build_offline_dashboard.py
 | Commit pembekuan dibuat | 2026-11-09T00:35:31Z |
 | Commit hash pembekuan | `1bc81524f6babff24406b17593633f5a10cd336f` |
 | Ref/tag yang dipakai config | freeze-2026-11-09 |
-| HEAD saat laporan dibuat | `da2a9b4692c581609355278574c661d276fa87a8` |
+| HEAD saat laporan dibuat | `32e0db6906ed91739b271834e480afd8a44b8e9d` |
 | Tag | freeze-2026-11-09 |
 | Status | **TERLAMBAT 4.8 hari** (commit aktual 2026-11-09T00:35:31Z; pekerjaan dimulai 8 November 2026) |
 
@@ -156,7 +156,7 @@ Manifest freeze: 90 file, dibuat 2026-11-09T00:35:37Z.
 | Hal | Nilai |
 |---|---|
 | Mulai | 2026-11-09T00:35:58Z |
-| Durasi aktual | 3 menit (0.002 hari) |
+| Durasi aktual | 5 menit (0.003 hari) |
 | Jumlah tick | 2 |
 | Trade tertutup | 0 |
 | Ekuitas terakhir | Rp100.000.000 |
@@ -202,7 +202,7 @@ Langkah manual ada di `docs/DEPLOYMENT.md` dan bagian G di bawah.
 | Timeframe 4 jam / 1 jam / harian | **Terpenuhi** (4 jam) | `config/strategy.json` |
 | Backtest minimal 3 tahun | **Terpenuhi** (4.00 tahun) | `data/backtest_results.json` |
 | Fee, spread, slippage diukur | **Terpenuhi** | `data/costs.json`, snapshot 366 baris |
-| Dry-run pada bid/ask | **Terpenuhi** (kode + tick lokal) | `core/bot.py`, `data/local/orders.jsonl` |
+| Dry-run pada bid/ask | **Terpenuhi** (kode + tick lokal) | `core/bot.py`, `data/local/ticks.jsonl`, `data/local/decisions.jsonl` |
 | Penjadwal otomatis | **Siap, belum aktif** | `.github/workflows/tick.yml`, `vercel.json` |
 | Penyimpanan persisten | **Siap** (lokal JSONL / Upstash) | `core/storage.py`; Vercel fail loud tanpa Upstash |
 | Log lengkap | **Terpenuhi** (format JSONL) | `data/local/*.jsonl`; `api/export.py` |
@@ -212,7 +212,7 @@ Langkah manual ada di `docs/DEPLOYMENT.md` dan bagian G di bawah.
 | Skrip hitung ulang | **Terpenuhi** | `scripts/recompute.py`, `scripts/gap_analysis.py` |
 | `.env.example`, tanpa secret | **Terpenuhi** | `.env.example`, `.gitignore` |
 | Freeze tepat waktu | **TIDAK** (terlambat 4.8 hari) | `docs/FREEZE.md` |
-| Forward test 10 hari | **Berjalan 3 menit (0.002 hari)** | lihat D |
+| Forward test 10 hari | **Berjalan 5 menit (0.003 hari)** | lihat D |
 
 ## G. Yang harus saya lakukan
 

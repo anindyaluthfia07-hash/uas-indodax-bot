@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-11-09T00:36:15Z",
+ "generated_at": "2026-11-09T00:40:57Z",
  "forward_start": "2026-11-09T00:35:58Z",
- "forward_end": "2026-11-09T00:35:58Z",
+ "forward_end": "2026-11-09T00:36:20Z",
  "timeframe_seconds": 14400,
- "duration_hours": 0.0,
+ "duration_hours": 0.006111111111111111,
  "expected_candles": 0,
  "pairs_expected": 6,
  "per_pair": {

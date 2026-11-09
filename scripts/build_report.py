@@ -429,7 +429,7 @@ def main():
     add("| Timeframe 4 jam / 1 jam / harian | **Terpenuhi** (4 jam) | `config/strategy.json` |")
     add("| Backtest minimal 3 tahun | **Terpenuhi** (%.2f tahun) | `data/backtest_results.json` |" % (years or 0))
     add("| Fee, spread, slippage diukur | **Terpenuhi** | `data/costs.json`, snapshot %s baris |" % (cost_n if cost_n is not None else "?"))
-    add("| Dry-run pada bid/ask | **Terpenuhi** (kode + tick lokal) | `core/bot.py`, `data/local/orders.jsonl` |")
+    add("| Dry-run pada bid/ask | **Terpenuhi** (kode + tick lokal) | `core/bot.py`, `data/local/ticks.jsonl`, `data/local/decisions.jsonl` |")
     add("| Penjadwal otomatis | **Siap, belum aktif** | `.github/workflows/tick.yml`, `vercel.json` |")
     add("| Penyimpanan persisten | **Siap** (lokal JSONL / Upstash) | `core/storage.py`; Vercel fail loud tanpa Upstash |")
     add("| Log lengkap | **Terpenuhi** (format JSONL) | `data/local/*.jsonl`; `api/export.py` |")

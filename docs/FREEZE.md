@@ -138,8 +138,10 @@ diperiksa dengan `git show 1bc8152:scripts/build_report.py`. Perbedaan hash
 `scripts/build_report.py` antara manifest dan HEAD adalah konsekuensi patch
 tampilan ini dan dicatat, bukan disembunyikan.
 
-Patch tampilan tersebut adalah commit `21cbd32` (post-freeze). Commit itu juga
-menyimpan log forward test aktual dan membangun ulang dashboard/laporan.
+Patch tampilan tersebut adalah commit `21cbd32` dan commit lanjutan yang hanya
+menyentuh file pelaporan/dokumen; daftar lengkapnya dapat dilihat dengan
+`git log --oneline 1bc8152..HEAD`. Commit-commit itu juga menyimpan log forward
+test aktual dan membangun ulang dashboard/laporan.
 
 Pada working tree saat laporan ini dibuat, ada **3 file** yang berbeda dari
 manifest: `README.md`, `docs/PERNYATAAN_AI.md`, dan `scripts/build_report.py`.
