@@ -89,11 +89,12 @@ Diisi setelah commit dan tag dibuat:
 
 | Hal | Nilai |
 |---|---|
-| Commit hash | `DIISI_SETELAH_COMMIT` |
-| Tag | `DIISI_SETELAH_COMMIT` |
-| Waktu commit (UTC) | `DIISI_SETELAH_COMMIT` |
-| Waktu commit (WIB) | `DIISI_SETELAH_COMMIT` |
-| Jumlah file yang dibekukan | `DIISI_SETELAH_COMMIT` |
+| Commit hash | `1bc81524f6babff24406b17593633f5a10cd336f` |
+| Tag | `freeze-2026-11-09` (annotated) |
+| Waktu commit (UTC) | **2026-11-09T00:35:32Z** |
+| Waktu commit (WIB) | **2026-11-09 07:35:32 WIB** |
+| Jumlah file dalam commit | 110 file |
+| File sumber/data yang di-hash | 90 file (`docs/FREEZE_MANIFEST.json`) |
 
 > Commit yang memperbarui tabel ini hanya mengubah metadata. Kode, parameter,
 > dan hasil backtest tidak berubah. Perbedaan hash kode sebelum dan sesudah
