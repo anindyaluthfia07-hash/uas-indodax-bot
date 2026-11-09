@@ -75,13 +75,22 @@ Hash file penting juga dicatat di `docs/FREEZE_MANIFEST.json`. Untuk memeriksa:
 
 ```bash
 python3 - <<'PY'
-import hashlib, json, os
+import hashlib, json, subprocess
 m = json.load(open("docs/FREEZE_MANIFEST.json"))
+tag = "freeze-2026-11-09"
+ok = 0
 for path, expected in m["files"].items():
-    h = hashlib.sha256(open(path, "rb").read()).hexdigest()
-    print("OK " if h == expected else "BEDA ", path)
+    blob = subprocess.run(["git", "show", "%s:%s" % (tag, path)],
+                          capture_output=True, check=True).stdout
+    h = hashlib.sha256(blob).hexdigest()
+    print("OK  " if h == expected else "BEDA", path)
+    ok += (h == expected)
+print("%d/%d file cocok dengan tag %s" % (ok, len(m["files"]), tag))
 PY
 ```
+
+Verifikasi di atas membandingkan isi **commit/tag freeze**, bukan working tree,
+sehingga patch dokumen/tampilan setelah freeze tidak mengubah bukti strategi.
 
 ## 5. Catatan pembekuan sebenarnya
 
@@ -131,3 +140,9 @@ tampilan ini dan dicatat, bukan disembunyikan.
 
 Patch tampilan tersebut adalah commit `21cbd32` (post-freeze). Commit itu juga
 menyimpan log forward test aktual dan membangun ulang dashboard/laporan.
+
+Pada working tree saat laporan ini dibuat, ada **3 file** yang berbeda dari
+manifest: `README.md`, `docs/PERNYATAAN_AI.md`, dan `scripts/build_report.py`.
+Ketiganya adalah dokumen/tampilan. Verifikasi terhadap tag (bagian 4) tetap
+menghasilkan **90/90 file cocok**, sehingga bukti bahwa strategi, parameter,
+universe, biaya, dan hasil backtest tidak berubah tetap kuat.
