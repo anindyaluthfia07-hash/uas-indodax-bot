@@ -128,3 +128,6 @@ Manifest tetap merujuk versi pada commit freeze. Versi beku skrip laporan dapat
 diperiksa dengan `git show 1bc8152:scripts/build_report.py`. Perbedaan hash
 `scripts/build_report.py` antara manifest dan HEAD adalah konsekuensi patch
 tampilan ini dan dicatat, bukan disembunyikan.
+
+Patch tampilan tersebut adalah commit `21cbd32` (post-freeze). Commit itu juga
+menyimpan log forward test aktual dan membangun ulang dashboard/laporan.
