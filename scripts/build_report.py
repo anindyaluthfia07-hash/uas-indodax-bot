@@ -115,7 +115,8 @@ def main():
     frozen_at = cfg.get("frozen_at")
     freeze_commit = cfg.get("freeze_commit")
     head = git(["rev-parse", "HEAD"])
-    tag = git(["describe", "--tags", "--exact-match", "HEAD"]) or (manifest.get("tag") if manifest else "")
+    freeze_tag = ((manifest.get("git") or {}).get("tag")) if manifest else ""
+    tag = git(["describe", "--tags", "--exact-match", "HEAD"]) or freeze_tag
     deployed = bool(project.get("vercel_deployed"))
     repo = project.get("github_repo") or ""
     vercel = project.get("vercel_url") or ""
@@ -133,6 +134,16 @@ def main():
             duration_days = (now - parse_iso(start_fwd)).total_seconds() / 86400.0
         except Exception:
             duration_days = None
+
+    def dur_text(days):
+        if days is None:
+            return "belum"
+        minutes = days * 1440.0
+        if minutes < 60:
+            return "%.0f menit (%.3f hari)" % (minutes, days)
+        if days < 1:
+            return "%.1f jam (%.3f hari)" % (days * 24.0, days)
+        return "%.2f hari" % days
 
     cost_n = costs.get("total_snapshots_used")
     years = m.get("years")
@@ -181,7 +192,7 @@ def main():
     add("| `.env.example`, `.gitignore`, tanpa secret di repo | Selesai | root repo |")
     add("| Pembekuan (freeze) | **Terlambat** | `docs/FREEZE.md` |")
     add("| Forward test 10 hari | %s | `data/local/`, `data/gap_analysis.json` |" % (
-        "Berjalan %.2f hari" % duration_days if duration_days is not None else "Belum dimulai"))
+        "Berjalan " + dur_text(duration_days) if duration_days is not None else "Belum dimulai"))
     add("| Deploy Vercel/GitHub | %s | `data/project_status.json` |" % (
         "Sudah" if deployed else "Belum (butuh akun mahasiswa)"))
     add("")
@@ -325,8 +336,10 @@ def main():
         ((manifest.get("git") or {}).get("head")) or freeze_commit or "belum tercatat"))
     add("| Ref/tag yang dipakai config | %s |" % (freeze_commit or "belum tercatat"))
     add("| HEAD saat laporan dibuat | `%s` |" % (head or "belum ada repo git"))
-    add("| Tag | %s |" % (tag or "belum ada"))
-    add("| Status | **TERLAMBAT** (pekerjaan dimulai 8 November 2026) |")
+    add("| Tag | %s |" % (tag or freeze_tag or "belum ada"))
+    add("| Status | **TERLAMBAT %s** (commit aktual %s; pekerjaan dimulai 8 November 2026) |" % (
+        ("%.1f hari" % freeze_delay_days) if freeze_delay_days is not None else "—",
+        frozen_at or "belum tercatat"))
     add("")
     add("Tidak ada backdate. Commit memakai waktu sebenarnya. Konsekuensi: proyek tidak "
         "dapat diklaim dibekukan tepat waktu, dan forward test baru dimulai setelah freeze. "
@@ -358,7 +371,7 @@ def main():
         add("| Hal | Nilai |")
         add("|---|---|")
         add("| Mulai | %s |" % start_fwd)
-        add("| Durasi aktual | %.2f hari |" % (duration_days or 0))
+        add("| Durasi aktual | %s |" % dur_text(duration_days))
         add("| Jumlah tick | %s |" % st.get("tick_count"))
         add("| Trade tertutup | %s |" % rec.get("trade_count"))
         add("| Ekuitas terakhir | %s |" % rp(fm.get("final_equity")))
@@ -427,7 +440,9 @@ def main():
     add("| `.env.example`, tanpa secret | **Terpenuhi** | `.env.example`, `.gitignore` |")
     add("| Freeze tepat waktu | **TIDAK** (%s) | `docs/FREEZE.md` |" % (
         ("terlambat %.1f hari" % freeze_delay_days) if freeze_delay_days is not None else "belum tercatat"))
-    add("| Forward test 10 hari | **Belum selesai** | lihat D |")
+    add("| Forward test 10 hari | %s | lihat D |" % (
+        "**Selesai** (%.1f hari)" % duration_days if (duration_days is not None and duration_days >= 10)
+        else ("**Berjalan %s**" % dur_text(duration_days) if duration_days is not None else "**Belum selesai**")))
     add("")
 
     # ================= G =================

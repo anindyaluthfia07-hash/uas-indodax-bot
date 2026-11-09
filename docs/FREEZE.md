@@ -105,3 +105,26 @@ Diisi setelah commit dan tag dibuat:
 Forward test dimulai setelah freeze, dengan tick pertama yang benar-benar
 terjadi. Timestamp `forward_test_start` ditulis otomatis oleh bot pada tick
 pertama yang sukses. Tidak ada backdate. Lihat `docs/FORWARD_TEST.md`.
+
+## 7. Patch pasca-freeze (hanya tampilan laporan)
+
+Setelah freeze, ditemukan bug **tampilan** di `scripts/build_report.py`: tag
+dibaca dari kunci manifest yang salah sehingga laporan menulis "Tag: belum ada",
+dan durasi forward di bawah satu hari ditampilkan "0.00 hari". Patch hanya
+mengubah format tampilan laporan.
+
+Yang **tidak** berubah pada patch ini: strategi, parameter, universe, model
+biaya, hasil backtest, dan data mentah. Untuk memeriksa:
+
+```bash
+# tidak ada perubahan pada inti strategi dan hasil backtest
+git diff 1bc8152..HEAD -- core config data/backtest_results.json data/costs.json
+
+# commit patch hanya menyentuh file pelaporan/dokumen
+git log --oneline 1bc8152..HEAD -- scripts/build_report.py README.md docs/PERNYATAAN_AI.md
+```
+
+Manifest tetap merujuk versi pada commit freeze. Versi beku skrip laporan dapat
+diperiksa dengan `git show 1bc8152:scripts/build_report.py`. Perbedaan hash
+`scripts/build_report.py` antara manifest dan HEAD adalah konsekuensi patch
+tampilan ini dan dicatat, bukan disembunyikan.

@@ -1,0 +1,80 @@
+{
+ "version": 1,
+ "initialized": true,
+ "cash": 100000000.0,
+ "positions": {},
+ "last_processed": {
+  "btcidr": 1794168000,
+  "dogeidr": 1794168000,
+  "ethidr": 1794168000,
+  "xrpidr": 1794168000,
+  "bnbidr": 1794168000,
+  "trxidr": 1794168000
+ },
+ "last_prices": {
+  "btcidr": 1358999000.0,
+  "dogeidr": 1253.0,
+  "ethidr": 38790000.0,
+  "xrpidr": 20276.0,
+  "bnbidr": 12358090.0,
+  "trxidr": 5770.0
+ },
+ "last_tick": "2026-11-09T00:36:20Z",
+ "tick_count": 2,
+ "day_date_wib": "2026-11-09",
+ "day_start_equity": 100000000.0,
+ "daily_loss_blocked": false,
+ "daily_loss_block_date": null,
+ "forward_test_start": "2026-11-09T00:35:58Z",
+ "last_equity": 100000000.0,
+ "meta_cache": {
+  "btcidr": {
+   "symbol": "BTCIDR",
+   "pricescale": 1000,
+   "quantity_increment": 1e-08,
+   "trade_min_base_currency": 10000,
+   "trade_fee_percent_taker": 0.2,
+   "increment": "1000"
+  },
+  "dogeidr": {
+   "symbol": "DOGEIDR",
+   "pricescale": 1,
+   "quantity_increment": 1e-08,
+   "trade_min_base_currency": 10000,
+   "trade_fee_percent_taker": 0.2,
+   "increment": "1"
+  },
+  "ethidr": {
+   "symbol": "ETHIDR",
+   "pricescale": 1000,
+   "quantity_increment": 1e-08,
+   "trade_min_base_currency": 10000,
+   "trade_fee_percent_taker": 0.2,
+   "increment": "1000"
+  },
+  "xrpidr": {
+   "symbol": "XRPIDR",
+   "pricescale": 1,
+   "quantity_increment": 1e-08,
+   "trade_min_base_currency": 10000,
+   "trade_fee_percent_taker": 0.2,
+   "increment": "1"
+  },
+  "bnbidr": {
+   "symbol": "BNBIDR",
+   "pricescale": 1,
+   "quantity_increment": 1e-08,
+   "trade_min_base_currency": 10000,
+   "trade_fee_percent_taker": 0.2,
+   "increment": "1"
+  },
+  "trxidr": {
+   "symbol": "TRXIDR",
+   "pricescale": 1,
+   "quantity_increment": 1e-08,
+   "trade_min_base_currency": 10000,
+   "trade_fee_percent_taker": 0.2,
+   "increment": "1"
+  }
+ }
+}

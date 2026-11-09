@@ -6,9 +6,11 @@ Bot trading kripto **dry-run** (tanpa uang, tanpa API key) untuk pair IDR di
 Indodax, dengan backtest 4 tahun, biaya nyata (fee + spread + slippage), log
 mentah, dashboard offline/online, dan skrip hitung ulang.
 
-> **Status jujur:** freeze **terlambat** (tenggat 4 Nov 2026, commit dibuat
-> 8 Nov 2026), forward test **belum 10 hari**, dan deployment Vercel **belum**
-> dilakukan karena membutuhkan akun mahasiswa. Semua status aktual ada di
+> **Status jujur:** freeze **terlambat 4,8 hari** (tenggat 4 Nov 2026 12.00 WIB;
+> commit aktual **9 Nov 2026 07.35 WIB**, hash `1bc8152…`, tag
+> `freeze-2026-11-09`), forward test **baru berjalan** (mulai 9 Nov 2026
+> 07.35 WIB, belum 10 hari), dan deployment Vercel **belum** dilakukan karena
+> membutuhkan akun mahasiswa. Semua status aktual ada di
 > [`docs/LAPORAN_AKHIR.md`](docs/LAPORAN_AKHIR.md), bukan di README ini.
 
 ---
@@ -166,7 +168,7 @@ sementara yang hilang.
 - OOS 30% terakhir **negatif**; parameter tidak dipilih ulang setelah melihat OOS.
 - Survivorship bias: pair delisted tidak ada di daftar kandidat.
 - Backtest memakai open candle berikutnya; bot memakai bid/ask saat tick.
-- Freeze terlambat 4 hari; forward test belum 10 hari.
+- Freeze terlambat 4,8 hari; forward test baru berjalan dan belum 10 hari.
 - Belum ada deployment Vercel/GitHub karena menunggu akun mahasiswa.
 
 ---

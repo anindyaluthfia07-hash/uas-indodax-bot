@@ -3,7 +3,7 @@
 **Nama:** Anindya Rahma Luthfia  
 **NIM:** 25110200036  
 **Mata kuliah:** Algoritma Trading  
-**Tanggal laporan:** 2026-11-09 07:32 WIB (2026-11-09T00:32:57Z)  
+**Tanggal laporan:** 2026-11-09 07:38 WIB (2026-11-09T00:38:42Z)  
 **Strategi:** Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)  
 **Timeframe:** 4 jam · **Universe:** 6 pair IDR · **Modal simulasi:** Rp100.000.000
 
@@ -27,7 +27,7 @@
 | Unit test | 17 tes lulus | `tests/test_core.py` |
 | `.env.example`, `.gitignore`, tanpa secret di repo | Selesai | root repo |
 | Pembekuan (freeze) | **Terlambat** | `docs/FREEZE.md` |
-| Forward test 10 hari | Belum dimulai | `data/local/`, `data/gap_analysis.json` |
+| Forward test 10 hari | Berjalan 3 menit (0.002 hari) | `data/local/`, `data/gap_analysis.json` |
 | Deploy Vercel/GitHub | Belum (butuh akun mahasiswa) | `data/project_status.json` |
 
 ## B. Hasil backtest
@@ -84,9 +84,9 @@ Strategi memberi return lebih rendah dari BTC, tetapi drawdown lebih kecil. Ini 
 
 | Hal | Nilai |
 |---|---:|
-| Laba kotor (trade profit) | Rp315.162.804 |
+| Total net profit dari trade yang menang | Rp315.162.804 |
 | Laba 5 trade terbaik | Rp97.159.367 |
-| Porsi 5 trade terbaik terhadap laba kotor | 30.83% |
+| Porsi 5 trade terbaik | 30.83% |
 | Jumlah net trade tanpa 5 trade terbaik | Rp17.351.330 |
 
 ### B.6 Return per tahun
@@ -140,20 +140,49 @@ python3 scripts/build_offline_dashboard.py
 | Hal | Nilai |
 |---|---|
 | Tenggat menurut tugas | 4 November 2026, 12:00 WIB |
-| Commit pembekuan dibuat | belum tercatat |
-| Commit hash pembekuan | `belum tercatat` |
-| Ref/tag yang dipakai config | belum tercatat |
-| HEAD saat laporan dibuat | `belum ada repo git` |
-| Tag | belum ada |
-| Status | **TERLAMBAT** (pekerjaan dimulai 8 November 2026) |
+| Commit pembekuan dibuat | 2026-11-09T00:35:31Z |
+| Commit hash pembekuan | `1bc81524f6babff24406b17593633f5a10cd336f` |
+| Ref/tag yang dipakai config | freeze-2026-11-09 |
+| HEAD saat laporan dibuat | `da2a9b4692c581609355278574c661d276fa87a8` |
+| Tag | freeze-2026-11-09 |
+| Status | **TERLAMBAT 4.8 hari** (commit aktual 2026-11-09T00:35:31Z; pekerjaan dimulai 8 November 2026) |
 
 Tidak ada backdate. Commit memakai waktu sebenarnya. Konsekuensi: proyek tidak dapat diklaim dibekukan tepat waktu, dan forward test baru dimulai setelah freeze. Rincian bukti ada di `docs/FREEZE.md` dan `docs/FREEZE_MANIFEST.json`.
 
+Manifest freeze: 90 file, dibuat 2026-11-09T00:35:37Z.
+
 ## D. Status forward test
 
-**Belum dimulai.** Tidak ada tick forward yang tercatat saat laporan ini dibuat. Tanggal mulai akan diisi otomatis oleh tick pertama; tidak boleh diisi manual.
+| Hal | Nilai |
+|---|---|
+| Mulai | 2026-11-09T00:35:58Z |
+| Durasi aktual | 3 menit (0.002 hari) |
+| Jumlah tick | 2 |
+| Trade tertutup | 0 |
+| Ekuitas terakhir | Rp100.000.000 |
+| Return | +0.00% |
+| Max drawdown | +0.00% |
+| Uptime candle (rata-rata pair) | n/a |
+| Uptime scheduler | n/a |
+| Status hitung ulang | PASS |
 
-Rencana: jalankan `python3 scripts/forward_loop.py --days 10 --offset-seconds 90` atau aktifkan GitHub Actions setelah deploy. Log tetap tersimpan bila laptop mati di tengah jalan; gap akan dihitung, bukan ditutup.
+Pemeriksaan integritas:
+
+- [PASS] ada titik ekuitas — 2 titik
+- [PASS] ada state forward — 2026-11-09T00:35:58Z
+- [PASS] final equity == metrik — equity=100000000.0
+- [PASS] net_pnl = gross - fee - spread - slippage — 0 trade diperiksa, 0 menyimpang
+- [PASS] total fee konsisten — trades=0.00 metrik=0.00
+- [PASS] total spread konsisten — trades=0.00 metrik=0.00
+- [PASS] total slippage konsisten — trades=0.00 metrik=0.00
+- [PASS] rekonsiliasi ekuitas — final=100000000.00 rekonstruksi=100000000.00 selisih=0.00
+- [PASS] order_id unik — 0 order, 0 unik
+- [PASS] tidak ada eksekusi ganda per pair+candle — []
+- [PASS] dashboard == hasil hitung ulang — {}
+
+**Catatan jujur:** durasi belum mencapai 10 hari. Ini belum cukup untuk menyimpulkan strategi berhasil. Angka di atas hanya menunjukkan bot berjalan dan log konsisten.
+
+Rincian: `data/recomputed.json`, `data/gap_analysis.json`, `docs/FORWARD_TEST.md`.
 
 ## E. Status deployment
 
@@ -182,8 +211,8 @@ Langkah manual ada di `docs/DEPLOYMENT.md` dan bagian G di bawah.
 | Dashboard HTML offline | **Terpenuhi** | `public/offline_dashboard.html` |
 | Skrip hitung ulang | **Terpenuhi** | `scripts/recompute.py`, `scripts/gap_analysis.py` |
 | `.env.example`, tanpa secret | **Terpenuhi** | `.env.example`, `.gitignore` |
-| Freeze tepat waktu | **TIDAK** (terlambat 4 hari) | `docs/FREEZE.md` |
-| Forward test 10 hari | **Belum selesai** | lihat D |
+| Freeze tepat waktu | **TIDAK** (terlambat 4.8 hari) | `docs/FREEZE.md` |
+| Forward test 10 hari | **Berjalan 3 menit (0.002 hari)** | lihat D |
 
 ## G. Yang harus saya lakukan
 

@@ -9,12 +9,12 @@
 **NIM:** 25110200036
 **Mata kuliah:** Algoritma Trading
 **Proyek:** Bot dry-run Indodax + backtest 4 tahun
-**Tanggal:** 8 November 2026
+**Tanggal:** 9 November 2026
 
 ## 1. Alat AI yang dipakai
 
 - **OpenCode** — agen coding AI yang berjalan di laptop, model **Big Pickle**
-  (sesi 8 November 2026). Dipakai untuk menulis, menjalankan, dan men-debug kode,
+  (sesi 8–9 November 2026). Dipakai untuk menulis, menjalankan, dan men-debug kode,
   serta menyusun draf dokumentasi.
 - Bila saya juga memakai alat lain (misalnya ChatGPT, Claude, Gemini) pada
   bagian tertentu, alat tersebut saya sebutkan di sini:

@@ -1,0 +1,117 @@
+{
+ "generated_at": "2026-11-09T00:38:42Z",
+ "source": "local",
+ "forward_start": "2026-11-09T00:35:58Z",
+ "forward_end": 1794184580,
+ "initial_capital": 100000000.0,
+ "metrics": {
+  "initial_capital": 100000000.0,
+  "final_equity": 100000000.0,
+  "total_return": 0.0,
+  "total_return_pct": 0.0,
+  "cagr": null,
+  "cagr_pct": null,
+  "max_drawdown": 0.0,
+  "max_drawdown_pct": 0.0,
+  "profit_factor": null,
+  "win_rate": null,
+  "win_rate_pct": null,
+  "trades": 0,
+  "wins": 0,
+  "losses": 0,
+  "avg_win_idr": null,
+  "avg_loss_idr": null,
+  "avg_win_pct": null,
+  "avg_loss_pct": null,
+  "gross_profit_idr": 0,
+  "gross_loss_idr": 0,
+  "gross_pnl_idr": 0,
+  "net_pnl_idr": 0,
+  "fee_idr": 0,
+  "spread_cost_idr": 0,
+  "slippage_cost_idr": 0,
+  "total_cost_idr": 0,
+  "cost_share_of_gross_profit": null,
+  "years": 6.971379319086369e-07,
+  "start": "2026-11-09T00:35:58Z",
+  "end": 1794184580,
+  "cagr_note": "CAGR tidak dihitung untuk periode forward test pendek"
+ },
+ "trade_count": 0,
+ "checks": [
+  {
+   "check": "ada titik ekuitas",
+   "ok": true,
+   "detail": "2 titik"
+  },
+  {
+   "check": "ada state forward",
+   "ok": true,
+   "detail": "2026-11-09T00:35:58Z"
+  },
+  {
+   "check": "final equity == metrik",
+   "ok": true,
+   "detail": "equity=100000000.0"
+  },
+  {
+   "check": "net_pnl = gross - fee - spread - slippage",
+   "ok": true,
+   "detail": "0 trade diperiksa, 0 menyimpang"
+  },
+  {
+   "check": "total fee konsisten",
+   "ok": true,
+   "detail": "trades=0.00 metrik=0.00"
+  },
+  {
+   "check": "total spread konsisten",
+   "ok": true,
+   "detail": "trades=0.00 metrik=0.00"
+  },
+  {
+   "check": "total slippage konsisten",
+   "ok": true,
+   "detail": "trades=0.00 metrik=0.00"
+  },
+  {
+   "check": "rekonsiliasi ekuitas",
+   "ok": true,
+   "detail": "final=100000000.00 rekonstruksi=100000000.00 selisih=0.00"
+  },
+  {
+   "check": "order_id unik",
+   "ok": true,
+   "detail": "0 order, 0 unik"
+  },
+  {
+   "check": "tidak ada eksekusi ganda per pair+candle",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "check": "dashboard == hasil hitung ulang",
+   "ok": true,
+   "detail": "{}"
+  }
+ ],
+ "all_pass": true,
+ "logs": {
+  "ticks": 2,
+  "decisions": 13,
+  "orders": 0,
+  "trades": 0,
+  "errors": 0,
+  "equity": 2,
+  "daily_equity": 1,
+  "snapshots": 12,
+  "kill_log": 0
+ },
+ "state": {
+  "cash": 100000000.0,
+  "equity": 100000000.0,
+  "positions": 0,
+  "tick_count": 2,
+  "kill_switch": false
+ }
+}

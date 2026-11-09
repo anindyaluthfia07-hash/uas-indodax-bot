@@ -1,0 +1,91 @@
+{
+ "generated_at": "2026-11-09T00:36:15Z",
+ "forward_start": "2026-11-09T00:35:58Z",
+ "forward_end": "2026-11-09T00:35:58Z",
+ "timeframe_seconds": 14400,
+ "duration_hours": 0.0,
+ "expected_candles": 0,
+ "pairs_expected": 6,
+ "per_pair": {
+  "btcidr": {
+   "expected": 0,
+   "on_time": 0,
+   "uptime": null,
+   "missing_count": 0,
+   "late_count": 0,
+   "duplicate_actions": {},
+   "invalid_decisions": 0,
+   "missing_sample": [],
+   "late_sample": []
+  },
+  "dogeidr": {
+   "expected": 0,
+   "on_time": 0,
+   "uptime": null,
+   "missing_count": 0,
+   "late_count": 0,
+   "duplicate_actions": {},
+   "invalid_decisions": 0,
+   "missing_sample": [],
+   "late_sample": []
+  },
+  "ethidr": {
+   "expected": 0,
+   "on_time": 0,
+   "uptime": null,
+   "missing_count": 0,
+   "late_count": 0,
+   "duplicate_actions": {},
+   "invalid_decisions": 0,
+   "missing_sample": [],
+   "late_sample": []
+  },
+  "xrpidr": {
+   "expected": 0,
+   "on_time": 0,
+   "uptime": null,
+   "missing_count": 0,
+   "late_count": 0,
+   "duplicate_actions": {},
+   "invalid_decisions": 0,
+   "missing_sample": [],
+   "late_sample": []
+  },
+  "bnbidr": {
+   "expected": 0,
+   "on_time": 0,
+   "uptime": null,
+   "missing_count": 0,
+   "late_count": 0,
+   "duplicate_actions": {},
+   "invalid_decisions": 0,
+   "missing_sample": [],
+   "late_sample": []
+  },
+  "trxidr": {
+   "expected": 0,
+   "on_time": 0,
+   "uptime": null,
+   "missing_count": 0,
+   "late_count": 0,
+   "duplicate_actions": {},
+   "invalid_decisions": 0,
+   "missing_sample": [],
+   "late_sample": []
+  }
+ },
+ "overall": {
+  "uptime_mean": null
+ },
+ "scheduler": {
+  "expected_ticks": 0,
+  "hit": 0,
+  "missing": 0,
+  "late": 0,
+  "uptime": null,
+  "missing_sample": [],
+  "late_sample": [],
+  "definition": "tick dihitung tepat waktu bila terjadi dalam ±45 menit dari candle close + 7 menit"
+ },
+ "note": "Gap dihitung dari log mentah. Tidak ada candle atau tick yang ditambahkan untuk menutupi gap."
+}
