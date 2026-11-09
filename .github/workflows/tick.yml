@@ -1,0 +1,74 @@
+name: indodax-dry-run-tick
+
+# Penjadwal utama: setiap 4 jam pada menit ke-7 UTC.
+# Candle 4 jam Indodax ditutup pada 00:00, 04:00, ... UTC, jadi tick jatuh
+# beberapa menit setelah candle tertutup. Idempotensi mencegah order ganda
+# bila Vercel Cron (harian) juga memanggil pada jam yang sama.
+on:
+  schedule:
+    - cron: "7 */4 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: indodax-dry-run-tick
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Jalankan tick
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
+          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
+          VERCEL_URL: ${{ vars.VERCEL_URL }}
+        run: |
+          set -euo pipefail
+          if [ -n "${VERCEL_URL:-}" ]; then
+            echo "Memanggil endpoint Vercel: $VERCEL_URL/api/tick"
+            code=$(curl -sS -o /tmp/tick.json -w "%{http_code}" -X POST \
+              "$VERCEL_URL/api/tick" \
+              -H "Authorization: Bearer $CRON_SECRET" \
+              -H "Content-Type: application/json" \
+              -H "User-Agent: github-actions-indodax-bot" \
+              --max-time 120)
+            cat /tmp/tick.json
+            echo
+            if [ "$code" != "200" ]; then
+              echo "Tick gagal dengan HTTP $code" >&2
+              exit 1
+            fi
+          else
+            echo "VERCEL_URL belum diset; menjalankan kode langsung dengan Upstash."
+            if [ -z "${UPSTASH_REDIS_REST_URL:-}" ] || [ -z "${UPSTASH_REDIS_REST_TOKEN:-}" ]; then
+              echo "UPSTASH_REDIS_REST_URL/TOKEN belum diset. Tidak ada penyimpanan persisten." >&2
+              exit 1
+            fi
+            python3 scripts/run_tick.py --trigger github_actions
+          fi
+
+      - name: Simpan ringkasan ke job summary
+        if: always()
+        run: |
+          {
+            echo "## Tick Indodax"
+            echo ""
+            echo "- Waktu UTC: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "- Repo commit: ${GITHUB_SHA}"
+            if [ -f /tmp/tick.json ]; then
+              echo "- Respons tersimpan di /tmp/tick.json (lihat log langkah sebelumnya)."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

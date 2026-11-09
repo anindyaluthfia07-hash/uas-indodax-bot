@@ -1,0 +1,112 @@
+{
+ "generated_at": "2026-11-09T00:31:27Z",
+ "source": "snapshot order book Indodax (scripts/collect_snapshots.py)",
+ "method": "spread = (ask-bid)/mid pada best level; slippage = selisih VWAP hasil walk-the-book terhadap best level untuk notional 20% modal awal. Backtest memakai median seluruh snapshot yang terkumpul.",
+ "target_notional_idr": 20000000.0,
+ "total_snapshots_used": 366,
+ "pairs": {
+  "btcidr": {
+   "samples": 61,
+   "target_notional_idr": 20000000.0,
+   "spread_median": 0.0003881242711291977,
+   "spread_p25": 4.697102217091846e-05,
+   "spread_p75": 0.0003924942573138465,
+   "half_spread": 0.00019406213556459885,
+   "slippage_buy": 0.0,
+   "slippage_sell": 1.6816029778654595e-05,
+   "slippage_samples_buy": 61,
+   "slippage_samples_sell": 61,
+   "depth_complete_share": 1.0,
+   "first_snapshot": "2026-11-08T15:09:26Z",
+   "last_snapshot": "2026-11-08T16:09:25Z"
+  },
+  "dogeidr": {
+   "samples": 61,
+   "target_notional_idr": 20000000.0,
+   "spread_median": 0.0015515903801396431,
+   "spread_p25": 0.0007754943776657619,
+   "spread_p75": 0.0015515903801396431,
+   "half_spread": 0.0007757951900698216,
+   "slippage_buy": 0.0,
+   "slippage_sell": 0.0007165972291417466,
+   "slippage_samples_buy": 61,
+   "slippage_samples_sell": 61,
+   "depth_complete_share": 1.0,
+   "first_snapshot": "2026-11-08T15:09:34Z",
+   "last_snapshot": "2026-11-08T16:09:28Z"
+  },
+  "ethidr": {
+   "samples": 61,
+   "target_notional_idr": 20000000.0,
+   "spread_median": 0.0009141558265080482,
+   "spread_p25": 0.0002720516403477315,
+   "spread_p75": 0.0012484914358889426,
+   "half_spread": 0.0004570779132540241,
+   "slippage_buy": 0.0,
+   "slippage_sell": 0.0,
+   "slippage_samples_buy": 61,
+   "slippage_samples_sell": 61,
+   "depth_complete_share": 1.0,
+   "first_snapshot": "2026-11-08T15:09:27Z",
+   "last_snapshot": "2026-11-08T16:09:25Z"
+  },
+  "xrpidr": {
+   "samples": 61,
+   "target_notional_idr": 20000000.0,
+   "spread_median": 0.0005268577723495462,
+   "spread_p25": 9.560695196406051e-05,
+   "spread_p75": 0.0010052272062171731,
+   "half_spread": 0.0002634288861747731,
+   "slippage_buy": 0.0,
+   "slippage_sell": 0.0004511335882239065,
+   "slippage_samples_buy": 61,
+   "slippage_samples_sell": 61,
+   "depth_complete_share": 1.0,
+   "first_snapshot": "2026-11-08T15:09:28Z",
+   "last_snapshot": "2026-11-08T16:09:26Z"
+  },
+  "bnbidr": {
+   "samples": 61,
+   "target_notional_idr": 20000000.0,
+   "spread_median": 0.004411501298459713,
+   "spread_p25": 0.004384300449477836,
+   "spread_p75": 0.004433532936888006,
+   "half_spread": 0.0022057506492298563,
+   "slippage_buy": 0.0,
+   "slippage_sell": 0.0,
+   "slippage_samples_buy": 61,
+   "slippage_samples_sell": 61,
+   "depth_complete_share": 1.0,
+   "first_snapshot": "2026-11-08T15:09:30Z",
+   "last_snapshot": "2026-11-08T16:09:27Z"
+  },
+  "trxidr": {
+   "samples": 61,
+   "target_notional_idr": 20000000.0,
+   "spread_median": 0.003451251078515962,
+   "spread_p25": 0.003278971438432997,
+   "spread_p75": 0.003623500992149081,
+   "half_spread": 0.001725625539257981,
+   "slippage_buy": 2.903146102051224e-05,
+   "slippage_sell": 0.00033739949649358447,
+   "slippage_samples_buy": 61,
+   "slippage_samples_sell": 61,
+   "depth_complete_share": 1.0,
+   "first_snapshot": "2026-11-08T15:09:39Z",
+   "last_snapshot": "2026-11-08T16:09:30Z"
+  }
+ },
+ "fallback": {
+  "spread_median": 0.0012730271948805697,
+  "half_spread": 0.0006365135974402849,
+  "slippage_buy": 0.0,
+  "slippage_sell": 0.00017710776313611953,
+  "note": "fallback = median lintas pair yang punya snapshot; 0.2% slippage hanya jika tidak ada snapshot sama sekali"
+ },
+ "universe_median": {
+  "spread_median": 0.0012730271948805697,
+  "half_spread": 0.0006365135974402849,
+  "slippage_buy": 0.0,
+  "slippage_sell": 0.00017710776313611953
+ }
+}

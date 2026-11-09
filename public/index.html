@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UAS Algoritma Trading — Indodax Dry-Run Bot</title>
+<meta name="description" content="Dashboard backtest dan forward test bot dry-run Indodax. Data mentah, metrik dihitung ulang, tanpa API key.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230ea5e9'/%3E%3Cpath d='M14 44l12-12 8 7 16-19' stroke='%2304101f' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="brand">
+        <div class="logo">A</div>
+        <div>Algoritma Trading<small>UAS · Indodax Dry-Run</small></div>
+      </div>
+      <div class="chips" id="heroChips"></div>
+    </div>
+    <h1>Bot Dry-Run Indodax:<br>Donchian Breakout + EMA + ATR Trailing Stop</h1>
+    <p class="sub">
+      Adaptasi strategi UTS ke pasar kripto IDR. Long-only, tanpa API key, tanpa leverage.
+      Backtest 4 tahun memakai candle 4 jam, biaya taker all-in, spread dan slippage
+      yang diukur dari order book publik. Forward test dijalankan pada bid/ask nyata.
+    </p>
+    <div class="hero-meta" id="heroMeta"></div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="wrap tabs-inner" id="tabs">
+    <button class="tab-btn active" data-tab="ringkasan">Ringkasan</button>
+    <button class="tab-btn" data-tab="backtest">Backtest 4 Tahun</button>
+    <button class="tab-btn" data-tab="forward">Forward Test</button>
+    <button class="tab-btn" data-tab="biaya">Biaya &amp; Likuiditas</button>
+    <button class="tab-btn" data-tab="audit">Audit &amp; Reproduksi</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <!-- ================= RINGKASAN ================= -->
+  <section class="tab active" id="tab-ringkasan">
+    <div class="grid g4" id="kpis" style="margin-bottom:14px"></div>
+    <div class="grid g23" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-head">
+          <div><h2>Kurva ekuitas backtest</h2><p>Modal awal Rp100 juta, dinormalisasi ke 100. Garis putus-putus = beli-dan-tahan BTC (benchmark).</p></div>
+        </div>
+        <div class="chart" id="summaryChartWrap">
+          <canvas id="summaryChart" aria-label="Kurva ekuitas backtest"></canvas>
+          <div class="legend" id="summaryLegend"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Status jujur</h2><p>Yang boleh dan tidak boleh diklaim.</p></div></div>
+        <div id="honestyNotes" class="grid" style="gap:10px"></div>
+      </div>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="card-head"><div><h2>Status sistem</h2><p>Dibaca dari state dan log, bukan dari angka hardcode.</p></div></div>
+        <div id="statusList"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Ringkasan hasil</h2><p>Angka utama backtest dan forward test.</p></div></div>
+        <div id="summaryStats"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BACKTEST ================= -->
+  <section class="tab" id="tab-backtest">
+    <div class="grid g2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-head"><div><h2>Ekuitas vs benchmark</h2><p>Harian (nilai pada panggilan pertama setelah 00:00 WIB).</p></div></div>
+        <div class="chart" id="btEquityWrap"><canvas id="btEquity"></canvas><div class="legend" id="btEquityLegend"></div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Drawdown</h2><p>Jarak dari puncak ekuitas. Negatif = di bawah puncak.</p></div></div>
+        <div class="chart" id="btDdWrap"><canvas id="btDrawdown"></canvas><div class="legend" id="btDdLegend"></div></div>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-head"><div><h2>In-sample vs out-of-sample</h2><p>Parameter dipilih hanya dari 70% awal. OOS dievaluasi sekali setelahnya.</p></div></div>
+        <div class="tbl-scroll" style="max-height:none"><table id="splitTable"></table></div>
+        <div id="oosNote" style="margin-top:12px"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Uji ketahanan</h2><p>Fee 2x, biaya eksekusi 2x, dan keterlambatan eksekusi 1 bar.</p></div></div>
+        <div class="tbl-scroll" style="max-height:none"><table id="stressTable"></table></div>
+        <div class="hint" style="margin-top:10px">Sensitivitas parameter ada di tab Audit.</div>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-head"><div><h2>Metrik lengkap</h2><p>Dihitung dari equity curve dan daftar trade.</p></div></div>
+        <div class="tbl-scroll" style="max-height:520px"><table id="btMetrics"></table></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Return per tahun</h2><p>Tahun kalender WIB. Tahun parsial ditandai.</p></div></div>
+        <div class="tbl-scroll" style="max-height:none"><table id="yearlyTable"></table></div>
+        <div class="sep"></div>
+        <div class="card-head"><div><h2>Return per bulan</h2><p>Bulan kalender WIB, 48 bulan.</p></div></div>
+        <div class="tbl-scroll" style="max-height:260px"><table id="monthlyTable"></table></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-head">
+        <div><h2>Daftar trade</h2><p id="tradesHint">Semua trade tertutup. Kolom biaya memisahkan fee, spread, dan slippage.</p></div>
+        <div class="flex">
+          <a class="pill" href="backtest_trades.csv" download>Unduh CSV</a>
+          <a class="pill" href="backtest_equity_daily.csv" download>Equity CSV</a>
+        </div>
+      </div>
+      <div class="tbl-scroll"><table id="tradesTable"></table></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div><h2>Sensitivitas parameter</h2><p>Mengubah satu parameter ±20% dari nilai final, untuk melihat apakah hasil bergantung pada satu titik.</p></div></div>
+      <div class="tbl-scroll" style="max-height:none"><table id="sensitivityTable"></table></div>
+    </div>
+  </section>
+
+  <!-- ================= FORWARD ================= -->
+  <section class="tab" id="tab-forward">
+    <div id="fwdBanner" style="margin-bottom:14px"></div>
+    <div class="grid g4" id="fwdKpis" style="margin-bottom:14px"></div>
+    <div class="grid g23" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-head"><div><h2>Ekuitas forward test</h2><p>Setiap titik = satu tick bot. Dinormalisasi ke 100.</p></div></div>
+        <div class="chart" id="fwdChartWrap"><canvas id="fwdChart"></canvas><div class="legend" id="fwdLegend"></div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Status forward</h2><p>Durasi dan uptime dihitung dari log.</p></div></div>
+        <div id="fwdStatus"></div>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-head"><div><h2>Posisi terbuka</h2><p>Mark-to-market memakai bid terakhir.</p></div></div>
+        <div class="tbl-scroll" style="max-height:none"><table id="positionsTable"></table></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Trade forward</h2><p>Trade yang sudah ditutup selama forward test.</p></div></div>
+        <div class="tbl-scroll" style="max-height:none"><table id="fwdTradesTable"></table></div>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-head"><div><h2>Keputusan terakhir</h2><p>30 keputusan terbaru, termasuk candle yang dilewati dan alasannya.</p></div></div>
+        <div class="tbl-scroll"><table id="decisionsTable"></table></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Order simulasi</h2><p>Harga fill, fee, spread, slippage, dan deviasi terhadap harga sinyal.</p></div></div>
+        <div class="tbl-scroll"><table id="ordersTable"></table></div>
+      </div>
+    </div>
+
+    <div class="grid g3">
+      <div class="card">
+        <div class="card-head"><div><h2>Uptime scheduler</h2><p>Definisi: candle diproses sebelum candle berikutnya ditutup.</p></div></div>
+        <div id="uptimeCard"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Kill switch</h2><p>Memblokir entry baru; exit tetap dievaluasi.</p></div></div>
+        <div id="killCard"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Error terakhir</h2><p>Kegagalan API atau eksekusi, jika ada.</p></div></div>
+        <div id="errorsCard"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BIAYA ================= -->
+  <section class="tab" id="tab-biaya">
+    <div class="grid g3" id="feeCards" style="margin-bottom:14px"></div>
+    <div class="grid g2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-head"><div><h2>Spread &amp; slippage terukur per pair</h2><p>Dari snapshot order book publik untuk notional 20% modal awal.</p></div></div>
+        <div class="tbl-scroll" style="max-height:none"><table id="costTable"></table></div>
+        <div class="hint" style="margin-top:10px" id="costMethod"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Sumber angka</h2><p>Semua angka biaya punya rujukan yang bisa diperiksa.</p></div></div>
+        <div id="feeSources"></div>
+      </div>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="card-head"><div><h2>Bukti snapshot</h2><p>Order book disimpan mentah, bukan hanya ringkasannya.</p></div></div>
+        <div id="snapshotInfo"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Total biaya backtest</h2><p>Biaya yang benar-benar mengurangi PnL, bukan estimasi terpisah.</p></div></div>
+        <div id="costTotals"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= AUDIT ================= -->
+  <section class="tab" id="tab-audit">
+    <div class="grid g2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-head"><div><h2>Kualitas data</h2><p>Jumlah bar, gap, dan hash file mentah per pair.</p></div></div>
+        <div class="tbl-scroll"><table id="qualityTable"></table></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Identitas build</h2><p>Versi kode, parameter, dan waktu pembuatan laporan.</p></div></div>
+        <div id="reproInfo"></div>
+        <div class="sep"></div>
+        <div class="card-head"><div><h2>Freeze</h2><p>Batas tugas dan waktu freeze yang benar-benar terjadi.</p></div></div>
+        <div id="freezeInfo"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-head"><div><h2>Cara menghitung ulang</h2><p>Semua perintah di bawah dijalankan dari root proyek.</p></div></div>
+      <pre><code id="commands"></code></pre>
+    </div>
+
+    <div class="grid g2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-head"><div><h2>Checklist ketentuan UAS</h2><p>Status berdasarkan bukti di repo, bukan klaim.</p></div></div>
+        <div id="checklist"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Berkas penting</h2><p>Lokasi bukti dan kode yang bisa diperiksa dosen.</p></div></div>
+        <div id="filesInfo"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div><h2>Catatan metodologi</h2><p>Hal-hal yang mudah membuat backtest terlihat lebih bagus dari kenyataan.</p></div></div>
+      <div id="methodNotes"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Anindya Rahma Luthfia · NIM 25110200036 · UAS Algoritma Trading</div>
+    <div>Data publik Indodax · tanpa API key · dashboard dihitung dari log mentah</div>
+  </div>
+</footer>
+
+<div id="tooltip"></div>
+<script src="app.js"></script>
+</body>
+</html>

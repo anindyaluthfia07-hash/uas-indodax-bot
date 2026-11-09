@@ -1,0 +1,8 @@
+{
+  "github_repo": "",
+  "vercel_url": "",
+  "vercel_deployed": false,
+  "github_actions_enabled": false,
+  "updated_at": "2026-11-08T15:30:00Z",
+  "note": "Diisi manual setelah akun GitHub/Vercel milik mahasiswa terhubung. Dashboard membaca file ini agar tidak mengklaim deployment yang belum terjadi."
+}

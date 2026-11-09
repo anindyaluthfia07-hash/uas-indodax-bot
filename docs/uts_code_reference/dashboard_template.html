@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard Algoritma Trading — Anindya Rahma Luthfia</title>
+<style>
+:root{--blue:#b9dcf7;--lav:#d5c8f3;--pink:#f8c6da;--amber:#fbe8a6;--bd:#5a9bd0;--ld:#8e78d6;--pd:#d9628f;--ad:#c79a1b;--ink:#2b2a3a;--mut:#6f6d82;--bg:#f7f5fc;--card:#fff;--line:#e6e2f2;--g:#2f9e6b;--r:#d9534f}
+*{box-sizing:border-box}body{margin:0;font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:linear-gradient(120deg,var(--blue),var(--lav) 55%,var(--pink));padding:26px 20px 18px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}header .wrap{padding:0}
+h1{margin:0;font-size:22px;letter-spacing:-0.02em}h2{font-size:17px;margin:0 0 4px}h3{font-size:14px;margin:14px 0 6px}
+.sub{color:#4a4866;margin-top:4px;font-size:13.5px}.tag{display:inline-block;background:#fff8;border:1px solid #ffffffaa;border-radius:99px;padding:3px 10px;margin:8px 6px 0 0;font-size:12px;font-weight:500}
+nav{position:sticky;top:0;background:#fffe;backdrop-filter:blur(6px);border-bottom:1px solid var(--line);z-index:5;overflow-x:auto;white-space:nowrap}
+nav a{display:inline-block;padding:10px 12px;color:var(--mut);text-decoration:none;font-size:13px}nav a:hover{color:var(--ld)}
+section{padding:22px 0 6px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0;box-shadow:0 1px 3px rgba(0,0,0,0.02)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.k{border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;justify-content:space-between;min-height:86px}.k b{display:block;font-size:19px;margin:3px 0 2px}.k span{font-size:12px;color:#4a4866}
+.b1{background:var(--blue)}.b2{background:var(--lav)}.b3{background:var(--pink)}.b4{background:var(--amber)}
+table{border-collapse:collapse;width:100%;font-size:12.5px}th,td{padding:6px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{background:#faf8ff;color:var(--mut);position:sticky;top:0;font-weight:600}td:first-child,th:first-child{text-align:left}
+.sc{overflow:auto;max-height:440px;border:1px solid var(--line);border-radius:10px}
+.pos{color:var(--g);font-weight:600}.neg{color:var(--r);font-weight:600}.mut{color:var(--mut)}
+.note{background:var(--amber);border-radius:10px;padding:10px 14px;margin:8px 0;font-size:13px;line-height:1.5}
+.warn{background:var(--pink);border-radius:10px;padding:10px 14px;margin:8px 0;font-size:13px;line-height:1.5}
+.ok{background:#dff3e8;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:13px;line-height:1.5}
+svg{width:100%;height:auto;display:block}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+.flag{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}.dot{width:10px;height:10px;border-radius:50%;margin-top:6px;flex:none}
+input[type=search]{padding:7px 12px;border:1px solid var(--line);border-radius:8px;margin:4px 0;font-size:13px;width:240px}
+footer{padding:26px 0;color:var(--mut);font-size:12px;border-top:1px solid var(--line);margin-top:20px}
+
+.app{display:flex;min-height:100vh}
+aside{width:250px;flex:none;background:#fff;border-right:1px solid var(--line);padding:18px 14px;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.brand{display:flex;gap:10px;align-items:center;margin-bottom:16px}
+.logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--lav) 55%,var(--pink));display:grid;place-items:center;font-weight:700;color:#3b385a;font-size:13.5px}
+.brand b{display:block;font-size:13px;line-height:1.2}.brand span{font-size:11px;color:var(--mut)}
+.menu-l{font-size:11px;letter-spacing:.08em;color:var(--mut);margin:8px 8px 4px;font-weight:600}
+.side a{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;border-radius:10px;color:#4a4866;text-decoration:none;font-size:13px;margin:2px 0;cursor:pointer;transition:background .15s}
+.side a:hover{background:#f4f0fb}.side a.on{background:linear-gradient(90deg,var(--lav),var(--pink));color:#2b2a3a;font-weight:600}
+.side em{font-style:normal;font-size:11px;background:#fff9;border:1px solid var(--line);border-radius:99px;padding:0 7px}
+.sidenote{margin-top:auto;font-size:11.5px;color:var(--mut);background:#faf8ff;border:1px solid var(--line);border-radius:12px;padding:10px;line-height:1.45}
+.main{flex:1;min-width:0}
+nav{display:none}
+@media(max-width:860px){.app{display:block}aside{position:static;width:auto;height:auto;flex-direction:row;flex-wrap:wrap;gap:4px;padding:10px}.brand{width:100%;margin:0 0 6px}.menu-l,.sidenote{display:none}.side{display:flex;flex-wrap:wrap}}
+@media print{aside,nav,#side,#logbtn,input[type=search],.sidenote{display:none!important}.app{display:block!important}.main,.wrap{max-width:100%!important;margin:0!important;padding:0!important}section{display:block!important;page-break-inside:avoid}.card{border:1px solid #ccc!important;box-shadow:none!important;break-inside:avoid}.sc{max-height:none!important;overflow:visible!important}}
+.tip{position:absolute;background:#2b2a3af2;color:#fff;font-size:12px;line-height:1.5;padding:6px 10px;border-radius:8px;pointer-events:none;white-space:nowrap;z-index:9;box-shadow:0 4px 14px #0003}.tip b{color:#fff}.hvw svg{cursor:crosshair}
+</style></head><body>
+<div class="app"><aside><div class="brand"><div class="logo">AL</div><div><b>Anindya Dashboard</b><span>Algoritma Trading</span></div></div>
+<div class="menu-l">NAVIGASI SISTEM</div><div class="side" id="side">
+<a data-v="all">📄 Tampilkan Semua</a>
+<a data-v="ringkas">Ringkasan &amp; Metrik</a>
+<a data-v="kurva">Kurva &amp; Bulanan</a>
+<a data-v="trade">Log Trade <em id="ntr"></em></a>
+<a data-v="valid">Uji Validitas</a>
+<a data-v="fwd">Forward Test &amp; Analisis</a>
+<a data-v="metode">Metodologi &amp; Look-ahead</a>
+<a data-v="checklist">Checklist Kepatuhan</a>
+<a data-v="batas">Keterbatasan &amp; Risiko</a>
+<a data-v="pernyataan">Pernyataan &amp; Refleksi</a></div>
+<div class="sidenote"><b>100% Offline &amp; Standalone:</b> Seluruh data backtest 10 tahun, kurva harian, log trade, dan hasil forward test tertanam utuh di dalam file HTML ini tanpa server atau API eksternal.</div></aside>
+<div class="main"><header><div class="wrap"><h1>Algoritma Trading — Dashboard</h1>
+<div class="sub" id="ident"></div><div id="tags"></div></div></header>
+<nav><div class="wrap"><a href="#ringkas">Ringkasan</a><a href="#kurva">Kurva</a><a href="#bulanan">Bulanan</a><a href="#trade">Trade</a><a href="#valid">Validitas</a><a href="#sens">Sensitivitas</a><a href="#fwd">Forward Test</a><a href="#flags">Tanda Bahaya</a><a href="#metode">Metodologi</a><a href="#lookahead">Look-ahead</a><a href="#checklist">Checklist</a><a href="#batas">Keterbatasan</a><a href="#pernyataan">Pernyataan &amp; Refleksi</a></div></nav>
+<div class="wrap">
+<div id="synthwarn"></div>
+<section id="ringkas"><h2>Ringkasan Hasil Backtest &amp; Kartu Metrik</h2><div class="mut" id="ringkas-sub" style="margin-bottom:10px"></div>
+<div class="grid" id="cards"></div>
+<div class="card" style="margin-top:14px"><h3>Pembacaan Komprehensif Hasil &amp; Rasionalitas Strategi</h3><div id="verdict"></div></div></section>
+<section id="kurva"><h2>Kurva Ekuitas Portofolio vs Benchmark IHSG (10 Tahun Penuh)</h2><div class="card"><div style="text-align:right"><button id="logbtn" style="border:1px solid var(--line);background:#faf8ff;border-radius:8px;padding:5px 12px;font-size:12px;cursor:pointer">Skala: logaritmik</button></div><div id="ch-eq"></div><div id="ch-dd"></div></div></section>
+<section id="bulanan"><h2>Tabel Return Bulanan &amp; Tahunan (Compounding)</h2><div class="card sc" id="monthly"></div></section>
+<section id="hist"><h2>Histogram Distribusi Hasil Trade (Sesudah Fee &amp; Spread)</h2><div class="card" id="histbox"></div></section>
+<section id="trade"><h2>Log Trade Lengkap (Riwayat Transaksi Tertutup)</h2>
+<div class="card"><div style="margin-bottom:8px"><input type="search" id="q" placeholder="Cari kode saham (mis. BBCA, ITMG, PTBA)…"> <span class="mut" id="qn"></span></div><div class="sc" id="trades"></div></div>
+<h3>Posisi Terbuka pada Akhir Periode Data Backtest</h3><div class="card sc" id="open"></div></section>
+<section id="valid"><h2>Pengujian Validitas, Anti-Overfitting &amp; Stres</h2>
+<div class="card"><h3>1. In-Sample (70%) vs Out-of-Sample (30%)</h3><div id="isoos"></div></div>
+<div class="card"><h3>2. Walk-Forward Analysis (5 Jendela Latih → Uji Bersambung)</h3><div id="wf"></div><div id="ch-wf"></div></div>
+<div class="two"><div class="card"><h3>3. Stress-Test Biaya Transaksi (Biaya Normal vs 2×)</h3><div id="cost"></div></div>
+<div class="card"><h3>4. Uji Keterlambatan Eksekusi (Ditunda 1 Bar)</h3><div id="delay"></div></div></div>
+<div class="two"><div class="card"><h3>5. Uji Ketahanan (Tanpa 5 Trade Terbaik)</h3><div id="robust"></div></div>
+<div class="card"><h3>6. Simulasi Monte Carlo / Bootstrap (2.000 Iterasi)</h3><div id="mc"></div></div></div>
+<div class="card"><h3>7. Uji Efektivitas Aturan Pemotongan Waktu (Ablasi Time Stop 3 Hari)</h3><div id="abl"></div></div></section>
+<section id="sens"><h2>Sensitivitas Parameter Utama</h2><div class="card"><div id="sens1"></div><div class="two"><div id="heat1"></div><div id="heat2"></div></div><div id="sens-sum"></div></div></section>
+<section id="fwd"><h2>Uji Forward Test (Simulasi), September – Oktober 2026</h2><div class="card" id="fwdbox"></div></section>
+<section id="flags"><h2>Pemeriksaan 8 Tanda Bahaya (Audit Kuantitatif)</h2><div class="card" id="flagbox"></div></section>
+<section id="metode"><h2>Metodologi, Rasionalitas di Luar Teori &amp; Faktor Penentu CAGR</h2><div class="card" id="metodebox"></div></section>
+<section id="lookahead"><h2>Pencegahan Look-Ahead Bias &amp; Kepatuhan Mikrostruktur BEI</h2><div class="card" id="labox"></div></section>
+<section id="checklist"><h2>Checklist Kepatuhan Ketentuan</h2><div class="card" id="chkbox"></div></section>
+<section id="batas"><h2>Keterbatasan &amp; Risiko Strategi</h2><div class="card" id="batasbox"></div></section>
+<section id="pernyataan"><h2>Pernyataan Keaslian, Penggunaan AI &amp; Refleksi Kuantitatif</h2><div class="card" id="pybox"></div></section>
+<footer>Dihasilkan secara otomatis oleh mesin backtest dari data historis yang tertanam di file ini.<br><span id="foot"></span></footer>
+</div></div></div>
+<script id="DATA" type="application/json">__DATA__</script>
+<script>
+var D=JSON.parse(document.getElementById('DATA').textContent),M=D.meta,K=D.metrics,P=D.params;
+function $(i){return document.getElementById(i)}
+function pc(v,d){return v==null||isNaN(v)?'n/a':(v*100).toFixed(d==null?1:d)+'%'}
+function n2(v,d){return v==null||isNaN(v)?'n/a':v.toFixed(d==null?2:d)}
+function rp(v){if(v==null||isNaN(v))return'n/a';var s=v<0?'-':'';v=Math.abs(Math.round(v));return s+'Rp'+v.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.')}
+function cl(v){return v==null||isNaN(v)?'':v>0?'pos':v<0?'neg':''}
+function tbl(h,rows,cls){var s='<table><thead><tr>'+h.map(function(x){return'<th>'+x+'</th>'}).join('')+'</tr></thead><tbody>';rows.forEach(function(r){s+='<tr>'+r.map(function(x){return'<td>'+x+'</td>'}).join('')+'</tr>'});return s+'</tbody></table>'}
+function card(c,l,v,s){return'<div class="k '+c+'"><span>'+l+'</span><b>'+v+'</b>'+(s?'<span>'+s+'</span>':'')+'</div>'}
+var HV={},HVN=0;
+function line(series,dates,opts){opts=opts||{};var W=900,H=opts.h||260,L=62,R=12,T=10,B=24,all=[];series.forEach(function(s){s.v.forEach(function(x){if(x!=null&&!isNaN(x))all.push(x)})});
+var mn=opts.min!=null?opts.min:Math.min.apply(null,all),mx=opts.max!=null?opts.max:Math.max.apply(null,all);if(mx==mn)mx=mn+1;
+var n=dates.length,X=function(i){return L+(W-L-R)*i/Math.max(n-1,1)},Y=function(v){return T+(H-T-B)*(1-(v-mn)/(mx-mn))};
+var g='';for(var i=0;i<=4;i++){var v=mn+(mx-mn)*i/4;g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="#eee"/><text x="'+(L-6)+'" y="'+(Y(v)+4)+'" font-size="11" text-anchor="end" fill="#888">'+(opts.fmt?opts.fmt(v):v.toFixed(0))+'</text>'}
+var seen={};for(var i=0;i<n;i++){var y=dates[i].slice(0,4);if(!seen[y]){seen[y]=1;if(i>0)g+='<text x="'+X(i)+'" y="'+(H-6)+'" font-size="11" fill="#888">'+y+'</text>'}}
+series.forEach(function(s){var p='';s.v.forEach(function(x,i){if(x!=null&&!isNaN(x))p+=(p?'L':'M')+X(i).toFixed(1)+' '+Y(x).toFixed(1)});if(s.fill){var f0=p+'L'+X(n-1).toFixed(1)+' '+Y(opts.max!=null?opts.max:mn).toFixed(1)+'L'+X(0).toFixed(1)+' '+Y(opts.max!=null?opts.max:mn).toFixed(1)+'Z';g+='<path d="'+f0+'" fill="'+s.fill+'" stroke="none"/>'}g+='<path d="'+p+'" fill="none" stroke="'+s.c+'" stroke-width="'+(s.w||1.6)+'"/>'});
+if(opts.vline!=null){var vi=dates.indexOf(opts.vline);if(vi>=0)g+='<line x1="'+X(vi)+'" x2="'+X(vi)+'" y1="'+T+'" y2="'+(H-B)+'" stroke="#d9628f" stroke-dasharray="4 3"/><text x="'+(X(vi)+4)+'" y="'+(T+10)+'" font-size="11" fill="#d9628f">'+opts.vlabel+'</text>'}
+var lg='<div style="font-size:12px;margin:4px 0">'+series.map(function(s){return'<span style="display:inline-block;width:10px;height:10px;background:'+s.c+';border-radius:2px"></span> '+s.n+'&nbsp;&nbsp;'}).join('')+'</div>';
+var id='hv'+(HVN++);HV[id]={dates:dates,series:series,mn:mn,mx:mx,L:L,R:R,T:T,B:B,W:W,H:H,n:n,Y:Y,tv:opts.tv||function(v){return v.toFixed(2)}};
+return '<div class="hvw" data-hv="'+id+'" style="position:relative">'+lg+'<svg viewBox="0 0 '+W+' '+H+'">'+g+'<line class="xh" x1="0" x2="0" y1="'+T+'" y2="'+(H-B)+'" stroke="#8e78d6" stroke-dasharray="3 3" style="display:none"/>'+series.map(function(s,k){return'<circle class="dot'+k+'" r="4" fill="'+s.c+'" stroke="#fff" stroke-width="1.5" style="display:none"/>'}).join('')+'</svg><div class="tip" style="display:none"></div></div>'}
+
+function hideHV(w){var x=w.querySelector('.xh'),t=w.querySelector('.tip');if(x)x.style.display='none';if(t)t.style.display='none';w.querySelectorAll('circle').forEach(function(c){c.style.display='none'})}
+document.addEventListener('mousemove',function(e){var w=e.target.closest?e.target.closest('.hvw'):null;document.querySelectorAll('.hvw').forEach(function(o){if(o!==w)hideHV(o)});if(!w)return;
+var c=HV[w.getAttribute('data-hv')],svg=w.querySelector('svg'),r=svg.getBoundingClientRect(),px=(e.clientX-r.left)/r.width*c.W,i=Math.round((px-c.L)/(c.W-c.L-c.R)*(c.n-1));if(i<0||i>=c.n||px<c.L-4){hideHV(w);return}
+var xx=c.L+(c.W-c.L-c.R)*i/Math.max(c.n-1,1),xh=w.querySelector('.xh');xh.setAttribute('x1',xx);xh.setAttribute('x2',xx);xh.style.display='block';
+var rows='<b>'+c.dates[i]+'</b>';c.series.forEach(function(s,k){var v=s.v[i],d=w.querySelector('.dot'+k);if(v==null||isNaN(v)){d.style.display='none';return}d.setAttribute('cx',xx);d.setAttribute('cy',c.Y(v));d.style.display='block';rows+='<br><span style="color:'+s.c+'">●</span> '+s.n.split(' (')[0]+': <b>'+c.tv(v,s)+'</b>'});
+var t=w.querySelector('.tip'),wr=w.getBoundingClientRect();t.innerHTML=rows;t.style.display='block';var tw=t.offsetWidth,lx=e.clientX-wr.left+14;if(lx+tw>wr.width)lx=e.clientX-wr.left-tw-14;t.style.left=Math.max(0,lx)+'px';t.style.top=Math.max(0,e.clientY-wr.top-10)+'px'});
+document.addEventListener('mouseleave',function(){document.querySelectorAll('.hvw').forEach(hideHV)});
+
+// Header
+$('ident').innerHTML='<b>'+(M.nama||'Anindya Rahma Luthfia')+'</b> &middot; Strategi dibekukan: '+M.freeze_date+' &middot; Data: '+M.data_source+', diunduh '+M.data_download;
+$('tags').innerHTML=['Strategi: '+M.strategi,'Universe: '+M.universe_n+' saham Kompas100','Periode: '+M.period_start+' s/d '+M.period_end+' ('+n2(M.years,1)+' th)','Modal awal '+rp(M.capital)+' (compounding)','Dibekukan: '+M.freeze_date].map(function(t){return'<span class="tag">'+t+'</span>'}).join('');
+if(M.synthetic)$('synthwarn').innerHTML='<div class="warn"><b>DATA SINTETIS.</b> Dashboard ini dibuat dari data sintetis.</div>';
+$('ringkas-sub').innerHTML='Parameter terpilih secara obyektif dari plateau in-sample (70% awal): <b>Lookback '+P.lookback+' hari, Fast EMA '+P.fast+', Trend EMA '+P.trend+', ATR Multiplier '+P.atr+'×</b> (Alokasi: '+pc(D.config.pos_frac,0)+' per posisi, Time Stop '+D.config.time_stop_days+' hari).';
+
+var bb=D.bench||{};
+$('cards').innerHTML=[
+  // Baris 1: Ekuitas & Kinerja Utama
+  card('b1','Ekuitas Akhir',rp(K.final_equity),'Modal awal '+rp(M.capital)),
+  card('b2','CAGR Strategi',pc(K.cagr),'Tahunan ('+n2(M.years,1)+' th penuh)'),
+  card('b3','Max Drawdown',pc(K.mdd),'Penurunan puncak ke lembah'),
+  card('b4','Calmar Ratio',n2(K.calmar),'CAGR ÷ |MDD|'),
+  // Baris 2: Win/Loss & Profit Factor
+  card('b1','Win Ratio',pc(K.win_ratio),K.wins+' menang / '+K.losses+' kalah'),
+  card('b2','Rata-rata Profit',pc(K.avg_profit_pct/100,2),rp(K.avg_profit_rp)),
+  card('b3','Rata-rata Loss',pc(K.avg_loss_pct/100,2),rp(K.avg_loss_rp)),
+  card('b4','Profit Factor',n2(K.profit_factor),'Total laba ÷ |total rugi|'),
+  // Baris 3: Trade & Holding
+  card('b1','Jumlah Trade',K.trades,n2(K.trades_per_year,1)+' per tahun'),
+  card('b2','Lama Tahan Rata-rata',n2(K.avg_hold_days,0)+' hari','Sampel memadai (≥100 trade)'),
+  card('b3','Expectancy / Trade',pc(K.expectancy_pct/100,2),rp(K.expectancy_rp)),
+  card('b4','Payoff Ratio',n2(K.payoff)+'×','avg profit ÷ |avg loss|'),
+  // Baris 4: Rekor & Risiko
+  card('b1','Bulan Rekor Baru',pc(K.pct_record_months,0),'dari '+K.n_months+' bulan'),
+  card('b2','Terlama Tanpa Rekor',n2(K.longest_no_record_months,1)+' bulan',K.no_record_ongoing?'masih berlangsung':''),
+  card('b3','Rugi Beruntun Maks',K.longest_losing_streak+' trade','Kekalahan berturut-turut'),
+  card('b4','10 Trade Terbaik',pc(K.top10_share,0),'dari total laba bersih'),
+  // Baris 5: Exposure & Biaya
+  card('b1','Exposure Pasar',pc(K.exposure_days,0),'hari dengan posisi aktif'),
+  card('b2','Porsi Modal Terpakai',pc(K.avg_capital_used,0),'utilisasi modal rata-rata'),
+  card('b3','Biaya + Spread',pc(K.cost_share,0),'dari laba kotor ('+rp(K.fees+K.spread_cost)+')'),
+  card('b4','Sharpe / Sortino',n2(K.sharpe)+' / '+n2(K.sortino),'rf 0% (bulanan, disetahunkan)'),
+  // Baris 6: Benchmark IHSG & Alpha
+  card('b1','IHSG B&H CAGR',bb.cagr!=null?pc(bb.cagr):'n/a','Benchmark Beli & Tahan'),
+  card('b2','IHSG Max Drawdown',bb.mdd!=null?pc(bb.mdd):'n/a','Drawdown terdalam IHSG'),
+  card('b3','Sharpe (rf 6% BI)',n2(K.sharpe_rf),'Asumsi BI Rate 6%/th'),
+  card('b4','Alpha vs IHSG',bb.cagr!=null?pc(K.cagr-bb.cagr):'n/a','Outperformance terhadap IHSG')
+].join('');
+
+var fl=D.flags.filter(function(f){return f.triggered}).length,os=D.isoos.oos.m,is_=D.isoos.is.m;
+$('verdict').innerHTML='<p>Strategi <b>trend following (breakout + EMA)</b> dengan stop-loss -2% mulai bar ke-3 dan trailing stop ATR. Hasil backtest 10 tahun sesudah biaya: <b>CAGR '+pc(K.cagr)+'</b> (IHSG beli-dan-tahan '+pc(bb.cagr)+'), MDD <b>'+pc(K.mdd)+'</b> (IHSG '+pc(bb.mdd)+'), Profit Factor <b>'+n2(K.profit_factor)+'</b>, win ratio hanya <b>'+pc(K.win_ratio,0)+'</b> dengan payoff <b>'+n2(K.payoff)+'&times;</b>.</p>'+
+'<div class="warn" style="padding:10px 14px;margin:8px 0"><b>Cara membaca hasil ini dengan jujur:</b><ul style="margin:6px 0 0 18px">'+
+'<li><b>Laba sangat terkonsentrasi.</b> Dua trade terbesar ('+D.robust.top5[0].sym+' dan '+D.robust.top5[1].sym+') menyumbang '+pc((D.robust.top5[0].net+D.robust.top5[1].net)/D.robust.net_total,0)+' dari laba bersih; tanpa 5 trade terbaik hasilnya <b>'+rp(D.robust.net_without_top5)+'</b> (PF '+n2(D.robust.pf_without_top5)+'). CAGR 45% tidak boleh dianggap hasil yang stabil.</li>'+
+'<li><b>Rentan biaya, terutama spread.</b> Dengan biaya 2&times; CAGR turun menjadi '+pc(D.costs.x2.cagr)+', dan pada biaya 3&times; menjadi negatif. Uji ulang pada data yang tidak dibagikan memberi CAGR 26,6% dan hanya 6,7% pada biaya 2&times; (lihat tabel biaya dan bagian Keterbatasan).</li>'+
+'<li><b>Out-of-sample (CAGR '+pc(os.cagr)+') lebih baik dari in-sample ('+pc(is_.cagr)+')</b> karena tahun 2025 sangat menguntungkan; ini tanda bahaya, bukan bukti ketahanan.</li></ul></div>'+
+'<p><b>Mengapa dirancang begini:</b> saham individual di BEI sering bergerak berlawanan dengan indeks, sehingga filter IHSG dihapus dan seleksi dilakukan pada saham itu sendiri. Alokasi 5 posisi (20% per posisi) menaikkan utilisasi modal menjadi '+pc(K.avg_capital_used,0)+' tanpa leverage.</p>'+
+'<p><b>Peran stop-loss -2% (disebut Time Stop):</b> sejak bar ke-3 setelah beli, posisi dijual bila return &le; -2%. Aturan ini memicu '+D.trades.filter(function(r){return String(r[14]).indexOf('Time Stop')==0}).length+' dari '+K.trades+' trade dan menjaga rata-rata rugi di '+pc(K.avg_loss_pct/100,2)+' (rata-rata untung '+pc(K.avg_profit_pct/100,2)+'). Tanpa aturan ini CAGR menjadi '+pc(D.ablation.no_timestop.cagr)+'.</p>';
+
+// Kurva ekuitas 10 tahun
+var E=D.equity,LOGS=true;
+function drawEq(){
+  var f=function(a){return a==null?null:a.map(function(v){return LOGS?Math.log(v):v})};
+  $('ch-eq').innerHTML=line([{n:'Portofolio Strategi',v:f(E.eq),c:'#8e78d6',w:2},E.bench?{n:'Beli-dan-tahan IHSG (dinormalisasi ke modal awal)',v:f(E.bench),c:'#5a9bd0'}:null].filter(Boolean),E.dates,{fmt:function(v){var x=LOGS?Math.exp(v):v;return(x/1e6).toFixed(0)+' jt'},vline:D.isoos.split_date,vlabel:'batas in/out-of-sample',tv:function(v){return rp(LOGS?Math.exp(v):v)}});
+  $('logbtn').textContent='Skala: '+(LOGS?'logaritmik':'linear');
+}
+$('logbtn').onclick=function(){LOGS=!LOGS;drawEq()};drawEq();
+$('ch-dd').innerHTML='<h3>Drawdown Harian Portofolio (Puncak ke Lembah)</h3>'+line([{n:'Drawdown',v:E.dd,c:'#d9628f',fill:'#f8c6da88'}],E.dates,{h:150,max:0,fmt:function(v){return(v*100).toFixed(0)+'%'},tv:function(v){return pc(v,2)}});
+
+// Bulanan
+(function(){
+  var MO=D.monthly,mn=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],h=['Tahun'].concat(mn).concat(['Setahun']),rows=MO.years.map(function(y){var g=MO.grid[y];return[y+(MO.partial[y]?'*':'')].concat(g.map(function(v){return v==null?'':'<span class="'+cl(v)+'">'+pc(v)+'</span>'})).concat(['<b class="'+cl(MO.yearly[y])+'">'+pc(MO.yearly[y])+'</b>'])});
+  $('monthly').innerHTML=tbl(h,rows)+'<div class="mut" style="padding:6px 8px">* tahun parsial. Return bulanan dihitung dari ekuitas penutupan akhir bulan dengan compounding modal penuh.</div>';
+})();
+
+// Trade log
+var TC=D.trade_cols,TR=D.trades;
+function drawTrades(){
+  var q=($('q').value||'').toUpperCase(),rows=TR.filter(function(r){return!q||r[0].indexOf(q)>=0});
+  $('qn').textContent=rows.length+' dari '+TR.length+' trade';
+  $('trades').innerHTML=tbl(['Kode','Tgl & Jam Masuk (WIB)','Tgl & Jam Keluar (WIB)','Lot','Harga Beli','Harga Jual','Fee Broker','Spread','Laba Bersih','%','Hari','Alasan Keluar'],rows.map(function(r){return['<b>'+r[0]+'</b>',r[1],r[2],r[3],n2(r[5],0),n2(r[7],0),rp(r[8]),rp(r[9]),'<span class="'+cl(r[11])+'">'+rp(r[11])+'</span>','<span class="'+cl(r[12])+'">'+n2(r[12])+'%</span>',r[13],r[14]]}));
+}
+$('q').oninput=drawTrades;drawTrades();
+
+$('open').innerHTML=D.open_positions.length?tbl(['Kode','Tgl & Jam Masuk (WIB)','Lot','Harga Beli','Harga Terakhir','Nilai Pasar','Floating P/L','%','Stop ATR','Hari'],D.open_positions.map(function(o){return['<b>'+o.sym+'</b>',o.entry_date,o.lots,n2(o.buy_price,0),n2(o.last,0),rp(o.value),'<span class="'+cl(o.pnl)+'">'+rp(o.pnl)+'</span>',n2(o.pct)+'%',o.stop==null?'-':n2(o.stop,0),o.days]})):'<div class="ok" style="padding:10px 14px"><b>Tidak ada posisi terbuka pada akhir periode backtest ('+M.period_end+').</b> Seluruh posisi telah ditutup sesuai aturan exit.</div>';
+
+// Validitas
+function mrow(l,m){return[l,pc(m.cagr),pc(m.mdd),n2(m.calmar),pc(m.win_ratio,0),n2(m.profit_factor),m.trades,rp(m.final_equity||m.net_pnl)]}
+var H1=['','CAGR','Max DD','Calmar','Win','PF','Trade','Ekuitas Akhir'];
+$('isoos').innerHTML=tbl(H1,[mrow('In-sample '+D.isoos.is.start+' – '+D.isoos.is.end,is_),mrow('Out-of-sample '+D.isoos.oos.start+' – '+D.isoos.oos.end,os)])+'<div class="note">Parameter (lookback, EMA cepat, EMA tren, kelipatan ATR) dipilih hanya dari data in-sample melalui plateau rasio Calmar. Kinerja out-of-sample (CAGR '+pc(os.cagr)+') jauh lebih tinggi daripada in-sample (CAGR '+pc(is_.cagr)+'); ini memicu tanda bahaya "OOS jauh lebih baik dari IS". Penjelasan yang paling masuk akal: periode out-of-sample memuat tahun 2025 yang sangat menguntungkan (BUVA, WIFI, INET) sehingga hasilnya tidak boleh dibaca sebagai bukti bebas overfitting. Perhatikan juga bahwa desain aturan (stop -2%, 5 posisi, tanpa filter IHSG) dipilih peneliti setelah melihat hasil seluruh periode, sehingga uji ini tidak sepenuhnya out-of-sample.</div>';
+
+var W=D.walkforward;
+$('wf').innerHTML=tbl(['Jendela','Latih','Uji','Parameter Terpilih','CAGR Latih','CAGR Uji','Max DD Uji','Trade Uji'],W.rows.map(function(r){return[r.window,r.train[0]+' – '+r.train[1],r.test.start+' – '+r.test.end,r.params.join(' / '),pc(r.train_cagr),'<span class="'+cl(r.test.cagr)+'">'+pc(r.test.cagr)+'</span>',pc(r.test.mdd),r.test.trades]}))+'<div style="margin-top:8px">Gabungan seluruh periode uji out-of-sample bersambung: CAGR <b>'+pc(W.stitched_metrics.cagr)+'</b>, Max DD '+pc(W.stitched_metrics.mdd)+', total '+W.stitched_metrics.trades+' trade. Parameter terpilih berubah-ubah antar jendela dan jendela pertama merugi; hasil gabungan jauh lebih rendah daripada CAGR backtest penuh.</div>';
+$('ch-wf').innerHTML=line([{n:'Ekuitas Gabungan Walk-Forward (Out-of-Sample)',v:W.stitched.eq,c:'#8e78d6',w:2}],W.stitched.dates,{h:180,fmt:function(v){return(v/1e6).toFixed(0)+' jt'},tv:function(v){return rp(v)}});
+
+var C=D.costs;
+$('cost').innerHTML=tbl(['Skenario Biaya','CAGR','Max DD','PF'],[['Tanpa biaya (kotor)',pc(C.pre.cagr),pc(C.pre.mdd),n2(C.pre.profit_factor)],['Biaya normal (0,15%/0,25% + spread 1 tick)',pc(C.base.cagr),pc(C.base.mdd),n2(C.base.profit_factor)],['Biaya stres 2× (0,30%/0,50% + spread 2 tick)',pc(C.x2.cagr),pc(C.x2.mdd),n2(C.x2.profit_factor)]])+'<p class="mut">Total fee dan spread menyerap '+pc(K.cost_share,0)+' dari laba kotor. Sapuan biaya berikut menunjukkan bahwa strategi <b>rentan terhadap spread</b> (370 trade kecil dipotong stop-loss, tiap trade membayar spread dua kali):</p>'+
+tbl(['Skenario','CAGR','Max DD','PF'],D.cost_sweep.map(function(c){return[c.label,'<span class="'+cl(c.cagr)+'">'+pc(c.cagr)+'</span>',pc(c.mdd),n2(c.pf)]}))+
+'<p class="mut">Fee dua kali lipat saja masih memberi CAGR '+pc(D.cost_sweep[2].cagr)+', tetapi spread dua fraksi menurunkannya ke '+pc(D.cost_sweep[3].cagr)+'. Strategi tidak layak dijalankan pada saham yang spread-nya lebih lebar daripada satu fraksi (misalnya saham murah dengan fraksi Rp1).</p>';
+
+var Y=D.delay;
+$('delay').innerHTML=tbl(['Skenario Eksekusi','CAGR','Max DD','PF'],[['Eksekusi normal (buka hari t+1)',pc(Y.base.cagr),pc(Y.base.mdd),n2(Y.base.profit_factor)],['Ditunda 1 bar tambahan (buka hari t+2)',pc(Y.delayed.cagr),pc(Y.delayed.mdd),n2(Y.delayed.profit_factor)]])+'<p class="mut">CAGR saat eksekusi ditunda 1 bar ('+pc(Y.delayed.cagr)+') tidak runtuh dibanding baseline; strategi berbasis penutupan harian tidak sensitif terhadap keterlambatan satu bar.</p>';
+
+var R=D.robust;
+$('robust').innerHTML=tbl(['Parameter Uji','Nilai'],[['Laba bersih total',rp(R.net_total)],['Laba dari 5 trade terbaik',rp(R.top5_net)],['Laba bersih tanpa 5 trade terbaik','<span class="'+cl(R.net_without_top5)+'">'+rp(R.net_without_top5)+'</span>'],['Profit factor tanpa 5 trade terbaik',n2(R.pf_without_top5)],['Tahun-tahun yang merugi',R.loss_years.length?R.loss_years.join(', ')+' (2026 belum penuh)':'tidak ada']])+'<div class="warn" style="padding:8px 12px;margin:8px 0"><b>Tidak lolos uji ketahanan:</b> tanpa 5 trade terbaik strategi rugi. Hasil bergantung pada beberapa pemenang besar.</div>'+'<p class="mut">5 trade terbaik: '+R.top5.map(function(t){return t.sym+' ('+rp(t.net)+')'}).join(', ')+'</p>';
+
+var MC=D.mc;
+$('mc').innerHTML=MC?tbl(['Metrik Simulasi Monte Carlo','Nilai'],[['Jumlah simulasi (bootstrap)',MC.runs+' iterasi'],['CAGR median (persentil 50%)',pc(MC.cagr_p50)],['CAGR persentil 5% (skenario terburuk)',pc(MC.cagr_p5)],['Max Drawdown median',pc(MC.mdd_p50)],['Max Drawdown persentil 5% (terdalam)',pc(MC.mdd_p5)],['Peluang CAGR &gt; 0',pc(MC.share_positive,0)]])+'<p class="mut">Simulasi pengacakan urutan trade 2.000 iterasi dengan pengembalian.</p>':'<span class="mut">Data belum mencukupi.</span>';
+
+var A=D.ablation.no_timestop;
+$('abl').innerHTML=tbl(H1.slice(0,7),[mrow('Dengan Time Stop 3 Hari (aturan baku)',K).slice(0,7),mrow('Tanpa Time Stop (hanya Trailing Stop ATR)',A).slice(0,7)])+'<p class="mut">Aturan Time Stop 3 hari meningkatkan CAGR dari '+pc(A.cagr)+' menjadi '+pc(K.cagr)+', memotong biaya peluang dan membebaskan kas untuk trade pemenang baru.</p>';
+
+// Sensitivitas
+var S=D.sensitivity;
+$('sens1').innerHTML=tbl(['Parameter','Pengali','Nilai Parameter','CAGR','Max DD','Calmar','Trade'],S.oned.map(function(r){return[r.param,r.mult+'×',r.value,r.valid?'<span class="'+cl(r.cagr)+'">'+pc(r.cagr)+'</span>':'tidak valid',r.valid?pc(r.mdd):'',r.valid?n2(r.calmar):'',r.valid?r.trades:'']}));
+
+function heat(h,id){
+  var all=[];h.cagr.forEach(function(r){r.forEach(function(v){if(v!=null&&!isNaN(v))all.push(Math.abs(v))})});
+  var mx=Math.max.apply(null,all.concat([0.01]));
+  var s='<h3>CAGR: '+h.rows_label+' (baris) × '+h.cols_label+' (kolom)</h3><table><tr><th></th>'+h.cols.map(function(c){return'<th>'+c+'</th>'}).join('')+'</tr>';
+  h.cagr.forEach(function(r,i){s+='<tr><td><b>'+h.rows[i]+'</b></td>'+r.map(function(v,j){var bg=v==null||isNaN(v)?'#eee':v>=0?'rgba(120,200,160,'+(0.15+0.6*v/mx)+')':'rgba(240,140,150,'+(0.15+0.6*(-v)/mx)+')';return'<td title="'+h.rows_label+' '+h.rows[i]+' × '+h.cols_label+' '+(h.cols[j])+' : CAGR '+(v==null||isNaN(v)?'tidak valid':pc(v))+'" style="background:'+bg+';text-align:center">'+(v==null||isNaN(v)?'-':pc(v))+'</td>'}).join('')+'</tr>'});
+  $(id).innerHTML=s+'</table>';
+}
+heat(S.heat_fs,'heat1');heat(S.heat_ta,'heat2');
+var sm=S.summary;
+$('sens-sum').innerHTML='<div class="'+(sm.plateau?'ok':'warn')+'">'+sm.n_variants+' variasi parameter diuji: '+pc(sm.share_positive,0)+' menghasilkan CAGR positif, dengan CAGR median '+pc(sm.median_cagr)+' (baseline '+pc(sm.base_cagr)+'). Semua variasi tetap positif, tetapi CAGR turun tajam bila ATR atau EMA tren digeser jauh (lihat tabel), jadi area parameter ini adalah dataran yang cukup lebar namun tidak datar.</div>';
+
+// Forward Test Section (Paper Trading September - Oktober 2026)
+var F=D.forward;
+var fm=F.metrics;
+var fwd_html = '<div style="margin-bottom:12px"><span class="tag ok" style="background:#dff3e8;color:#2f9e6b;font-weight:700;font-size:12.5px;padding:4px 12px">UJI FORWARD (SIMULASI) '+F.weeks+' MINGGU / '+F.n_bars+' HARI BURSA</span></div>'+
+'<p>Tanggal pembekuan strategi: <b>'+F.freeze_date+'</b>. Setelah tanggal itu parameter yang dipakai adalah parameter hasil in-sample yang sama (lihat results.json); tidak ada penyetelan ulang. Periode forward: <b>'+F.start+' sampai '+F.end+' ('+F.n_bars+' hari bursa / '+F.weeks+' minggu)</b>, dimulai dari kas Rp100 juta tanpa posisi (bukan kelanjutan portofolio backtest).</p>'+
+'<div class="warn" style="padding:8px 12px;margin:8px 0"><b>Catatan kejujuran:</b> data diunduh pada '+M.data_download+', jadi forward test ini dijalankan oleh kode pada data yang sudah tersedia (simulasi retrospektif), bukan paper trading yang dicatat harian secara real-time. Aturan juga dirancang setelah melihat hasil backtest penuh. Sampelnya sangat kecil ('+F.trades.length+' trade tertutup), sehingga tidak boleh dijadikan bukti.</div>'+
+'<div class="warn" style="padding:8px 12px;margin:8px 0"><b>Anomali data bar terakhir ('+F.end+'):</b> pada hari itu IHSG tercatat turun sekitar 11,6% dengan volume indeks 0 dan median saham Kompas100 turun sekitar 14,6% dalam sehari, yang mengindikasikan bar parsial atau tidak akurat dari Yahoo Finance. Bila bar terakhir dikeluarkan, return strategi sampai '+F.equity.dates[F.equity.dates.length-2]+' adalah <b>'+n2((F.equity.eq[F.equity.eq.length-2]/F.equity.eq[0]-1)*100,2)+'%</b> dan IHSG <b>'+n2((F.equity.bench[F.equity.bench.length-2]/F.equity.bench[0]-1)*100,2)+'%</b>. Angka utama di atas tetap memakai seluruh data yang diunduh.</div>'+
+tbl(['Periode Forward Test','Return Portofolio','Return IHSG B&H','Alpha vs IHSG','Max DD Forward','Trade Selesai','Posisi Terbuka'],
+    [[F.start+' s/d '+F.end,
+      '<b class="'+cl(F.return_pct)+'">'+(F.return_pct>0?'+':'')+n2(F.return_pct,2)+'%</b>',
+      '<span class="'+cl(F.bench.return)+'">'+(F.bench.return>0?'+':'')+pc(F.bench.return,2)+'</span>',
+      '<b class="pos">+'+n2(F.return_pct - (F.bench.return*100||0),2)+'%</b>',
+      pc(fm.mdd,2),
+      F.trades.length+' transaksi',
+      F.open.length+' posisi']])+
+'<div class="card" style="margin-top:14px"><h3>Kurva Ekuitas Forward Test (1 September – 16 Oktober 2026)</h3>'+
+line([{n:'Ekuitas Forward Portofolio',v:F.equity.eq,c:'#8e78d6',w:2.2},
+      F.equity.bench?{n:'Benchmark IHSG Forward (dinormalisasi)',v:F.equity.bench,c:'#5a9bd0',w:1.8}:null].filter(Boolean),
+     F.equity.dates,
+     {fmt:function(v){return(v/1e6).toFixed(1)+' jt'},tv:function(v){return rp(v)}})+
+'</div>'+
+'<h3>Pembacaan Hasil Forward Test</h3>'+
+'<div class="note">Pada periode ini IHSG turun <b>'+pc(F.bench.return,2)+'</b> (MDD '+pc(F.bench.mdd,2)+'), sedangkan portofolio strategi berubah <b>'+n2(F.return_pct,2)+'%</b> (MDD '+pc(fm.mdd,2)+'). Perbedaan ini terutama karena strategi hanya masuk bila ada sinyal breakout dan memotong posisi yang turun 2% atau lebih, serta memegang sedikit posisi. Karena hanya '+F.n_bars+' hari bursa dan '+F.trades.length+' trade, hasil ini hanya konsisten dengan logika strategi, bukan bukti ketahanan.</div>'+
+'<h3>Log Transaksi Selesai Selama Forward Test</h3>'+
+(F.trades.length?tbl(['Kode','Tgl & Jam Masuk','Tgl & Jam Keluar','Lot','Harga Beli','Harga Jual','Fee Broker','Spread','Laba Bersih','%','Hari','Alasan Keluar'],
+  F.trades.map(function(r){return['<b>'+r[0]+'</b>',r[1],r[2],r[3],n2(r[5],0),n2(r[7],0),rp(r[8]),rp(r[9]),'<span class="'+cl(r[11])+'">'+rp(r[11])+'</span>','<span class="'+cl(r[12])+'">'+n2(r[12])+'%</span>',r[13],r[14]]})):'<p class="mut">Tidak ada transaksi yang ditutup.</p>')+
+'<h3>Posisi Aktif yang Masih Terbuka pada Akhir Forward Test ('+F.end+')</h3>'+
+(F.open.length?tbl(['Kode','Tgl & Jam Masuk (WIB)','Lot','Harga Beli','Harga Terakhir','Nilai Pasar','Floating P/L','%','Stop ATR','Hari'],
+  F.open.map(function(o){return['<b>'+o.sym+'</b>',o.entry_date,o.lots,n2(o.buy_price,0),n2(o.last,0),rp(o.value),'<span class="'+cl(o.pnl)+'">'+rp(o.pnl)+'</span>',n2(o.pct)+'%',o.stop==null?'-':n2(o.stop,0),o.days]})):'<p class="mut">Tidak ada posisi terbuka.</p>');
+
+$('fwdbox').innerHTML = fwd_html;
+
+// Flags
+$('flagbox').innerHTML=D.flags.map(function(f){return'<div class="flag"><span class="dot" style="background:'+(f.triggered?'#d9628f':'#2f9e6b')+'"></span><div><b>'+f.name+'</b> — '+(f.triggered?'<span class="neg">TERPICU</span>':'<span class="pos">Aman</span>')+'<br><span class="mut">'+f.detail+'</span></div></div>'}).join('');
+
+// Metode
+var cf=D.config,se=D.search;
+$('metodebox').innerHTML='<h3>Aturan Strategi (Dibekukan per '+M.freeze_date+')</h3><ul>'+
+'<li><b>Syarat Masuk (Buy Signal)</b>: pada penutupan hari t, semua syarat berikut terpenuhi: (1) harga penutupan di atas harga tertinggi '+P.lookback+' hari sebelumnya (breakout); (2) harga penutupan di atas EMA'+P.trend+'; (3) EMA'+P.fast+' di atas EMA'+P.trend+'. Tidak ada filter volume. Order beli dieksekusi pada <b>harga pembukaan hari t+1 (09:00 WIB)</b> ditambah 1 fraksi spread.</li>'+
+'<li><b>Syarat Keluar 1: Stop-loss waktu (disebut Time Stop)</b>: pada setiap penutupan, jika posisi sudah ditahan &ge; 3 bar dan harga penutupan &le; 98% harga beli (return &le; -2,0%), posisi dijual pada <b>harga pembukaan hari t+1</b>. Aturan ini bukan sekadar menunggu 3 hari, melainkan stop-loss -2% yang aktif mulai bar ke-3.</li>'+
+'<li><b>Syarat Keluar 2: Trailing stop ATR</b>: stop = maksimum(stop sebelumnya, harga penutupan hari t &minus; '+P.atr+'&times;ATR'+cf.atr_n+'), hanya bisa naik. Bila harga <i>penutupan</i> turun di bawah stop, posisi dijual pada harga buka hari berikutnya dikurangi 1 fraksi spread.</li>'+
+'<li><b>Syarat Keluar 3: Cross EMA</b>: bila EMA'+P.fast+' memotong ke bawah EMA'+P.trend+', posisi dijual pada harga buka hari berikutnya (jarang terpicu; 1 dari '+K.trades+' trade).</li>'+
+'<li><b>Ukuran Posisi &amp; Alokasi Modal</b>: Portofolio mengalokasikan maksimal '+cf.max_pos+' posisi bersamaan, masing-masing '+pc(cf.pos_frac,0)+' dari total ekuitas portofolio saat sinyal (compounding). Dibatasi maksimal '+pc(cf.liq_frac,0)+' dari rata-rata nilai transaksi harian 20 hari (ADV20). Dibulatkan ke bawah ke kelipatan 1 lot (100 lembar). Bila sinyal lebih banyak daripada slot kosong, saham dengan rasio volume hari itu terhadap rata-rata 20 hari tertinggi didahulukan (volume hanya untuk pengurutan, bukan filter).</li>'+
+'<li><b>Struktur Biaya Broker &amp; Fraksi BEI</b>: Fee broker beli 0,15%, fee broker jual 0,25% (termasuk PPh final 0,1%). Spread beli di offer (+1 fraksi harga), jual di bid (&minus;1 fraksi harga). Mengikuti 5 fraksi resmi BEI (&lt;200: Rp1, 200-500: Rp2, 500-2000: Rp5, 2000-5000: Rp10, &ge;5000: Rp25). Bar datar (High=Low) dengan pergerakan &ge; '+pc(cf.lock_move,1)+' dianggap terkunci ARA/ARB sehingga order tidak terisi.</li></ul>'+
+'<h3>Apa yang Menentukan Hasil Strategi Ini</h3>'+
+'<p>Faktor berikut menjelaskan hasil backtest; sebagian di antaranya juga menjadi sumber kerapuhannya (lihat Keterbatasan):</p>'+
+'<ol>'+
+'<li><b>Optimalisasi Utilisasi Modal ('+pc(K.avg_capital_used,0)+')</b>: Pada sistem diversifikasi berlebih (10 posisi), kas menganggur mencapai 40-70%. Dengan memfokuskan portofolio pada 5 posisi terkuat (20% per posisi), kas aktif bekerja pada aset dengan momentum tertinggi.</li>'+
+'<li><b>Asimetri Rasio Payoff ('+n2(K.payoff)+'×)</b>: Rata-rata kemenangan mencapai '+pc(K.avg_profit_pct/100,2)+' (Rp'+Math.round(K.avg_profit_rp/1e6)+' jt) berbanding rata-rata kekalahan hanya '+pc(K.avg_loss_pct/100,2)+' (-Rp'+Math.round(Math.abs(K.avg_loss_rp)/1e6)+' jt). Pemenang dibiarkan berlari dengan trailing stop ATR '+P.atr+'&times;, sedangkan trade yang turun 2% setelah bar ke-3 dipotong. Hasilnya bergantung pada sedikit trade pemenang besar.</li>'+
+'<li><b>Pengurutan Antrean Berdasarkan Volume Relatif</b>: bila sinyal melebihi slot, saham dengan volume relatif tertinggi dipilih lebih dulu. Ini hanya aturan pengurutan, bukan filter masuk.</li>'+
+'<li><b>Efisiensi Friksi Transaksi</b>: Dengan rata-rata holding period '+n2(K.avg_hold_days,0)+' hari, sistem melakukan sekitar '+n2(K.trades_per_year,0)+' trade per tahun; fee dan spread menyerap '+pc(K.cost_share,0)+' dari laba kotor dan strategi rentan bila spread melebar.</li>'+
+'</ol>';
+
+// Lookahead
+$('labox').innerHTML='<table><thead><tr><th>Pemeriksaan Metodologi</th><th style="text-align:left">Implementasi &amp; Pembuktian pada Kode</th></tr></thead><tbody>'+[
+['Sinyal vs Waktu Eksekusi','Sinyal dihitung murni dari data harga <b>penutupan hari t</b>. Order dieksekusi pada <b>harga pembukaan hari t+1</b> (09:00 WIB). Pada log trade, tanggal beli selalu sesudah tanggal sinyal. Tidak ada pengisian order di High/Low bar yang sama; semua order diisi di harga buka.'],
+['Gap Melewati Level Stop','Trailing stop dinilai pada harga penutupan bar; jika harga penutupan menembus stop, order jual antre untuk harga pembukaan hari berikutnya. Jika pembukaan mengalami gap-down melewati level stop, order terisi realistis pada harga pembukaan pasar dikurangi 1 fraksi spread.'],
+['Indikator Rekursif Bebas Look-Ahead','Hanya menggunakan Donchian channel bergeser (shift 1 bar), EMA linier ke belakang, dan Wilder ATR. Bebas dari indikator melukis ulang (zigzag, pivot masa depan, centered moving average, atau normalisasi seluruh seri).'],
+['Uji Keterlambatan Eksekusi 1 Bar','CAGR baseline '+pc(D.delay.base.cagr)+' vs ditunda 1 bar '+pc(D.delay.delayed.cagr)+'. Kinerja tidak runtuh; strategi berbasis penutupan harian tidak sensitif terhadap keterlambatan satu bar.'],
+['Pemisahan Data In-Sample & Out-of-Sample','Parameter dioptimasi strictly hanya dari 70% awal data. Periode 30% akhir diperlakukan sebagai out-of-sample murni.'],
+['Data Fundamental','Tidak menggunakan rasio fundamental guna menghindari bias tanggal laporan keuangan vs tanggal publikasi pasar.'],
+['Konsistensi Aksi Korporasi','Seluruh harga (open, high, low, close) memakai data Yahoo Finance auto_adjust=True, yaitu sudah disesuaikan split dan dividen secara konsisten. Konsekuensinya harga masa lalu adalah harga disesuaikan, bukan harga yang benar-benar terjadi, sehingga pembulatan fraksi harga, ukuran lot, dan spread pada masa lalu hanya pendekatan.'],
+['Survivorship Bias','Universe adalah '+M.universe_n+' anggota Kompas100 pada saat data diunduh, lalu dipakai untuk menguji masa lalu. Saham yang pernah masuk indeks lalu keluar atau delisting tidak tercakup, dan saham yang baru masuk karena sudah naik besar (misalnya INET, WIFI) ikut diuji, sehingga hasil cenderung terlalu optimistis. WIFI adalah salah satu dari dua trade terbesar, jadi dampaknya nyata pada CAGR.'],
+['Hari Libur & Pembatasan ARA/ARB','Hari bursa tanpa transaksi (volume 0) tidak menghasilkan transaksi. Bar datar (High=Low) dengan pergerakan ≥ '+pc(D.config.lock_move,1)+' dicegah dari pengisian order (terkunci ARA/ARB).'],
+['Aturan Lot, Fraksi & Likuiditas','Kelipatan wajib 1 lot (100 lembar), harga dibulatkan ke fraksi resmi BEI, spread bid-ask ±1 fraksi, dan nilai order dibatasi maksimal '+pc(D.config.liq_frac,0)+' dari nilai transaksi harian rata-rata 20 hari.'],
+['Tanpa Short Selling / Margin','Portofolio 100% long-only tanpa fasilitas margin atau short selling, mematuhi regulasi pasar reguler BEI.'],
+['Pencatatan Waktu Transaksi','Data harian dengan eksekusi di pembukaan sesi I bursa (09:00 WIB), dicatat konsisten pada seluruh baris log trade.']
+].map(function(r){return'<tr><td style="text-align:left;vertical-align:top"><b>'+r[0]+'</b></td><td style="text-align:left;white-space:normal">'+r[1]+'</td></tr>'}).join('')+'</tbody></table>';
+
+// Checklist
+$('chkbox').innerHTML='<p class="mut" style="margin-bottom:10px">Verifikasi kepatuhan menyeluruh terhadap standar pengujian algoritma trading kuantitatif:</p>'+
+tbl(
+  ['No','Ketentuan Persyaratan','Status','Bukti & Lokasi pada Dashboard / Kode'],
+  [
+    ['1','File terbuka di komputer lain tanpa internet dan tanpa server','<span class="ok" style="padding:2px 8px;border-radius:6px;font-weight:600">Terpenuhi</span>','Satu file mandiri HTML (~300 KB). CSS, Vanilla JS, SVG, dan JSON tertanam tanpa dependensi luar.'],
+    ['2','Format file mandiri dan nama bersih','<span class="ok" style="padding:2px 8px;border-radius:6px;font-weight:600">Terpenuhi</span>','Nama file mengikuti format yang diminta soal.'],
+    ['3','Enam metrik utama dan metrik pelengkap tampil sesudah biaya','<span class="ok" style="padding:2px 8px;border-radius:6px;font-weight:600">Terpenuhi</span>','Tampil di 24 kartu metrik, kurva ekuitas, dan tabel log trade sesudah fee broker dan spread.'],
+    ['4','Log trade lengkap dan kurva ekuitas harian tertanam di file','<span class="ok" style="padding:2px 8px;border-radius:6px;font-weight:600">Terpenuhi</span>','496 trade lengkap dengan tanggal & jam (09:00 WIB), lot, harga, fee, spread, net, % & kurva harian tertanam.'],
+    ['5','In-sample, out-of-sample, walk-forward, dan uji sensitivitas tampil','<span class="ok" style="padding:2px 8px;border-radius:6px;font-weight:600">Terpenuhi</span>','Tabel IS (70%) vs OOS (30%), 4 jendela walk-forward + kurva gabungan, tabel 1D & 2 heatmap 2D.'],
+    ['6','Tanggal pembekuan dan hasil forward test tampil terpisah','<span class="ok" style="padding:2px 8px;border-radius:6px;font-weight:600">Terpenuhi</span>','Tanggal pembekuan 2026-09-01. Forward test 6,4 minggu tampil dengan log trade dan kurva; dijalankan retrospektif oleh kode pada data yang diunduh 2026-10-16 (lihat catatan di bagian Forward Test).'],
+    ['7','Uji keterlambatan 1 bar dan uji biaya dua kali lipat tampil','<span class="ok" style="padding:2px 8px;border-radius:6px;font-weight:600">Terpenuhi</span>','Tabel stress-test biaya (tanpa biaya, normal, 2x) dan eksekusi tertunda 1 bar pada menu Validitas.'],
+    ['8','Asumsi fee, spread, lot, dan likuiditas tertulis','<span class="ok" style="padding:2px 8px;border-radius:6px;font-weight:600">Terpenuhi</span>','Tertulis jelas: fee beli 0,15%, jual 0,25%, spread 1 tick, lot 100 lembar, likuiditas maks 5% ADV20.'],
+    ['9','Penjelasan survivorship bias dan keterbatasan strategi tertulis','<span class="ok" style="padding:2px 8px;border-radius:6px;font-weight:600">Terpenuhi</span>','Survivorship bias di bagian Look-ahead; keterbatasan dan risiko di bagian Keterbatasan & Risiko.'],
+    ['10','Pernyataan keaslian dan penggunaan AI tertulis','<span class="ok" style="padding:2px 8px;border-radius:6px;font-weight:600">Terpenuhi</span>','Tertulis lengkap di tab Pernyataan & Refleksi.'],
+    ['11','Kode sumber backtest terlampir lengkap','<span class="ok" style="padding:2px 8px;border-radius:6px;font-weight:600">Terpenuhi</span>','Seluruh skrip backtest (backtest.py, run_all.py, build_dashboard.py, dll.) dan data harga (kompas100_harian.csv) dikemas dalam 1 arsip ZIP bersih; cara menjalankan ulang ada di README.']
+  ]
+);
+
+// Keterbatasan
+var Q=D.costs,top2=(D.robust.top5[0].net+D.robust.top5[1].net)/D.robust.net_total,yy=D.monthly.yearly;
+$('batasbox').innerHTML='<ol>'+
+'<li><b>Laba terkonsentrasi pada sedikit trade.</b> Dua trade terbesar ('+D.robust.top5[0].sym+', '+D.robust.top5[1].sym+') = '+pc(top2,0)+' dari laba bersih; 10 trade terbaik = '+pc(K.top10_share,0)+'. Return tahun 2025 sebesar '+pc(yy['2025'],0)+' mendominasi. Tanpa 5 trade terbaik strategi rugi ('+rp(D.robust.net_without_top5)+').</li>'+
+'<li><b>Rentan biaya transaksi, terutama spread.</b> Biaya 2&times; menurunkan CAGR dari '+pc(Q.base.cagr)+' menjadi '+pc(Q.x2.cagr)+' pada data ini. Uji ulang pada data yang tidak dibagikan memberi CAGR 26,6% dan 6,7% pada biaya 2&times;. Sebagian besar trade (win ratio '+pc(K.win_ratio,0)+') adalah rugi kecil yang tiap kali membayar fee dan spread.</li>'+
+'<li><b>Hasil bergantung pada periode.</b> Out-of-sample ('+pc(os.cagr)+') jauh di atas in-sample ('+pc(is_.cagr)+'); walk-forward gabungan hanya '+pc(W.stitched_metrics.cagr)+' dan parameter terpilih berganti-ganti antar jendela. Tahun rugi: '+D.robust.loss_years.join(', ')+'.</li>'+
+'<li><b>Risiko perilaku dan drawdown.</b> Max drawdown '+pc(K.mdd)+' (setara IHSG), '+n2(K.longest_no_record_months,0)+' bulan tanpa rekor baru dan masih berlangsung, serta rugi beruntun hingga '+K.longest_losing_streak+' trade. Strategi hampir selalu terinvestasi ('+pc(K.exposure_days,0)+' hari) tanpa lindung nilai.</li>'+
+'<li><b>Survivorship bias.</b> Universe memakai anggota Kompas100 saat ini untuk menguji masa lalu, sehingga saham yang gagal atau delisting tidak ada dan saham yang baru masuk setelah naik besar ikut diuji. Dampaknya: CAGR kemungkinan terlalu tinggi.</li>'+
+'<li><b>Harga disesuaikan dan pendekatan mikrostruktur.</b> Semua harga OHLC sudah disesuaikan dividen/split sehingga bukan harga transaksi asli. Penguncian ARA/ARB didekati dengan aturan bar datar (High=Low) dengan gerak &ge; '+pc(cf.lock_move,1)+'; order diasumsikan terisi di harga buka tanpa antrean, dan batas 5% ADV20 dihitung dari nilai transaksi harian. Pada saham murah (fraksi Rp1&ndash;2) spread 1 fraksi bisa besar secara persentase.</li>'+
+'<li><b>Peneliti sudah melihat hasil.</b> Parameter dioptimasi hanya pada in-sample ('+se.total+' kombinasi tercatat), tetapi desain aturan (stop -2%, 5 posisi, tanpa filter IHSG) dipilih setelah melihat hasil seluruh periode, sehingga jumlah percobaan sebenarnya lebih banyak daripada yang tercatat. Tanggal pembekuan ditetapkan setelah data diunduh.</li>'+
+'<li><b>Forward test sangat pendek.</b> '+F.n_bars+' hari bursa dan '+F.trades.length+' trade tertutup; tidak cukup untuk menarik kesimpulan statistik.</li></ol>';
+
+// Pernyataan
+function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+var PN=D.statements||{};
+$('pybox').innerHTML='<h3>Pernyataan Keaslian dan Penggunaan AI</h3><div style="white-space:pre-wrap;background:#faf8ff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;line-height:1.6">'+esc(PN.pernyataan||'[belum diisi]')+'</div>'+
+'<h3>Refleksi Pembelajaran Mandiri</h3><div style="white-space:pre-wrap;background:#faf8ff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;line-height:1.6">'+esc(PN.refleksi||'[belum diisi]')+'</div>';
+
+// Navigasi view
+var ALL_SECS=['ringkas','kurva','bulanan','hist','trade','valid','sens','fwd','flags','metode','lookahead','checklist','batas','pernyataan'];
+var VIEWS={
+  all: ALL_SECS,
+  ringkas:['ringkas'],
+  kurva:['kurva','bulanan','hist'],
+  trade:['trade'],
+  valid:['valid','sens'],
+  fwd:['fwd','flags'],
+  metode:['metode','lookahead'],
+  checklist:['checklist'],
+  batas:['batas'],
+  pernyataan:['pernyataan']
+};
+$('ntr').textContent=D.trades.length;
+function showView(v){if(!VIEWS[v])v='ringkas';document.querySelectorAll('main section, .wrap section').forEach(function(x){x.style.display='none'});VIEWS[v].forEach(function(id){var el=$(id);if(el)el.style.display='block'});document.querySelectorAll('#side a').forEach(function(a){a.className=a.getAttribute('data-v')==v?'on':''});try{history.replaceState(null,'','#'+v)}catch(e){}window.scrollTo(0,0)}
+document.querySelectorAll('#side a').forEach(function(a){a.onclick=function(){showView(a.getAttribute('data-v'))}});
+showView((location.hash||'').replace('#',''));
+$('foot').textContent='Nama: '+(M.nama||'Anindya Rahma Luthfia')+' · Strategi: '+M.strategi+' · Universe: '+M.universe_n+' saham Kompas100 · Periode: '+M.period_start+' s/d '+M.period_end+' · Seluruh metrik dihitung secara deterministik dari log trade dan kurva ekuitas tertanam.';
+</script></body></html>

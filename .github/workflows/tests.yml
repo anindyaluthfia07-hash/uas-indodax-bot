@@ -1,0 +1,30 @@
+name: tests
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Unit tests (stdlib)
+        run: python3 -m unittest discover -s tests -v
+      - name: Cek tidak ada secret ter-commit
+        run: |
+          set -e
+          if git grep -nE "(UPSTASH_REDIS_REST_TOKEN|CRON_SECRET)=[A-Za-z0-9_-]{8,}" -- . ':!*.example' ':!.github/workflows/*'; then
+            echo "Ditemukan nilai secret di repo" >&2
+            exit 1
+          fi
+          echo "Tidak ada secret yang ter-commit."

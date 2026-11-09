@@ -1,0 +1,34 @@
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Runtime temporary
+*.tmp
+data/local/*.tmp
+data/snapshots/*.tmp
+data/*.tmp
+public/*.tmp
+
+# Vercel
+.vercel/
+
+# Logs hasil retry lokal yang tidak perlu masuk repo
+*.log

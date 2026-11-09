@@ -1,0 +1,295 @@
+{
+ "source": "Indodax public API history_v2",
+ "url_template": "https://indodax.com/tradingview/history_v2?symbol={SYMBOL}&tf={tf}&from={from}&to={to}",
+ "downloaded_at": "2026-11-08T15:09:47Z",
+ "requested_start": "2022-08-01",
+ "requested_end": "2026-11-08",
+ "start_epoch": 1659312000,
+ "end_epoch": 1794096000,
+ "server_time": 1794150587.767,
+ "tf": "240",
+ "pairs": {
+  "btcidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "db4fb1e4893129bbe98e1cbd5e8d49cf653445df03cbf80beaa3ac0c7d8e0f92"
+  },
+  "ethidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "eb2653e71ce970d390bc8f3035b82ac3e497350c17244843187f2e0729b005ba"
+  },
+  "usdtidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "ee0f85d6b7b77cb16300c80af63eef9c8844bc210a805c13d6f133da614d40ef"
+  },
+  "xrpidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "013cb9e70ef8dd4b98f6fe7f112fb7c879e20a8191a03435f7cbf4eb89687d9a"
+  },
+  "bnbidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "d71e239938a8d54090004e7058c5975c04c7c44f323174e23a5df1ff56ffd3e3"
+  },
+  "solidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "1b834f69ec28c525a2ccfde0e55fb418be3ad2c80639cccf118684683ba7d3d6"
+  },
+  "adaidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "e62b592f56ec48e8e78113f4257621389ec310491d9150e0dba3f43f4e1a7ffe"
+  },
+  "dogeidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "a4217a5082814128789fdd6920dac1454d8b79f4d65c41fe284ba94b264c22ee"
+  },
+  "dotidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "86831abb21ff72a31e625ae7ff473faae3885bce9039612de131d1177471118a"
+  },
+  "linkidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "a65e270a7b1a35268d86e45e2ccdcce09440fbf160ad860dd4f8761d4f2e7a6d"
+  },
+  "avaxidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "36d6237a790663c74e8346a015dccff66a79b75e4bbb39c12388baf5db28a327"
+  },
+  "trxidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "d7784a9056dc298b3c1877a82f7cc84dad304295fbb50b1bd8f4d24b5369505b"
+  },
+  "ltcidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "3c2821e7721f393968e73fbe1eebc88c226b849d4785fd6323ecfff9d8d3c4ff"
+  },
+  "bchidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "289dc2ddcab7b2f7ba989307bbe26b7d646118d9e3b226d63dc44560544aa6b5"
+  },
+  "etcidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "e07c86f249429b449b9d1b6809a172738c338d77834070d18dd50f29dd88c15e"
+  },
+  "xlmidr": {
+   "status": "ok",
+   "requests": 1,
+   "first": null,
+   "last": null,
+   "errors": [],
+   "sha256": null
+  },
+  "atomidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "40a94e612b9fb31a1e55b263db1488153feb478e2aec6a00649abe8cc25b3e8f"
+  },
+  "uniidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "55e3ed2c5bfd9abd16020319d24615a6879b37ea530a3cd40d0acbc4a72e4713"
+  },
+  "aaveidr": {
+   "status": "ok",
+   "requests": 1,
+   "first": null,
+   "last": null,
+   "errors": [],
+   "sha256": null
+  },
+  "sandidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "1bb309562cf9f3147c18a6025f2765c81b38b0ff495641336f57d1a223f9e50b"
+  },
+  "manaidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "9c99537d8e9e9d032629f3b2a250e4f2948e02469291910e43541178a456df18"
+  },
+  "axsidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "20215ba384175d40ddc98c6a1db696c6b14ab19373e58a48736477c8b2fa6677"
+  },
+  "enjidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "daf37fb5befec7224c819948478e9bfa75d12a91cb22eee18e5eebb509ad7734"
+  },
+  "chzidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "55d304d128cc8d95fb9b3daf121585033fcfaddb0a8e96be3c787184ba2edaff"
+  },
+  "vetidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "f997e677a3272f2a1bdace9e29d1a301d526a106642430e7c64a9647b49b66fb"
+  },
+  "algoidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "ae034c3261156e173ad5d49a43a9318af377bd5dfcaf7691faad664094b375f7"
+  },
+  "filidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "324de6484d8ae0d8b5cd5661684e291679f901c085eb9c1d2b149825d671f412"
+  },
+  "thetaidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "37a02e2a608f127cd92c103872afa0ff686bacf3fd60ea368db7a33cc8d2eaa0"
+  },
+  "nearidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1659312000,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "577c282de3841c994177ecd0243ca7f31eefa08ba8de0820b168313beb073167"
+  },
+  "arbidr": {
+   "status": "ok",
+   "requests": 4,
+   "first": 1698278400,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "5162e2de10a4558cd1dafd34d6e01cdb910d636a542e1dbc345d8286a2947fdc"
+  },
+  "opidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1700092800,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "b37fec6d9548fb49e8c6e6c86fe6bd0e87722955490735b3a0c38ff141426b10"
+  },
+  "suiidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1707364800,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "4ac811e58ef17af1c5531804b3c3af1c1262c10cc000b58db178d7fb26957e43"
+  },
+  "tonidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1714622400,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "5120be2b91bc04742cbcc4fd9a6a78a6f9e8058eb245ddefa603d8978c19c16f"
+  },
+  "shibidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1706587200,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "7377951005d1ee63353c2f8adb9f7662963b575e375a0ebe15dcbc11cc668db0"
+  },
+  "pepeidr": {
+   "status": "ok",
+   "requests": 3,
+   "first": 1706587200,
+   "last": 1794096000,
+   "errors": [],
+   "sha256": "b36d0fe626e6286c65ce6a672fb7567a71464fe77a2bc6050e5b64c5e76b2bc7"
+  }
+ },
+ "rate_limit": "sequential, min interval 0.60s (<=2.5 req/s)",
+ "requests_total": 102
+}

@@ -1,0 +1,11 @@
+{
+  "note": "Kandidat universe yang diperiksa pada awal periode backtest. Daftar ini disusun dari aset mayor yang sudah dikenal sebelum November 2022; ketersediaan data pada awal periode diverifikasi lewat API, bukan diasumsikan. Keterbatasan survivorship bias dijelaskan di docs/STRATEGY.md.",
+  "candidates": [
+    "btcidr", "ethidr", "usdtidr", "xrpidr", "bnbidr", "solidr",
+    "adaidr", "dogeidr", "dotidr", "linkidr", "avaxidr", "trxidr",
+    "ltcidr", "bchidr", "etcidr", "xlmidr", "atomidr", "uniidr",
+    "aaveidr", "sandidr", "manaidr", "axsidr", "enjidr", "chzidr",
+    "vetidr", "algoidr", "filidr", "thetaidr", "nearidr", "arbidr",
+    "opidr", "suiidr", "tonidr", "shibidr", "pepeidr"
+  ]
+}

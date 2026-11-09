@@ -1,0 +1,6 @@
+# Proyek ini sengaja hanya memakai Python standard library.
+# Tidak ada dependency pihak ketiga, sehingga fungsi Vercel ringan dan
+# backtest dapat dijalankan ulang di mesin mana pun dengan Python >= 3.9.
+#
+# Untuk pengembangan/audit opsional (tidak dipakai runtime):
+#   pandas  (hanya jika ingin membandingkan hasil dengan notebook UTS)

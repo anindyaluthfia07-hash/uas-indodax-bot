@@ -1,0 +1,206 @@
+# Laporan Akhir UAS — Bot Dry-Run Indodax
+
+**Nama:** Anindya Rahma Luthfia  
+**NIM:** 25110200036  
+**Mata kuliah:** Algoritma Trading  
+**Tanggal laporan:** 2026-11-09 07:32 WIB (2026-11-09T00:32:57Z)  
+**Strategi:** Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)  
+**Timeframe:** 4 jam · **Universe:** 6 pair IDR · **Modal simulasi:** Rp100.000.000
+
+> Laporan ini dihasilkan oleh `scripts/build_report.py` dari file hasil. Angka tidak ditulis tangan. Bagian yang belum terjadi ditulis apa adanya.
+
+## A. Yang sudah selesai
+
+| Komponen | Status | Bukti |
+|---|---|---|
+| Data candle 4 jam, 35 kandidat, 2022-08-01 s/d 2026-11-08 | Selesai | `data/raw/*_240.csv`, `download_meta_240.json` |
+| Pemilihan universe pada 60 hari pertama (bukan hari ini) | Selesai | `data/universe.json` |
+| Strategi tunggal dipakai backtest + bot | Selesai | `core/strategy.py` |
+| Backtest portofolio 4 tahun + biaya per transaksi | Selesai | `data/backtest_results.json` |
+| Pengukuran fee resmi + spread + slippage order book | Selesai | `data/costs.json`, `docs/evidence/` |
+| Uji in-sample / out-of-sample sekali | Selesai | bagian B |
+| Stress test fee 2×, biaya 2×, delay 1 bar | Selesai | bagian B |
+| Bot dry-run: tick, idempotensi, lock, kill switch, log | Selesai | `core/bot.py`, `data/local/` |
+| API Vercel: tick, dashboard, health, kill, export | Selesai (kode) | `api/*.py` |
+| Dashboard HTML offline + versi online | Selesai | `public/offline_dashboard.html`, `public/index.html` |
+| Skrip hitung ulang & analisis gap | Selesai | `scripts/recompute.py`, `scripts/gap_analysis.py` |
+| Unit test | 17 tes lulus | `tests/test_core.py` |
+| `.env.example`, `.gitignore`, tanpa secret di repo | Selesai | root repo |
+| Pembekuan (freeze) | **Terlambat** | `docs/FREEZE.md` |
+| Forward test 10 hari | Belum dimulai | `data/local/`, `data/gap_analysis.json` |
+| Deploy Vercel/GitHub | Belum (butuh akun mahasiswa) | `data/project_status.json` |
+
+## B. Hasil backtest
+
+Periode: **2022-11-08T00:00:00Z s/d 2026-11-08T00:00:00Z** (4.00 tahun), modal awal Rp100.000.000, tanpa leverage.
+
+### B.1 Metrik utama (setelah fee + spread + slippage)
+
+| Metrik | Nilai |
+|---|---:|
+| Ekuitas akhir | Rp214.510.697 |
+| Return total | +114.51% |
+| CAGR | +21.02% |
+| Max drawdown | -19.45% |
+| Profit factor | 1.57 |
+| Win rate | 30.03% |
+| Jumlah trade tertutup | 383 |
+| Fee total | Rp55.670.588 |
+| Spread total | Rp12.566.256 |
+| Slippage total | Rp3.414.736 |
+| Biaya total | Rp71.651.581 |
+| Biaya / laba kotor | 21.23% |
+
+### B.2 In-sample vs out-of-sample
+
+Parameter dipilih **hanya** dari 70% awal. OOS dievaluasi sekali dan tidak dipakai memilih ulang.
+
+| Periode | Rentang | Return total | CAGR | Max DD | Profit factor | Trade |
+|---|---|---:|---:|---:|---:|---:|
+| In-sample (70%) | 2022-11-08T00:00:00Z s/d 2025-08-26T16:00:00Z | +131.39% | +34.94% | -18.96% | 1.97 | 280 |
+| Out-of-sample (30%) | 2025-08-27T00:00:00Z s/d 2026-11-08T00:00:00Z | -7.59% | -6.37% | -21.53% | 0.77 | 103 |
+
+**Catatan jujur:** OOS negatif (-6.37% CAGR). Artinya performa in-sample tidak berlanjut pada 30% terakhir. Ini tidak dihilangkan dari laporan.
+
+### B.3 Stress test
+
+| Skenario | CAGR | Max DD | Profit factor | Trade | Biaya total |
+|---|---:|---:|---:|---:|---:|
+| Fee 2× | +10.72% | -25.47% | 1.25 | 383 | Rp107.241.516 |
+| Fee + spread + slippage 2× | +18.30% | -21.15% | 1.48 | 387 | Rp83.492.812 |
+| Eksekusi delay 1 bar | +19.51% | -20.66% | 1.55 | 372 | Rp66.157.189 |
+
+### B.4 Benchmark beli-dan-tahan BTC
+
+| Metrik | Strategi | BTC buy & hold |
+|---|---:|---:|
+| Return total | +114.51% | +320.66% |
+| CAGR | +21.02% | +43.21% |
+| Max drawdown | -19.45% | -49.43% |
+
+Strategi memberi return lebih rendah dari BTC, tetapi drawdown lebih kecil. Ini bukan kemenangan return; hanya profil risiko yang berbeda.
+
+### B.5 Konsentrasi laba
+
+| Hal | Nilai |
+|---|---:|
+| Laba kotor (trade profit) | Rp315.162.804 |
+| Laba 5 trade terbaik | Rp97.159.367 |
+| Porsi 5 trade terbaik terhadap laba kotor | 30.83% |
+| Jumlah net trade tanpa 5 trade terbaik | Rp17.351.330 |
+
+### B.6 Return per tahun
+
+| Tahun | Ekuitas akhir tahun | Return |
+|---|---:|---:|
+| 2022 | Rp97.342.334 | -2.66% |
+| 2023 | Rp99.875.941 | +2.60% |
+| 2024 | Rp202.986.548 | +103.24% |
+| 2025 | Rp233.199.892 | +14.88% |
+| 2026 | Rp214.510.697 | -8.01% |
+
+Tahun parsial: 2022, 2026. Angka tahun parsial tidak bisa dibandingkan langsung dengan tahun penuh.
+
+### B.7 Sensitivitas parameter
+
+Setiap parameter digeser ±20%. Ini uji kestabilan, bukan pencarian parameter baru.
+
+| Parameter | Nilai | CAGR | Max DD | Calmar | Trade |
+|---|---:|---:|---:|---:|---:|
+| lookback ×0.8 | 32 | +23.45% | -20.99% | 1.12 | 405 |
+| lookback ×1.2 | 48 | +20.68% | -20.44% | 1.01 | 373 |
+| fast_ema ×0.8 | 16 | +21.65% | -19.76% | 1.10 | 392 |
+| fast_ema ×1.2 | 24 | +20.90% | -19.72% | 1.06 | 375 |
+| trend_ema ×0.8 | 80 | +19.61% | -22.39% | 0.88 | 403 |
+| trend_ema ×1.2 | 120 | +21.51% | -18.66% | 1.15 | 372 |
+| atr_mult ×0.8 | 2.4 | +19.10% | -22.78% | 0.84 | 427 |
+| atr_mult ×1.2 | 3.6 | +24.52% | -21.45% | 1.14 | 356 |
+
+### B.8 Biaya yang diukur
+
+| Komponen | Nilai |
+|---|---:|
+| Jumlah snapshot order book dipakai | 366 |
+| Fee beli | 0.20555% |
+| Fee jual | 0.41555% |
+| Minimum order | Rp25.000 |
+
+Spread dan slippage per pair berasal dari `data/costs.json`; nilainya adalah median snapshot 8 November 2026, bukan kondisi historis 2022–2026. Ini asumsi yang dicatat.
+
+### B.9 Cara menghitung ulang
+
+```bash
+python3 scripts/backtest.py --final
+python3 scripts/recompute.py --source local
+python3 scripts/build_offline_dashboard.py
+```
+
+## C. Status freeze
+
+| Hal | Nilai |
+|---|---|
+| Tenggat menurut tugas | 4 November 2026, 12:00 WIB |
+| Commit pembekuan dibuat | belum tercatat |
+| Commit hash pembekuan | `belum tercatat` |
+| Ref/tag yang dipakai config | belum tercatat |
+| HEAD saat laporan dibuat | `belum ada repo git` |
+| Tag | belum ada |
+| Status | **TERLAMBAT** (pekerjaan dimulai 8 November 2026) |
+
+Tidak ada backdate. Commit memakai waktu sebenarnya. Konsekuensi: proyek tidak dapat diklaim dibekukan tepat waktu, dan forward test baru dimulai setelah freeze. Rincian bukti ada di `docs/FREEZE.md` dan `docs/FREEZE_MANIFEST.json`.
+
+## D. Status forward test
+
+**Belum dimulai.** Tidak ada tick forward yang tercatat saat laporan ini dibuat. Tanggal mulai akan diisi otomatis oleh tick pertama; tidak boleh diisi manual.
+
+Rencana: jalankan `python3 scripts/forward_loop.py --days 10 --offset-seconds 90` atau aktifkan GitHub Actions setelah deploy. Log tetap tersimpan bila laptop mati di tengah jalan; gap akan dihitung, bukan ditutup.
+
+## E. Status deployment
+
+**Belum dideploy.** Kode dan konfigurasi sudah siap, tetapi deployment memerlukan akun GitHub/Vercel milik mahasiswa dan database Upstash. Tidak ada kredensial di proyek ini, dan status tidak diklaim sebelum benar-benar berhasil.
+
+Yang sudah siap: `vercel.json`, `api/*.py`, `public/index.html`, `.github/workflows/tick.yml`, `.env.example`.
+
+Langkah manual ada di `docs/DEPLOYMENT.md` dan bagian G di bawah.
+
+## F. Checklist ketentuan UAS
+
+| Ketentuan | Status | Bukti / catatan |
+|---|---|---|
+| 3–10 pair IDR likuid | **Terpenuhi** (6 pair) | `config/strategy.json`, `data/universe.json` |
+| Long-only, tanpa margin/leverage | **Terpenuhi** | `core/strategy.py`; tidak ada kode short |
+| Tanpa API key, API publik Indodax | **Terpenuhi** | `core/exchange.py`; hanya endpoint publik |
+| Timeframe 4 jam / 1 jam / harian | **Terpenuhi** (4 jam) | `config/strategy.json` |
+| Backtest minimal 3 tahun | **Terpenuhi** (4.00 tahun) | `data/backtest_results.json` |
+| Fee, spread, slippage diukur | **Terpenuhi** | `data/costs.json`, snapshot 366 baris |
+| Dry-run pada bid/ask | **Terpenuhi** (kode + tick lokal) | `core/bot.py`, `data/local/orders.jsonl` |
+| Penjadwal otomatis | **Siap, belum aktif** | `.github/workflows/tick.yml`, `vercel.json` |
+| Penyimpanan persisten | **Siap** (lokal JSONL / Upstash) | `core/storage.py`; Vercel fail loud tanpa Upstash |
+| Log lengkap | **Terpenuhi** (format JSONL) | `data/local/*.jsonl`; `api/export.py` |
+| Manajemen risiko | **Terpenuhi** | max 5 posisi, 20%, ADV 5%, min order, daily loss, kill switch |
+| Deploy Vercel | **Belum** | butuh akun mahasiswa; lihat E/G |
+| Dashboard HTML offline | **Terpenuhi** | `public/offline_dashboard.html` |
+| Skrip hitung ulang | **Terpenuhi** | `scripts/recompute.py`, `scripts/gap_analysis.py` |
+| `.env.example`, tanpa secret | **Terpenuhi** | `.env.example`, `.gitignore` |
+| Freeze tepat waktu | **TIDAK** (terlambat 4 hari) | `docs/FREEZE.md` |
+| Forward test 10 hari | **Belum selesai** | lihat D |
+
+## G. Yang harus saya lakukan
+
+Urutkan dari yang paling penting. Semua langkah memakai akun sendiri.
+
+1. **Periksa dan setujui dokumen.** Baca `docs/PERNYATAAN_AI.md`, `docs/REFLEKSI.md`, dan laporan ini. Ubah bagian yang tidak sesuai. Jangan menandatangani pernyataan yang tidak dipahami.
+2. **Buat repo GitHub** dan push kode (bagian 1–2 `docs/DEPLOYMENT.md`). Gunakan Personal Access Token, bukan password akun.
+3. **Buat Upstash Redis** dari Vercel Marketplace dan hubungkan ke proyek. Pastikan nama variabel `UPSTASH_REDIS_REST_URL` dan `UPSTASH_REDIS_REST_TOKEN`.
+4. **Deploy ke Vercel**, isi `CRON_SECRET`, lalu uji `/api/health`, `/api/tick`, `/api/dashboard` (bagian 4–5 `docs/DEPLOYMENT.md`).
+5. **Aktifkan GitHub Actions**: isi secrets dan variable `VERCEL_URL`, lalu jalankan workflow sekali secara manual (bagian 6).
+6. **Perbarui `data/project_status.json`** hanya setelah deploy benar-benar berhasil, lalu commit. Dashboard akan membaca status itu.
+7. **Jalankan forward test minimal 10 hari.** Laptop harus menyala bila memakai loop lokal, atau biarkan GitHub Actions berjalan. Jangan mengubah parameter di tengah jalan.
+8. **Hitung ulang dan ekspor bukti** setelah forward test: `python3 scripts/recompute.py --source local` atau `--source url`, lalu `python3 scripts/gap_analysis.py`, lalu `python3 scripts/build_offline_dashboard.py` dan `python3 scripts/build_report.py`.
+9. **Kumpulkan** repo GitHub, URL Vercel, dashboard offline, laporan ini, dan `docs/FREEZE.md`. Sebutkan terus terang bahwa freeze terlambat dan forward test belum 10 hari bila memang demikian.
+
+Hal yang **jangan** dilakukan: memalsukan tanggal commit, mengisi log yang hilang, mengubah hasil backtest dengan tangan, atau mengklaim deployment yang belum terjadi.
+
+---
+
+Dokumen pendukung: `README.md`, `docs/METHODOLOGY.md`, `docs/FREEZE.md`, `docs/FORWARD_TEST.md`, `docs/DEPLOYMENT.md`, `docs/PERNYATAAN_AI.md`, `docs/REFLEKSI.md`, `data/README.md`.

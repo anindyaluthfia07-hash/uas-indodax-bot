@@ -1,0 +1,106 @@
+{
+ "version": "1.0.0",
+ "status": "FROZEN",
+ "strategy_name": "Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)",
+ "timeframe": "240",
+ "timeframe_minutes": 240,
+ "timeframe_seconds": 14400,
+ "capital_idr": 100000000,
+ "max_positions": 5,
+ "position_fraction": 0.2,
+ "max_participation_adv": 0.05,
+ "adv_bars": 20,
+ "min_order_idr": 25000,
+ "max_spread_pct": 0.02,
+ "max_candle_age_multiple": 2,
+ "daily_loss_limit_pct": -0.03,
+ "params": {
+  "lookback": 40,
+  "fast_ema": 20,
+  "trend_ema": 100,
+  "atr_period": 14,
+  "atr_mult": 3.0,
+  "time_stop_bars": 3,
+  "time_stop_loss_pct": -0.02
+ },
+ "fees": {
+  "buy_pct": 0.0020555,
+  "sell_pct": 0.0041555,
+  "basis": "taker all-in (service fee + tax + CFX), IDR Market PRO, berlaku efektif 1 Oktober 2026",
+  "api_pairs_taker_pct": 0.002,
+  "official_buy_taker_pct": 0.0020555,
+  "official_sell_taker_pct": 0.0041555,
+  "used": "nilai tertinggi dari /api/pairs dan halaman resmi",
+  "sources": [
+   {
+    "url": "https://indodax.com/api/pairs",
+    "accessed_at": "2026-11-08",
+    "value": "trade_fee_percent_taker = 0.2% (belum termasuk komponen pajak/CFX)"
+   },
+   {
+    "url": "https://help.indodax.com/hc/id/articles/4416646599705-Rincian-Biaya-Transaksi-di-INDODAX",
+    "accessed_at": "2026-11-08",
+    "value": "IDR Market PRO Taker: BUY 0.20555%, SELL 0.41555% all-in"
+   }
+  ]
+ },
+ "minimum_order": {
+  "api_pairs_idr": 10000,
+  "official_pro_idr": 25000,
+  "used_idr": 25000,
+  "basis": "ketentuan lebih ketat: order langsung di mode Pro minimal Rp25.000"
+ },
+ "universe": [
+  "btcidr",
+  "dogeidr",
+  "ethidr",
+  "xrpidr",
+  "bnbidr",
+  "trxidr"
+ ],
+ "backtest": {
+  "start": "2022-11-08",
+  "end": "2026-11-08",
+  "warmup_start": "2022-08-01",
+  "min_years": 3.0,
+  "liquidity_window_days": 60,
+  "universe_size": 6,
+  "exclude_pairs": [
+   "usdtidr",
+   "usdcidr",
+   "daiidr"
+  ],
+  "exclude_reason": "Stablecoin IDR bukan kandidat trend following karena harganya dipatok dan tidak menghasilkan tren arah; likuiditasnya besar tetapi bukan peluang strategi ini.",
+  "criteria": "Pair IDR yang sudah memiliki candle pada awal periode, coverage data >=95% pada 60 hari pertama, dan median nilai transaksi harian (close x volume) tertinggi pada 60 hari pertama. Likuiditas diukur pada awal backtest, bukan pada hari ini."
+ },
+ "costs_file": "data/costs.json",
+ "benchmark_pair": "btcidr",
+ "scheduler": {
+  "primary": "GitHub Actions schedule menit ke-7 setiap 4 jam",
+  "backup": "Vercel Cron harian 00:07 UTC (07:07 WIB)",
+  "note": "Vercel Hobby hanya mendukung cron harian; timeframe 4 jam memerlukan penjadwal eksternal."
+ },
+ "risk": {
+  "max_open_positions": 5,
+  "max_position_fraction": 0.2,
+  "daily_loss_limit_pct": -0.03,
+  "kill_switch_env": "KILL_SWITCH",
+  "kill_switch_storage_key": "kill_switch",
+  "max_retries": 3,
+  "retry_base_seconds": 1.0
+ },
+ "data_validation": {
+  "max_spread_pct": 0.02,
+  "stale_candle_multiple": 2,
+  "require_contiguous_candles": true,
+  "reject_zero_price_or_volume": true,
+  "reject_empty_orderbook": true
+ },
+ "frozen_at": "2026-11-09T00:35:31Z",
+ "freeze_commit": "freeze-2026-11-09",
+ "forward_test_start": null,
+ "search": {
+  "min_trades": 30,
+  "plateau_note": "Parameter dipilih dari in-sample 70% awal memakai rata-rata Calmar parameter dan tetangga; OOS tidak dipakai memilih."
+ }
+}

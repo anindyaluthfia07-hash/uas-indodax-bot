@@ -1,0 +1,115 @@
+#!/usr/bin/env python3
+"""Loop forward test lokal.
+
+Menjalankan tick pada setiap candle 4 jam ditutup (default: 90 detik setelah
+close) selama durasi yang diminta. Untuk produksi, gunakan GitHub Actions +
+Vercel cron; loop ini untuk laptop yang harus tetap menyala.
+
+Contoh 10 hari:
+  python3 scripts/forward_loop.py --days 10 --offset-seconds 90
+
+Satu tick sekarang lalu keluar:
+  python3 scripts/forward_loop.py --once
+"""
+import argparse
+import json
+import os
+import sys
+import time
+from datetime import datetime, timedelta, timezone
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, ROOT)
+
+from core.bot import run_tick
+from core.config import load_strategy, iso_utc, utc_now
+from core.storage import get_storage
+
+
+def log_line(msg):
+    line = "%s %s" % (iso_utc(), msg)
+    print(line, flush=True)
+    try:
+        path = os.path.join(ROOT, "data", "local", "forward_loop.log")
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+    except Exception:
+        pass
+
+
+def next_candle_tick(now, tf_seconds, offset):
+    epoch = int(now.timestamp())
+    boundary = (epoch // tf_seconds + 1) * tf_seconds
+    return datetime.fromtimestamp(boundary + offset, timezone.utc)
+
+
+def sleep_until(target_ts, stop_at):
+    while True:
+        now = time.time()
+        left = min(target_ts - now, stop_at - now)
+        if left <= 0:
+            return
+        if now >= stop_at:
+            return
+        time.sleep(min(30.0, left))
+
+
+def main():
+    ap = argparse.ArgumentParser(description="Forward test loop lokal")
+    ap.add_argument("--once", action="store_true", help="jalankan satu tick lalu keluar")
+    ap.add_argument("--days", type=float, default=10.0, help="durasi total (default 10 hari)")
+    ap.add_argument("--offset-seconds", type=int, default=90,
+                    help="tunggu berapa detik setelah candle close (default 90)")
+    ap.add_argument("--no-snapshots", action="store_true")
+    a = ap.parse_args()
+
+    cfg = load_strategy()
+    tf = int(cfg["timeframe_seconds"])
+    storage = get_storage()
+    log_line("loop mulai storage=%s timeframe=%ss target=%.2f hari offset=%ss" % (
+        storage.name, tf, a.days, a.offset_seconds))
+
+    if a.once:
+        summary = run_tick(storage, trigger="forward_loop_once",
+                           save_snapshots=not a.no_snapshots)
+        log_line("tick status=%s equity=%s orders=%s" % (
+            summary.get("status"), summary.get("equity"), summary.get("orders")))
+        return 0 if summary.get("status") == "ok" else 1
+
+    started = utc_now()
+    stop_at = started.timestamp() + a.days * 86400.0
+    n = 0
+    while True:
+        now = utc_now()
+        if now.timestamp() >= stop_at:
+            break
+        target = next_candle_tick(now, tf, a.offset_seconds)
+        if target.timestamp() >= stop_at:
+            break
+        log_line("menunggu candle berikutnya: %s" % iso_utc(target))
+        sleep_until(target.timestamp(), stop_at)
+        if time.time() >= stop_at:
+            break
+        n += 1
+        summary = run_tick(storage, trigger="forward_loop",
+                           save_snapshots=not a.no_snapshots)
+        log_line("tick %d status=%s equity=%s posisi=%s order=%s error=%s" % (
+            n, summary.get("status"), summary.get("equity"),
+            summary.get("positions"), summary.get("orders"), summary.get("errors")))
+        if summary.get("status") == "locked":
+            # beri kesempatan tick lain selesai, lalu coba sekali lagi
+            time.sleep(120)
+            summary = run_tick(storage, trigger="forward_loop_retry",
+                               save_snapshots=not a.no_snapshots)
+            log_line("retry status=%s equity=%s" % (summary.get("status"), summary.get("equity")))
+    log_line("loop selesai: %d tick" % n)
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except KeyboardInterrupt:
+        print("\nDihentikan oleh pengguna. Log tetap tersimpan.")
+        sys.exit(130)

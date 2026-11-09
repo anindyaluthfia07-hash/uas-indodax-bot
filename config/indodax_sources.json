@@ -1,0 +1,22 @@
+{
+  "accessed_at": "2026-11-08",
+  "server_time_url": "https://indodax.com/api/server_time",
+  "pairs_url": "https://indodax.com/api/pairs",
+  "price_increments_url": "https://indodax.com/api/price_increments",
+  "ticker_all_url": "https://indodax.com/api/ticker_all",
+  "depth_url_template": "https://indodax.com/api/depth/{pair}",
+  "history_url_template": "https://indodax.com/tradingview/history_v2?symbol={SYMBOL}&tf={tf}&from={from}&to={to}",
+  "rate_limit_notes": "Batas publik 180 request/menit. Downloader memakai maksimal 2.5 request/detik secara sekuensial (bukan paralel).",
+  "history_note": "history_v2 mengembalikan bar terakhir sebelum to, bukan seluruh rentang from..to. Downloader bergerak mundur dengan menggeser to ke bar paling awal yang sudah didapat.",
+  "fee_evidence": {
+    "official_article_url": "https://help.indodax.com/hc/id/articles/4416646599705-Rincian-Biaya-Transaksi-di-INDODAX",
+    "official_article_updated_at": "2026-11-08T10:36:21Z",
+    "official_fee_image": "docs/evidence/indodax_fee_table_2026-11-08.png",
+    "official_fee_ocr": {
+      "idr_market_pro_buy_taker_all_in_pct": 0.20555,
+      "idr_market_pro_sell_taker_all_in_pct": 0.41555,
+      "idr_market_pro_buy_maker_all_in_pct": 0.10555,
+      "idr_market_pro_sell_maker_all_in_pct": 0.31555
+    }
+  }
+}

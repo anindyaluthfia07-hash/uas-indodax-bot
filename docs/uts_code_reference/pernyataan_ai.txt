@@ -1,0 +1,10 @@
+PERNYATAAN KEASLIAN DAN PENGGUNAAN AI
+
+Nama: Anindya Rahma Luthfia
+
+1. Alat AI: Claude (Anthropic) dan Gemini (Google).
+2. Bagian yang dibantu AI: kerangka kode backtest (Python), simulasi Monte Carlo dan sapuan biaya, tampilan dashboard HTML, serta pemeriksaan dan perbaikan teks dokumentasi pada tahap revisi (Claude).
+3. Bagian yang saya putuskan sendiri: pemilihan universe Kompas100, aturan strategi (breakout + EMA, stop-loss -2% mulai bar ke-3, 5 posisi 20%), pengunduhan data, tanggal pembekuan, dan penafsiran hasil.
+4. Referensi konsep: Donchian breakout, EMA trend following, ATR trailing stop, bootstrap Monte Carlo.
+
+Saya menyatakan pekerjaan ini adalah karya saya sendiri dengan bantuan alat yang disebutkan di atas dan bukan salinan pihak lain. Saya dapat menjelaskan setiap aturan dan setiap angka.

@@ -1,0 +1,3 @@
+numpy
+pandas
+yfinance   # hanya untuk download_data.py; tidak perlu jika memakai CSV sendiri

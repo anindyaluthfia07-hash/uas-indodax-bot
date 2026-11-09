@@ -1,0 +1,13 @@
+REFLEKSI
+
+1. Apa yang saya pelajari dari hasil backtest?
+CAGR 45% sesudah biaya tampak bagus, tetapi setelah diperiksa hampir seluruh laba berasal dari dua trade (BUVA dan WIFI, 2025). Tanpa 5 trade terbaik strategi rugi, dan tahun 2025 saja memberi return +435%. Artinya angka CAGR tinggi belum berarti strategi tangguh; yang perlu dilihat adalah dari mana labanya datang.
+
+2. Apa kelemahan utama strategi ini?
+Strategi sangat rentan biaya, terutama spread. Win ratio hanya 20%: 370 dari 496 trade adalah rugi kecil yang dipotong stop-loss -2%, dan tiap trade membayar fee dan spread. Fee 2x masih memberi CAGR 39%, tetapi spread 2 fraksi menurunkannya ke 17%, dan biaya 3x membuat hasilnya negatif. Uji ulang dosen pada data lain memberi CAGR 26,6% dan hanya 6,7% pada biaya 2x, sesuai dengan kerapuhan ini.
+
+3. Apa yang saya ubah dan mengapa?
+Saya menghapus klaim yang tidak didukung kode (filter volume, "tidak overfitting", "tidak bergantung pada 1-2 trade"), menjelaskan bahwa "Time Stop" sebenarnya stop-loss -2% mulai bar ke-3, menambahkan sapuan biaya dan bagian Keterbatasan, dan mengakui bahwa forward test dijalankan retrospektif (data diunduh 16 Oktober 2026, setelah tanggal pembekuan 1 September 2026) dan hanya 34 hari bursa.
+
+4. Apakah strategi ini layak dipakai?
+Belum. Sebelum dipertimbangkan, perlu: uji pada data yang tidak pernah saya lihat, paper trading yang dicatat harian selama beberapa bulan, pembatasan pada saham dengan spread kecil, dan batas kontribusi per trade. Survivorship bias dan harga yang sudah disesuaikan dividen juga membuat hasil backtest ini cenderung terlalu optimistis.
