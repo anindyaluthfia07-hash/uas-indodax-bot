@@ -2,7 +2,7 @@
  "meta": {
   "student": "Anindya Rahma Luthfia",
   "nim": "25110200036",
-  "generated_at": "2026-11-11T03:54:09Z",
+  "generated_at": "2026-11-11T04:03:00Z",
   "storage": "local",
   "strategy": "Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)",
   "timeframe": "240",
@@ -17109,8 +17109,8 @@
  },
  "forward": {
   "start": "2026-11-09T00:35:58Z",
-  "end": "2026-11-11T03:54:09Z",
-  "duration_days": 2.137638615521568,
+  "end": "2026-11-11T04:03:00Z",
+  "duration_days": 2.14377403765089,
   "metrics": {
    "initial_capital": 100000000.0,
    "final_equity": 100000000.0,
@@ -17139,9 +17139,9 @@
    "slippage_cost_idr": 0,
    "total_cost_idr": 0,
    "cost_share_of_gross_profit": null,
-   "years": 0.005501305549217938,
+   "years": 0.005866479073186807,
    "start": "2026-11-09T00:35:58Z",
-   "end": 1794358166,
+   "end": 1794369690,
    "cagr_note": "CAGR tidak dihitung untuk periode forward test pendek"
   },
   "equity": [
@@ -17172,258 +17172,16 @@
    {
     "t": 1794358166,
     "equity": 100000000.0
+   },
+   {
+    "t": 1794369690,
+    "equity": 100000000.0
    }
   ],
   "trades": [],
   "open_positions": [],
   "orders": [],
   "decisions": [
-   {
-    "at": "2026-11-09T04:01:35Z",
-    "processed_at": "2026-11-09T04:01:35Z",
-    "processed_at_epoch": 1794196895,
-    "tick_id": "tick_20261109T040130Z_c5d135",
-    "pair": "btcidr",
-    "action": "skip",
-    "processed": true,
-    "exit_reason": null,
-    "signal": {
-     "time": 1794182400,
-     "close": 1355001000.0,
-     "donchian_high": 1468996000.0,
-     "ema_fast": 1375156865.847425,
-     "ema_trend": 1417411585.9030132,
-     "atr": 12434565.832195885,
-     "adv20_idr": 4303665851.858232,
-     "entry_signal": false
-    },
-    "entry_components": {
-     "breakout": false,
-     "above_trend_ema": false,
-     "fast_above_trend": false,
-     "volume_positive": true,
-     "adv_positive": true
-    },
-    "reason": "tidak ada sinyal",
-    "data_valid": true,
-    "validation_reasons": [],
-    "best_bid": 1353779000.0,
-    "best_ask": 1353780000.0,
-    "spread_pct": 7.386727306773371e-07,
-    "equity": 100000000.0,
-    "cash": 100000000.0,
-    "positions": 0,
-    "candle_time": 1794182400,
-    "candle_time_iso": "2026-11-09T00:00:00Z",
-    "candle_close": 1355001000.0,
-    "warmup_bars": 100,
-    "bars_fetched": 900
-   },
-   {
-    "at": "2026-11-09T04:01:35Z",
-    "processed_at": "2026-11-09T04:01:35Z",
-    "processed_at_epoch": 1794196895,
-    "tick_id": "tick_20261109T040130Z_c5d135",
-    "pair": "dogeidr",
-    "action": "skip",
-    "processed": true,
-    "exit_reason": null,
-    "signal": {
-     "time": 1794182400,
-     "close": 1258.0,
-     "donchian_high": 1415.0,
-     "ema_fast": 1296.2016279910217,
-     "ema_trend": 1366.11771310918,
-     "atr": 19.96253109776322,
-     "adv20_idr": 233981872.8517696,
-     "entry_signal": false
-    },
-    "entry_components": {
-     "breakout": false,
-     "above_trend_ema": false,
-     "fast_above_trend": false,
-     "volume_positive": true,
-     "adv_positive": true
-    },
-    "reason": "tidak ada sinyal",
-    "data_valid": true,
-    "validation_reasons": [],
-    "best_bid": 1258.0,
-    "best_ask": 1259.0,
-    "spread_pct": 0.0007945967421533572,
-    "equity": 100000000.0,
-    "cash": 100000000.0,
-    "positions": 0,
-    "candle_time": 1794182400,
-    "candle_time_iso": "2026-11-09T00:00:00Z",
-    "candle_close": 1258.0,
-    "warmup_bars": 100,
-    "bars_fetched": 900
-   },
-   {
-    "at": "2026-11-09T04:01:35Z",
-    "processed_at": "2026-11-09T04:01:35Z",
-    "processed_at_epoch": 1794196895,
-    "tick_id": "tick_20261109T040130Z_c5d135",
-    "pair": "ethidr",
-    "action": "skip",
-    "processed": true,
-    "exit_reason": null,
-    "signal": {
-     "time": 1794182400,
-     "close": 38706000.0,
-     "donchian_high": 44291000.0,
-     "ema_fast": 40341951.869636975,
-     "ema_trend": 41655974.23492545,
-     "atr": 551301.4697953089,
-     "adv20_idr": 1316860394.4310708,
-     "entry_signal": false
-    },
-    "entry_components": {
-     "breakout": false,
-     "above_trend_ema": false,
-     "fast_above_trend": false,
-     "volume_positive": true,
-     "adv_positive": true
-    },
-    "reason": "tidak ada sinyal",
-    "data_valid": true,
-    "validation_reasons": [],
-    "best_bid": 38705000.0,
-    "best_ask": 38724000.0,
-    "spread_pct": 0.0004907721912978341,
-    "equity": 100000000.0,
-    "cash": 100000000.0,
-    "positions": 0,
-    "candle_time": 1794182400,
-    "candle_time_iso": "2026-11-09T00:00:00Z",
-    "candle_close": 38706000.0,
-    "warmup_bars": 100,
-    "bars_fetched": 900
-   },
-   {
-    "at": "2026-11-09T04:01:35Z",
-    "processed_at": "2026-11-09T04:01:35Z",
-    "processed_at_epoch": 1794196895,
-    "tick_id": "tick_20261109T040130Z_c5d135",
-    "pair": "xrpidr",
-    "action": "skip",
-    "processed": true,
-    "exit_reason": null,
-    "signal": {
-     "time": 1794182400,
-     "close": 20102.0,
-     "donchian_high": 24245.0,
-     "ema_fast": 21204.129705276257,
-     "ema_trend": 22638.492782326255,
-     "atr": 367.18599234617164,
-     "adv20_idr": 1781764626.035579,
-     "entry_signal": false
-    },
-    "entry_components": {
-     "breakout": false,
-     "above_trend_ema": false,
-     "fast_above_trend": false,
-     "volume_positive": true,
-     "adv_positive": true
-    },
-    "reason": "tidak ada sinyal",
-    "data_valid": true,
-    "validation_reasons": [],
-    "best_bid": 20106.0,
-    "best_ask": 20128.0,
-    "spread_pct": 0.0010936024258090173,
-    "equity": 100000000.0,
-    "cash": 100000000.0,
-    "positions": 0,
-    "candle_time": 1794182400,
-    "candle_time_iso": "2026-11-09T00:00:00Z",
-    "candle_close": 20102.0,
-    "warmup_bars": 100,
-    "bars_fetched": 900
-   },
-   {
-    "at": "2026-11-09T04:01:35Z",
-    "processed_at": "2026-11-09T04:01:35Z",
-    "processed_at_epoch": 1794196895,
-    "tick_id": "tick_20261109T040130Z_c5d135",
-    "pair": "bnbidr",
-    "action": "skip",
-    "processed": true,
-    "exit_reason": null,
-    "signal": {
-     "time": 1794182400,
-     "close": 12403989.0,
-     "donchian_high": 13110300.0,
-     "ema_fast": 12571035.220191138,
-     "ema_trend": 12879293.297861543,
-     "atr": 141129.96518705183,
-     "adv20_idr": 89156766.66025676,
-     "entry_signal": false
-    },
-    "entry_components": {
-     "breakout": false,
-     "above_trend_ema": false,
-     "fast_above_trend": false,
-     "volume_positive": true,
-     "adv_positive": true
-    },
-    "reason": "tidak ada sinyal",
-    "data_valid": true,
-    "validation_reasons": [],
-    "best_bid": 12403468.0,
-    "best_ask": 12469610.0,
-    "spread_pct": 0.005318360678963818,
-    "equity": 100000000.0,
-    "cash": 100000000.0,
-    "positions": 0,
-    "candle_time": 1794182400,
-    "candle_time_iso": "2026-11-09T00:00:00Z",
-    "candle_close": 12403989.0,
-    "warmup_bars": 100,
-    "bars_fetched": 900
-   },
-   {
-    "at": "2026-11-09T04:01:35Z",
-    "processed_at": "2026-11-09T04:01:35Z",
-    "processed_at_epoch": 1794196895,
-    "tick_id": "tick_20261109T040130Z_c5d135",
-    "pair": "trxidr",
-    "action": "skip",
-    "processed": true,
-    "exit_reason": null,
-    "signal": {
-     "time": 1794182400,
-     "close": 5775.0,
-     "donchian_high": 5903.0,
-     "ema_fast": 5780.7688692164875,
-     "ema_trend": 5852.8483818341765,
-     "atr": 41.74910378622488,
-     "adv20_idr": 24034640.702338956,
-     "entry_signal": false
-    },
-    "entry_components": {
-     "breakout": false,
-     "above_trend_ema": false,
-     "fast_above_trend": false,
-     "volume_positive": true,
-     "adv_positive": true
-    },
-    "reason": "tidak ada sinyal",
-    "data_valid": true,
-    "validation_reasons": [],
-    "best_bid": 5752.0,
-    "best_ask": 5775.0,
-    "spread_pct": 0.003990630693155201,
-    "equity": 100000000.0,
-    "cash": 100000000.0,
-    "positions": 0,
-    "candle_time": 1794182400,
-    "candle_time_iso": "2026-11-09T00:00:00Z",
-    "candle_close": 5775.0,
-    "warmup_bars": 100,
-    "bars_fetched": 900
-   },
    {
     "at": "2026-11-10T04:01:35Z",
     "processed_at": "2026-11-10T04:01:35Z",
@@ -18407,6 +18165,252 @@
     "candle_close": 5774.0,
     "warmup_bars": 100,
     "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-11T04:01:35Z",
+    "processed_at": "2026-11-11T04:01:35Z",
+    "processed_at_epoch": 1794369695,
+    "tick_id": "tick_20261111T040130Z_af047c",
+    "pair": "btcidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794355200,
+     "close": 1334113000.0,
+     "donchian_high": 1468996000.0,
+     "ema_fast": 1351133424.650185,
+     "ema_trend": 1401487061.0044074,
+     "atr": 14952374.731449697,
+     "adv20_idr": 4320882967.371807,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 1334111000.0,
+    "best_ask": 1334999000.0,
+    "spread_pct": 0.0006653903361045442,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794355200,
+    "candle_time_iso": "2026-11-11T00:00:00Z",
+    "candle_close": 1334113000.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-11T04:01:35Z",
+    "processed_at": "2026-11-11T04:01:35Z",
+    "processed_at_epoch": 1794369695,
+    "tick_id": "tick_20261111T040130Z_af047c",
+    "pair": "dogeidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794355200,
+     "close": 1239.0,
+     "donchian_high": 1415.0,
+     "ema_fast": 1259.8598588816078,
+     "ema_trend": 1340.7194862670365,
+     "atr": 21.314979858759745,
+     "adv20_idr": 311307478.9710167,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 1238.0,
+    "best_ask": 1239.0,
+    "spread_pct": 0.0008074283407347598,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794355200,
+    "candle_time_iso": "2026-11-11T00:00:00Z",
+    "candle_close": 1239.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-11T04:01:35Z",
+    "processed_at": "2026-11-11T04:01:35Z",
+    "processed_at_epoch": 1794369695,
+    "tick_id": "tick_20261111T040130Z_af047c",
+    "pair": "ethidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794355200,
+     "close": 37280000.0,
+     "donchian_high": 44291000.0,
+     "ema_fast": 38477925.84733066,
+     "ema_trend": 40835698.17944723,
+     "atr": 603839.1637649216,
+     "adv20_idr": 1176673974.1064327,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 37303000.0,
+    "best_ask": 37363000.0,
+    "spread_pct": 0.0016071572067607746,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794355200,
+    "candle_time_iso": "2026-11-11T00:00:00Z",
+    "candle_close": 37280000.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-11T04:01:35Z",
+    "processed_at": "2026-11-11T04:01:35Z",
+    "processed_at_epoch": 1794369695,
+    "tick_id": "tick_20261111T040130Z_af047c",
+    "pair": "xrpidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794355200,
+     "close": 19140.0,
+     "donchian_high": 24245.0,
+     "ema_fast": 19964.87920776059,
+     "ema_trend": 21969.70488303102,
+     "atr": 414.380831425184,
+     "adv20_idr": 1719077735.5745652,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 19130.0,
+    "best_ask": 19147.0,
+    "spread_pct": 0.0008882618805026517,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794355200,
+    "candle_time_iso": "2026-11-11T00:00:00Z",
+    "candle_close": 19140.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-11T04:01:35Z",
+    "processed_at": "2026-11-11T04:01:35Z",
+    "processed_at_epoch": 1794369695,
+    "tick_id": "tick_20261111T040130Z_af047c",
+    "pair": "bnbidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794355200,
+     "close": 12378196.0,
+     "donchian_high": 13110300.0,
+     "ema_fast": 12419163.753770104,
+     "ema_trend": 12768821.289966188,
+     "atr": 150060.4023134437,
+     "adv20_idr": 86287487.38626508,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 12305441.0,
+    "best_ask": 12378196.0,
+    "spread_pct": 0.005894998374834308,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794355200,
+    "candle_time_iso": "2026-11-11T00:00:00Z",
+    "candle_close": 12378196.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-11T04:01:35Z",
+    "processed_at": "2026-11-11T04:01:35Z",
+    "processed_at_epoch": 1794369695,
+    "tick_id": "tick_20261111T040130Z_af047c",
+    "pair": "trxidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794355200,
+     "close": 5764.0,
+     "donchian_high": 6000.0,
+     "ema_fast": 5767.077953867599,
+     "ema_trend": 5832.541265192583,
+     "atr": 67.98766890908118,
+     "adv20_idr": 21228210.184023075,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 5738.0,
+    "best_ask": 5764.0,
+    "spread_pct": 0.0045209528777603895,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794355200,
+    "candle_time_iso": "2026-11-11T00:00:00Z",
+    "candle_close": 5764.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
    }
   ],
   "errors": [
@@ -18631,10 +18635,10 @@
    }
   ],
   "uptime": {
-   "expected": 72,
-   "on_time": 30,
-   "uptime": 0.4166666666666667,
-   "processed_candles": 36,
+   "expected": 78,
+   "on_time": 36,
+   "uptime": 0.46153846153846156,
+   "processed_candles": 42,
    "pairs": [
     "bnbidr",
     "btcidr",
@@ -18691,6 +18695,10 @@
     {
      "candle_time": 1794340800,
      "on_time": false
+    },
+    {
+     "candle_time": 1794355200,
+     "on_time": false
     }
    ],
    "definition": "candle per pair dihitung tepat waktu bila diproses setelah candle tutup (open+tf) dan sebelum candle berikutnya tutup (open+2*tf)"
@@ -18700,8 +18708,8 @@
   "state": {
    "cash": 100000000.0,
    "equity": 100000000.0,
-   "tick_count": 7,
-   "last_tick": "2026-11-11T00:49:26Z",
+   "tick_count": 8,
+   "last_tick": "2026-11-11T04:01:30Z",
    "daily_loss_blocked": false,
    "day_start_equity": 100000000.0,
    "day_date_wib": "2026-11-11"
@@ -18730,22 +18738,34 @@
    }
   ],
   "snapshots": {
-   "count": 42,
+   "count": 48,
    "last": {
-    "ts": 1794361055,
-    "at_utc": "2026-11-11T01:37:35Z",
+    "ts": 1794369695,
+    "at_utc": "2026-11-11T04:01:35Z",
     "pair": "trxidr",
-    "bid": 5735.0,
+    "bid": 5738.0,
     "ask": 5764.0,
-    "spread_pct": 0.005043916862335855,
+    "spread_pct": 0.0045209528777603895,
     "bids": [
      [
-      5735.0,
-      38366.21098517
+      5738.0,
+      26941.48065528
      ],
      [
-      5734.0,
-      4068.32420648
+      5737.0,
+      603.43106153
+     ],
+     [
+      5736.0,
+      4053.0
+     ],
+     [
+      5735.0,
+      1.77376925
+     ],
+     [
+      5731.0,
+      17.41301692
      ],
      [
       5730.0,
@@ -18753,7 +18773,7 @@
      ],
      [
       5725.0,
-      3565.7611488
+      3631.02536714
      ],
      [
       5720.0,
@@ -18768,8 +18788,8 @@
       8.73241162
      ],
      [
-      5710.0,
-      6470.9578
+      5707.0,
+      3992.6833
      ],
      [
       5705.0,
@@ -18792,6 +18812,10 @@
       16.54898856
      ],
      [
+      5657.0,
+      303.0
+     ],
+     [
       5650.0,
       167.5858407
      ],
@@ -18802,44 +18826,28 @@
      [
       5626.0,
       200.0
-     ],
-     [
-      5625.0,
-      8.87057777
-     ],
-     [
-      5621.0,
-      17.79042875
-     ],
-     [
-      5620.0,
-      299.99964412
-     ],
-     [
-      5617.0,
-      5.0
      ]
     ],
     "asks": [
      [
       5764.0,
-      324.54944484
+      1763.27984042
      ],
      [
       5778.0,
       13.86965033
      ],
      [
-      5781.0,
-      1554.0
-     ],
-     [
       5782.0,
       62.45398557
      ],
      [
-      5787.0,
+      5784.0,
       19495.3311
+     ],
+     [
+      5804.0,
+      17.3013439
      ],
      [
       5999.0,
@@ -18847,7 +18855,7 @@
      ],
      [
       6000.0,
-      29260.18710194
+      29272.68710194
      ],
      [
       6010.0,
@@ -18903,25 +18911,25 @@
      ]
     ],
     "target_notional_idr": 20000000.0,
-    "est_fill_vwap_buy": 5782.020023051503,
+    "est_fill_vwap_buy": 5773.759163430329,
     "est_complete": true,
-    "tick_id": "tick_20261111T004926Z_db6c1b"
+    "tick_id": "tick_20261111T040130Z_af047c"
    }
   }
  },
  "gap": {
-  "generated_at": "2026-11-11T03:54:09Z",
+  "generated_at": "2026-11-11T04:02:59Z",
   "forward_start": "2026-11-09T00:35:58Z",
-  "forward_end": "2026-11-11T00:49:26Z",
+  "forward_end": "2026-11-11T04:01:30Z",
   "timeframe_seconds": 14400,
-  "duration_hours": 48.224444444444444,
-  "expected_candles": 12,
+  "duration_hours": 51.425555555555555,
+  "expected_candles": 13,
   "pairs_expected": 6,
   "per_pair": {
    "btcidr": {
-    "expected": 12,
-    "on_time": 5,
-    "uptime": 0.4166666666666667,
+    "expected": 13,
+    "on_time": 6,
+    "uptime": 0.46153846153846156,
     "missing_count": 7,
     "late_count": 0,
     "duplicate_actions": {},
@@ -18938,9 +18946,9 @@
     "late_sample": []
    },
    "dogeidr": {
-    "expected": 12,
-    "on_time": 5,
-    "uptime": 0.4166666666666667,
+    "expected": 13,
+    "on_time": 6,
+    "uptime": 0.46153846153846156,
     "missing_count": 7,
     "late_count": 0,
     "duplicate_actions": {},
@@ -18957,9 +18965,9 @@
     "late_sample": []
    },
    "ethidr": {
-    "expected": 12,
-    "on_time": 5,
-    "uptime": 0.4166666666666667,
+    "expected": 13,
+    "on_time": 6,
+    "uptime": 0.46153846153846156,
     "missing_count": 7,
     "late_count": 0,
     "duplicate_actions": {},
@@ -18976,9 +18984,9 @@
     "late_sample": []
    },
    "xrpidr": {
-    "expected": 12,
-    "on_time": 5,
-    "uptime": 0.4166666666666667,
+    "expected": 13,
+    "on_time": 6,
+    "uptime": 0.46153846153846156,
     "missing_count": 7,
     "late_count": 0,
     "duplicate_actions": {},
@@ -18995,9 +19003,9 @@
     "late_sample": []
    },
    "bnbidr": {
-    "expected": 12,
-    "on_time": 5,
-    "uptime": 0.4166666666666667,
+    "expected": 13,
+    "on_time": 6,
+    "uptime": 0.46153846153846156,
     "missing_count": 7,
     "late_count": 0,
     "duplicate_actions": {},
@@ -19014,9 +19022,9 @@
     "late_sample": []
    },
    "trxidr": {
-    "expected": 12,
-    "on_time": 5,
-    "uptime": 0.4166666666666667,
+    "expected": 13,
+    "on_time": 6,
+    "uptime": 0.46153846153846156,
     "missing_count": 7,
     "late_count": 0,
     "duplicate_actions": {},
@@ -19034,14 +19042,14 @@
    }
   },
   "overall": {
-   "uptime_mean": 0.4166666666666667
+   "uptime_mean": 0.46153846153846156
   },
   "scheduler": {
-   "expected_ticks": 12,
-   "hit": 8,
+   "expected_ticks": 13,
+   "hit": 9,
    "missing": 4,
    "late": 4,
-   "uptime": 0.6666666666666666,
+   "uptime": 0.6923076923076923,
    "missing_sample": [
     "2026-11-09T08:07:00Z",
     "2026-11-09T12:07:00Z",
@@ -19085,10 +19093,10 @@
  "costs_used": 366,
  "status": {
   "bot_active": true,
-  "last_tick": "2026-11-11T00:49:26Z",
+  "last_tick": "2026-11-11T04:01:30Z",
   "kill_switch": false,
   "daily_loss_blocked": false,
   "errors_total": 25,
-  "ticks_total": 13
+  "ticks_total": 14
  }
 }

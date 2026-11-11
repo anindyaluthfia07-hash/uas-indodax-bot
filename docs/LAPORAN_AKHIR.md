@@ -3,7 +3,7 @@
 **Nama:** Anindya Rahma Luthfia  
 **NIM:** 25110200036  
 **Mata kuliah:** Algoritma Trading  
-**Tanggal laporan:** 2026-11-11 10:54 WIB (2026-11-11T03:54:10Z)  
+**Tanggal laporan:** 2026-11-11 11:03 WIB (2026-11-11T04:03:00Z)  
 **Strategi:** Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)  
 **Timeframe:** 4 jam · **Universe:** 6 pair IDR · **Modal simulasi:** Rp100.000.000
 
@@ -143,7 +143,7 @@ python3 scripts/build_offline_dashboard.py
 | Commit pembekuan dibuat | 2026-11-09T00:35:31Z |
 | Commit hash pembekuan | `1bc81524f6babff24406b17593633f5a10cd336f` |
 | Ref/tag yang dipakai config | freeze-2026-11-09 |
-| HEAD saat laporan dibuat | `3e25fc518a9edbb52aebcb8f1a4b7e826c1e0a2d` |
+| HEAD saat laporan dibuat | `6063044106ee50b9dd7c086da3e8f2ab6aa8077f` |
 | Tag | freeze-2026-11-09 |
 | Status | **TERLAMBAT 4.8 hari** (commit aktual 2026-11-09T00:35:31Z; pekerjaan dimulai 8 November 2026) |
 
@@ -157,21 +157,21 @@ Manifest freeze: 90 file, dibuat 2026-11-09T00:35:37Z.
 |---|---|
 | Mulai | 2026-11-09T00:35:58Z |
 | Durasi aktual | 2.14 hari |
-| Jumlah tick | 7 |
-| Tick sukses / percobaan | 7 / 13 |
+| Jumlah tick | 8 |
+| Tick sukses / percobaan | 8 / 14 |
 | Error API tercatat | 25 baris (24 DNS, 1 lainnya) |
-| Candle hilang (per pair) | 7 dari 12 |
+| Candle hilang (per pair) | 7 dari 13 |
 | Trade tertutup | 0 |
 | Ekuitas terakhir | Rp100.000.000 |
 | Return | +0.00% |
 | Max drawdown | +0.00% |
-| Uptime candle (rata-rata pair) | 41.67% |
-| Uptime scheduler | 66.67% |
+| Uptime candle (rata-rata pair) | 46.15% |
+| Uptime scheduler | 69.23% |
 | Status hitung ulang | PASS |
 
 Pemeriksaan integritas:
 
-- [PASS] ada titik ekuitas — 7 titik
+- [PASS] ada titik ekuitas — 8 titik
 - [PASS] ada state forward — 2026-11-09T00:35:58Z
 - [PASS] final equity == metrik — equity=100000000.0
 - [PASS] net_pnl = gross - fee - spread - slippage — 0 trade diperiksa, 0 menyimpang
@@ -185,7 +185,7 @@ Pemeriksaan integritas:
 
 **Catatan jujur:** durasi belum mencapai 10 hari. Ini belum cukup untuk menyimpulkan strategi berhasil. Angka di atas hanya menunjukkan bot berjalan dan log konsisten.
 
-**Catatan kualitas:** 6 dari 13 tick gagal, terutama karena error jaringan (DNS/koneksi) saat laptop tidur atau Wi-Fi terputus. Bot pulih sendiri, tetapi candle yang terlewat tetap hilang dan **tidak** ditambal. Karena itu uptime di atas bukan 100%; forward test ini tidak boleh diklaim bersih.
+**Catatan kualitas:** 6 dari 14 tick gagal, terutama karena error jaringan (DNS/koneksi) saat laptop tidur atau Wi-Fi terputus. Bot pulih sendiri, tetapi candle yang terlewat tetap hilang dan **tidak** ditambal. Karena itu uptime di atas bukan 100%; forward test ini tidak boleh diklaim bersih.
 
 Rincian: `data/recomputed.json`, `data/gap_analysis.json`, `docs/FORWARD_TEST.md`.
 

@@ -1,16 +1,16 @@
 {
- "generated_at": "2026-11-11T03:54:09Z",
+ "generated_at": "2026-11-11T04:02:59Z",
  "forward_start": "2026-11-09T00:35:58Z",
- "forward_end": "2026-11-11T00:49:26Z",
+ "forward_end": "2026-11-11T04:01:30Z",
  "timeframe_seconds": 14400,
- "duration_hours": 48.224444444444444,
- "expected_candles": 12,
+ "duration_hours": 51.425555555555555,
+ "expected_candles": 13,
  "pairs_expected": 6,
  "per_pair": {
   "btcidr": {
-   "expected": 12,
-   "on_time": 5,
-   "uptime": 0.4166666666666667,
+   "expected": 13,
+   "on_time": 6,
+   "uptime": 0.46153846153846156,
    "missing_count": 7,
    "late_count": 0,
    "duplicate_actions": {},
@@ -27,9 +27,9 @@
    "late_sample": []
   },
   "dogeidr": {
-   "expected": 12,
-   "on_time": 5,
-   "uptime": 0.4166666666666667,
+   "expected": 13,
+   "on_time": 6,
+   "uptime": 0.46153846153846156,
    "missing_count": 7,
    "late_count": 0,
    "duplicate_actions": {},
@@ -46,9 +46,9 @@
    "late_sample": []
   },
   "ethidr": {
-   "expected": 12,
-   "on_time": 5,
-   "uptime": 0.4166666666666667,
+   "expected": 13,
+   "on_time": 6,
+   "uptime": 0.46153846153846156,
    "missing_count": 7,
    "late_count": 0,
    "duplicate_actions": {},
@@ -65,9 +65,9 @@
    "late_sample": []
   },
   "xrpidr": {
-   "expected": 12,
-   "on_time": 5,
-   "uptime": 0.4166666666666667,
+   "expected": 13,
+   "on_time": 6,
+   "uptime": 0.46153846153846156,
    "missing_count": 7,
    "late_count": 0,
    "duplicate_actions": {},
@@ -84,9 +84,9 @@
    "late_sample": []
   },
   "bnbidr": {
-   "expected": 12,
-   "on_time": 5,
-   "uptime": 0.4166666666666667,
+   "expected": 13,
+   "on_time": 6,
+   "uptime": 0.46153846153846156,
    "missing_count": 7,
    "late_count": 0,
    "duplicate_actions": {},
@@ -103,9 +103,9 @@
    "late_sample": []
   },
   "trxidr": {
-   "expected": 12,
-   "on_time": 5,
-   "uptime": 0.4166666666666667,
+   "expected": 13,
+   "on_time": 6,
+   "uptime": 0.46153846153846156,
    "missing_count": 7,
    "late_count": 0,
    "duplicate_actions": {},
@@ -123,14 +123,14 @@
   }
  },
  "overall": {
-  "uptime_mean": 0.4166666666666667
+  "uptime_mean": 0.46153846153846156
  },
  "scheduler": {
-  "expected_ticks": 12,
-  "hit": 8,
+  "expected_ticks": 13,
+  "hit": 9,
   "missing": 4,
   "late": 4,
-  "uptime": 0.6666666666666666,
+  "uptime": 0.6923076923076923,
   "missing_sample": [
    "2026-11-09T08:07:00Z",
    "2026-11-09T12:07:00Z",
