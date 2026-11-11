@@ -160,9 +160,12 @@ menyentuh file pelaporan/dokumen/analisis; daftar lengkapnya dapat dilihat
 dengan `git log --oneline 1bc8152..HEAD`. Commit-commit itu juga menyimpan log
 forward test aktual dan membangun ulang dashboard/laporan.
 
-Pada working tree saat laporan ini dibuat, ada **6 file** yang berbeda dari
-manifest: `README.md`, `docs/PERNYATAAN_AI.md`, `scripts/build_report.py`,
-`scripts/gap_analysis.py`, `core/metrics.py`, dan `tests/test_core.py`.
-Keenamnya adalah dokumen/tampilan/analisis. Verifikasi terhadap tag (bagian 4)
-tetap menghasilkan **90/90 file cocok**, sehingga bukti bahwa strategi,
-parameter, universe, biaya, dan hasil backtest tidak berubah tetap kuat.
+Pada working tree saat laporan ini dibuat, file yang berbeda dari manifest
+adalah dokumen/tampilan (`README.md`, `docs/PERNYATAAN_AI.md`,
+`scripts/build_report.py`, `docs/DEPLOYMENT.md`), analisis uptime
+(`scripts/gap_analysis.py`, `core/metrics.py`, `tests/test_core.py`), dan alat
+migrasi deployment (`scripts/migrate_local_to_redis.py`,
+`tests/test_migration.py`). Tidak ada file strategi, parameter, universe, model
+biaya, data mentah, atau hasil backtest yang berubah. Verifikasi terhadap tag
+(bagian 4) tetap menghasilkan **90/90 file cocok**, sehingga bukti bahwa
+strategi dan hasil backtest tidak berubah tetap kuat.

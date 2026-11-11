@@ -98,6 +98,44 @@ dan `UPSTASH_REDIS_REST_TOKEN`. Kode hanya membaca dua nama itu.
 
 ---
 
+## 3b. Pindahkan forward test lokal ke Upstash (disarankan)
+
+Kalau Anda sudah menjalankan forward test di laptop dan ingin melanjutkannya di
+cloud **tanpa memulai dari nol**, salin state/log lokal ke Upstash. Skrip ini
+mempertahankan `forward_test_start` asli dan tidak mengarang data.
+
+Urutan yang aman:
+
+1. Selesaikan satu tick lokal terakhir, lalu hentikan loop lokal:
+   ```bash
+   kill "$(cat data/local/forward_loop.pid)"
+   kill "$(cat data/local/caffeinate.pid)" 2>/dev/null || true
+   ```
+2. Salin URL dan token dari dashboard Upstash ke terminal (jangan commit):
+   ```bash
+   export UPSTASH_REDIS_REST_URL="https://....upstash.io"
+   export UPSTASH_REDIS_REST_TOKEN="...."
+   ```
+3. Cek dulu tanpa menulis:
+   ```bash
+   python3 scripts/migrate_local_to_redis.py --dry-run
+   ```
+4. Tulis ke Redis:
+   ```bash
+   python3 scripts/migrate_local_to_redis.py --write
+   ```
+5. Baru setelah itu panggil `/api/tick` atau aktifkan GitHub Actions.
+
+Skrip menolak menimpa Redis yang sudah berisi kunci UAS. Bila terpaksa (misalnya
+Vercel Cron sempat tick lebih dulu), gunakan `--force`; skrip hanya menghapus
+kunci UAS lalu menyalin ulang dari log lokal, tidak menyentuh data lain.
+
+> Tanpa migrasi, tick cloud akan menulis `forward_test_start` baru. Itu tidak
+> salah, tetapi durasi forward test cloud menjadi lebih pendek dan berbeda dari
+> laporan lokal.
+
+---
+
 ## 4. Import proyek ke Vercel **[MANUAL]**
 
 1. Buka https://vercel.com/new
@@ -130,6 +168,10 @@ Simpan nilai itu di tempat aman. Nilai yang sama dipakai di GitHub Actions.
 ---
 
 ## 5. Uji endpoint **[MANUAL + terminal]**
+
+> **Penting:** kalau ingin melanjutkan forward test lokal, lakukan migrasi di
+> bagian **3b** sebelum memanggil `/api/tick`. Tick pertama di cloud akan
+> menulis state baru bila Redis masih kosong.
 
 Ganti `URL` dan `SECRET` dengan milik Anda.
 
