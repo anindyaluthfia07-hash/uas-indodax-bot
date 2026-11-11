@@ -178,13 +178,30 @@ class TestMetrics(unittest.TestCase):
         first_open = (start // tf) * tf
         decisions = [
             {"pair": "btcidr", "candle_time": first_open, "processed_at_epoch": start + 60},
-            {"pair": "ethidr", "candle_time": first_open, "processed_at_epoch": first_open + tf + 100},
+            {"pair": "ethidr", "candle_time": first_open, "processed_at_epoch": first_open + 2 * tf + 100},
         ]
         u = compute_uptime(decisions, start, first_open + tf + 10, tf,
                            pairs=["btcidr", "ethidr"])
         self.assertEqual(u["expected"], 2)
         self.assertEqual(u["on_time"], 1)
         self.assertAlmostEqual(u["uptime"], 0.5)
+
+    def test_uptime_accepts_processing_after_candle_close(self):
+        # Regresi: candle harus menunggu tutup (ct+tf), jadi "tepat waktu"
+        # berarti sebelum candle berikutnya tutup (ct+2*tf).
+        start = 1794000000 + 600
+        tf = 14400
+        first_open = (start // tf) * tf
+        decisions = [
+            {"pair": "btcidr", "candle_time": first_open, "processed_at_epoch": first_open + tf + 120},
+            {"pair": "ethidr", "candle_time": first_open, "processed_at_epoch": first_open + 2 * tf - 1},
+            {"pair": "trxidr", "candle_time": first_open, "processed_at_epoch": first_open + 2 * tf + 1},
+        ]
+        u = compute_uptime(decisions, start, first_open + tf + 10, tf,
+                           pairs=["btcidr", "ethidr", "trxidr"])
+        self.assertEqual(u["expected"], 3)
+        self.assertEqual(u["on_time"], 2)
+        self.assertAlmostEqual(u["uptime"], 2.0 / 3.0)
 
 
 class TestStorage(unittest.TestCase):

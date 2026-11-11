@@ -109,7 +109,10 @@ def main():
         rec = by_pair.setdefault(pair, {"seen": set(), "on_time": set(), "late": {}, "duplicates": {}, "invalid": 0})
         rec["seen"].add(ct)
         if ct in expected_set and pa is not None:
-            if pa < ct + tf:
+            # Candle baru bisa diproses setelah tutup (ct+tf). Tepat waktu berarti
+            # masih sebelum candle berikutnya tutup (ct+2*tf). Syarat lama
+            # (pa < ct+tf) tidak mungkin terpenuhi setelah menunggu close.
+            if pa < ct + 2 * tf:
                 rec["on_time"].add(ct)
             else:
                 rec["late"][ct] = pa - (ct + tf)

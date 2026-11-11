@@ -2,7 +2,7 @@
  "meta": {
   "student": "Anindya Rahma Luthfia",
   "nim": "25110200036",
-  "generated_at": "2026-11-09T00:38:42Z",
+  "generated_at": "2026-11-11T03:54:09Z",
   "storage": "local",
   "strategy": "Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)",
   "timeframe": "240",
@@ -17109,8 +17109,8 @@
  },
  "forward": {
   "start": "2026-11-09T00:35:58Z",
-  "end": "2026-11-09T00:38:42Z",
-  "duration_days": 0.001902829165811892,
+  "end": "2026-11-11T03:54:09Z",
+  "duration_days": 2.137638615521568,
   "metrics": {
    "initial_capital": 100000000.0,
    "final_equity": 100000000.0,
@@ -17139,9 +17139,9 @@
    "slippage_cost_idr": 0,
    "total_cost_idr": 0,
    "cost_share_of_gross_profit": null,
-   "years": 6.971379319086369e-07,
+   "years": 0.005501305549217938,
    "start": "2026-11-09T00:35:58Z",
-   "end": 1794184580,
+   "end": 1794358166,
    "cagr_note": "CAGR tidak dihitung untuk periode forward test pendek"
   },
   "equity": [
@@ -17152,6 +17152,26 @@
    {
     "t": 1794184580,
     "equity": 100000000.0
+   },
+   {
+    "t": 1794196890,
+    "equity": 100000000.0
+   },
+   {
+    "t": 1794283290,
+    "equity": 100000000.0
+   },
+   {
+    "t": 1794326490,
+    "equity": 100000000.0
+   },
+   {
+    "t": 1794341530,
+    "equity": 100000000.0
+   },
+   {
+    "t": 1794358166,
+    "equity": 100000000.0
    }
   ],
   "trades": [],
@@ -17159,31 +17179,22 @@
   "orders": [],
   "decisions": [
    {
-    "at": "2026-11-09T00:36:05Z",
-    "tick_id": "tick_20261109T003558Z_c41e3e",
-    "pair": null,
-    "action": "forward_test_start",
-    "processed": true,
-    "reason": "tick sukses pertama; timestamp aktual, bukan backdate",
-    "forward_test_start": "2026-11-09T00:35:58Z"
-   },
-   {
-    "at": "2026-11-09T00:36:05Z",
-    "processed_at": "2026-11-09T00:36:05Z",
-    "processed_at_epoch": 1794184565,
-    "tick_id": "tick_20261109T003558Z_c41e3e",
+    "at": "2026-11-09T04:01:35Z",
+    "processed_at": "2026-11-09T04:01:35Z",
+    "processed_at_epoch": 1794196895,
+    "tick_id": "tick_20261109T040130Z_c5d135",
     "pair": "btcidr",
     "action": "skip",
     "processed": true,
     "exit_reason": null,
     "signal": {
-     "time": 1794168000,
-     "close": 1351998000.0,
+     "time": 1794182400,
+     "close": 1355001000.0,
      "donchian_high": 1468996000.0,
-     "ema_fast": 1377278535.9366274,
-     "ema_trend": 1418672405.9898002,
-     "atr": 12092840.126980184,
-     "adv20_idr": 4515036029.150839,
+     "ema_fast": 1375156865.847425,
+     "ema_trend": 1417411585.9030132,
+     "atr": 12434565.832195885,
+     "adv20_idr": 4303665851.858232,
      "entry_signal": false
     },
     "entry_components": {
@@ -17196,35 +17207,35 @@
     "reason": "tidak ada sinyal",
     "data_valid": true,
     "validation_reasons": [],
-    "best_bid": 1358999000.0,
-    "best_ask": 1359562000.0,
-    "spread_pct": 0.00041418971286647606,
+    "best_bid": 1353779000.0,
+    "best_ask": 1353780000.0,
+    "spread_pct": 7.386727306773371e-07,
     "equity": 100000000.0,
     "cash": 100000000.0,
     "positions": 0,
-    "candle_time": 1794168000,
-    "candle_time_iso": "2026-11-08T20:00:00Z",
-    "candle_close": 1351998000.0,
+    "candle_time": 1794182400,
+    "candle_time_iso": "2026-11-09T00:00:00Z",
+    "candle_close": 1355001000.0,
     "warmup_bars": 100,
     "bars_fetched": 900
    },
    {
-    "at": "2026-11-09T00:36:05Z",
-    "processed_at": "2026-11-09T00:36:05Z",
-    "processed_at_epoch": 1794184565,
-    "tick_id": "tick_20261109T003558Z_c41e3e",
+    "at": "2026-11-09T04:01:35Z",
+    "processed_at": "2026-11-09T04:01:35Z",
+    "processed_at_epoch": 1794196895,
+    "tick_id": "tick_20261109T040130Z_c5d135",
     "pair": "dogeidr",
     "action": "skip",
     "processed": true,
     "exit_reason": null,
     "signal": {
-     "time": 1794168000,
-     "close": 1247.0,
+     "time": 1794182400,
+     "close": 1258.0,
      "donchian_high": 1415.0,
-     "ema_fast": 1300.2228519900766,
-     "ema_trend": 1368.3019095665327,
-     "atr": 19.728879643745007,
-     "adv20_idr": 266378789.28485566,
+     "ema_fast": 1296.2016279910217,
+     "ema_trend": 1366.11771310918,
+     "atr": 19.96253109776322,
+     "adv20_idr": 233981872.8517696,
      "entry_signal": false
     },
     "entry_components": {
@@ -17237,35 +17248,35 @@
     "reason": "tidak ada sinyal",
     "data_valid": true,
     "validation_reasons": [],
-    "best_bid": 1253.0,
-    "best_ask": 1255.0,
-    "spread_pct": 0.001594896331738437,
+    "best_bid": 1258.0,
+    "best_ask": 1259.0,
+    "spread_pct": 0.0007945967421533572,
     "equity": 100000000.0,
     "cash": 100000000.0,
     "positions": 0,
-    "candle_time": 1794168000,
-    "candle_time_iso": "2026-11-08T20:00:00Z",
-    "candle_close": 1247.0,
+    "candle_time": 1794182400,
+    "candle_time_iso": "2026-11-09T00:00:00Z",
+    "candle_close": 1258.0,
     "warmup_bars": 100,
     "bars_fetched": 900
    },
    {
-    "at": "2026-11-09T00:36:05Z",
-    "processed_at": "2026-11-09T00:36:05Z",
-    "processed_at_epoch": 1794184565,
-    "tick_id": "tick_20261109T003558Z_c41e3e",
+    "at": "2026-11-09T04:01:35Z",
+    "processed_at": "2026-11-09T04:01:35Z",
+    "processed_at_epoch": 1794196895,
+    "tick_id": "tick_20261109T040130Z_c5d135",
     "pair": "ethidr",
     "action": "skip",
     "processed": true,
     "exit_reason": null,
     "signal": {
-     "time": 1794168000,
-     "close": 38488000.0,
+     "time": 1794182400,
+     "close": 38706000.0,
      "donchian_high": 44291000.0,
-     "ema_fast": 40514157.32959876,
-     "ema_trend": 41715569.678455964,
-     "atr": 540786.1982411019,
-     "adv20_idr": 1309726563.405663,
+     "ema_fast": 40341951.869636975,
+     "ema_trend": 41655974.23492545,
+     "atr": 551301.4697953089,
+     "adv20_idr": 1316860394.4310708,
      "entry_signal": false
     },
     "entry_components": {
@@ -17278,35 +17289,35 @@
     "reason": "tidak ada sinyal",
     "data_valid": true,
     "validation_reasons": [],
-    "best_bid": 38815000.0,
-    "best_ask": 38816000.0,
-    "spread_pct": 2.5762903994538265e-05,
+    "best_bid": 38705000.0,
+    "best_ask": 38724000.0,
+    "spread_pct": 0.0004907721912978341,
     "equity": 100000000.0,
     "cash": 100000000.0,
     "positions": 0,
-    "candle_time": 1794168000,
-    "candle_time_iso": "2026-11-08T20:00:00Z",
-    "candle_close": 38488000.0,
+    "candle_time": 1794182400,
+    "candle_time_iso": "2026-11-09T00:00:00Z",
+    "candle_close": 38706000.0,
     "warmup_bars": 100,
     "bars_fetched": 900
    },
    {
-    "at": "2026-11-09T00:36:05Z",
-    "processed_at": "2026-11-09T00:36:05Z",
-    "processed_at_epoch": 1794184565,
-    "tick_id": "tick_20261109T003558Z_c41e3e",
+    "at": "2026-11-09T04:01:35Z",
+    "processed_at": "2026-11-09T04:01:35Z",
+    "processed_at_epoch": 1794196895,
+    "tick_id": "tick_20261109T040130Z_c5d135",
     "pair": "xrpidr",
     "action": "skip",
     "processed": true,
     "exit_reason": null,
     "signal": {
-     "time": 1794168000,
-     "close": 20154.0,
+     "time": 1794182400,
+     "close": 20102.0,
      "donchian_high": 24245.0,
-     "ema_fast": 21320.14335846323,
-     "ema_trend": 22689.73506432862,
-     "atr": 364.12337637280024,
-     "adv20_idr": 1683999262.665001,
+     "ema_fast": 21204.129705276257,
+     "ema_trend": 22638.492782326255,
+     "atr": 367.18599234617164,
+     "adv20_idr": 1781764626.035579,
      "entry_signal": false
     },
     "entry_components": {
@@ -17319,35 +17330,35 @@
     "reason": "tidak ada sinyal",
     "data_valid": true,
     "validation_reasons": [],
-    "best_bid": 20270.0,
-    "best_ask": 20302.0,
-    "spread_pct": 0.001577442571231391,
+    "best_bid": 20106.0,
+    "best_ask": 20128.0,
+    "spread_pct": 0.0010936024258090173,
     "equity": 100000000.0,
     "cash": 100000000.0,
     "positions": 0,
-    "candle_time": 1794168000,
-    "candle_time_iso": "2026-11-08T20:00:00Z",
-    "candle_close": 20154.0,
+    "candle_time": 1794182400,
+    "candle_time_iso": "2026-11-09T00:00:00Z",
+    "candle_close": 20102.0,
     "warmup_bars": 100,
     "bars_fetched": 900
    },
    {
-    "at": "2026-11-09T00:36:05Z",
-    "processed_at": "2026-11-09T00:36:05Z",
-    "processed_at_epoch": 1794184565,
-    "tick_id": "tick_20261109T003558Z_c41e3e",
+    "at": "2026-11-09T04:01:35Z",
+    "processed_at": "2026-11-09T04:01:35Z",
+    "processed_at_epoch": 1794196895,
+    "tick_id": "tick_20261109T040130Z_c5d135",
     "pair": "bnbidr",
     "action": "skip",
     "processed": true,
     "exit_reason": null,
     "signal": {
-     "time": 1794168000,
-     "close": 12431424.0,
+     "time": 1794182400,
+     "close": 12403989.0,
      "donchian_high": 13110300.0,
-     "ema_fast": 12588619.032842837,
-     "ema_trend": 12888895.404942686,
-     "atr": 138564.34712451734,
-     "adv20_idr": 90739121.37409078,
+     "ema_fast": 12571035.220191138,
+     "ema_trend": 12879293.297861543,
+     "atr": 141129.96518705183,
+     "adv20_idr": 89156766.66025676,
      "entry_signal": false
     },
     "entry_components": {
@@ -17360,35 +17371,35 @@
     "reason": "tidak ada sinyal",
     "data_valid": true,
     "validation_reasons": [],
-    "best_bid": 12358077.0,
-    "best_ask": 12459929.0,
-    "spread_pct": 0.008207911626743905,
+    "best_bid": 12403468.0,
+    "best_ask": 12469610.0,
+    "spread_pct": 0.005318360678963818,
     "equity": 100000000.0,
     "cash": 100000000.0,
     "positions": 0,
-    "candle_time": 1794168000,
-    "candle_time_iso": "2026-11-08T20:00:00Z",
-    "candle_close": 12431424.0,
+    "candle_time": 1794182400,
+    "candle_time_iso": "2026-11-09T00:00:00Z",
+    "candle_close": 12403989.0,
     "warmup_bars": 100,
     "bars_fetched": 900
    },
    {
-    "at": "2026-11-09T00:36:05Z",
-    "processed_at": "2026-11-09T00:36:05Z",
-    "processed_at_epoch": 1794184565,
-    "tick_id": "tick_20261109T003558Z_c41e3e",
+    "at": "2026-11-09T04:01:35Z",
+    "processed_at": "2026-11-09T04:01:35Z",
+    "processed_at_epoch": 1794196895,
+    "tick_id": "tick_20261109T040130Z_c5d135",
     "pair": "trxidr",
     "action": "skip",
     "processed": true,
     "exit_reason": null,
     "signal": {
-     "time": 1794168000,
-     "close": 5772.0,
-     "donchian_high": 5968.0,
-     "ema_fast": 5781.376118607696,
-     "ema_trend": 5854.421076944647,
-     "atr": 41.422111769780635,
-     "adv20_idr": 24593075.018225633,
+     "time": 1794182400,
+     "close": 5775.0,
+     "donchian_high": 5903.0,
+     "ema_fast": 5780.7688692164875,
+     "ema_trend": 5852.8483818341765,
+     "atr": 41.74910378622488,
+     "adv20_idr": 24034640.702338956,
      "entry_signal": false
     },
     "entry_components": {
@@ -17401,54 +17412,86 @@
     "reason": "tidak ada sinyal",
     "data_valid": true,
     "validation_reasons": [],
-    "best_bid": 5770.0,
-    "best_ask": 5791.0,
-    "spread_pct": 0.003632903728051207,
+    "best_bid": 5752.0,
+    "best_ask": 5775.0,
+    "spread_pct": 0.003990630693155201,
     "equity": 100000000.0,
     "cash": 100000000.0,
     "positions": 0,
-    "candle_time": 1794168000,
-    "candle_time_iso": "2026-11-08T20:00:00Z",
-    "candle_close": 5772.0,
+    "candle_time": 1794182400,
+    "candle_time_iso": "2026-11-09T00:00:00Z",
+    "candle_close": 5775.0,
     "warmup_bars": 100,
     "bars_fetched": 900
    },
    {
-    "at": "2026-11-09T00:36:25Z",
-    "processed_at": "2026-11-09T00:36:25Z",
-    "processed_at_epoch": 1794184585,
-    "tick_id": "tick_20261109T003620Z_9e80a1",
+    "at": "2026-11-10T04:01:35Z",
+    "processed_at": "2026-11-10T04:01:35Z",
+    "processed_at_epoch": 1794283295,
+    "tick_id": "tick_20261110T040130Z_f53361",
     "pair": "btcidr",
-    "action": "duplicate_candle_skip",
+    "action": "skip",
     "processed": true,
     "exit_reason": null,
-    "signal": null,
-    "entry_components": null,
-    "reason": "candle 2026-11-08T20:00:00Z sudah diproses (idempotency)",
+    "signal": {
+     "time": 1794268800,
+     "close": 1344252000.0,
+     "donchian_high": 1468996000.0,
+     "ema_fast": 1364187626.6091,
+     "ema_trend": 1409841749.651884,
+     "atr": 14413336.91822917,
+     "adv20_idr": 3381502987.396394,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
     "data_valid": true,
     "validation_reasons": [],
-    "best_bid": 1358999000.0,
-    "best_ask": 1359560000.0,
-    "spread_pct": 0.0004127186498435384,
+    "best_bid": 1343875000.0,
+    "best_ask": 1345601000.0,
+    "spread_pct": 0.0012835213997076011,
     "equity": 100000000.0,
     "cash": 100000000.0,
     "positions": 0,
-    "candle_time": 1794168000,
-    "candle_time_iso": "2026-11-08T20:00:00Z",
-    "candle_close": 1351998000.0
+    "candle_time": 1794268800,
+    "candle_time_iso": "2026-11-10T00:00:00Z",
+    "candle_close": 1344252000.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
    },
    {
-    "at": "2026-11-09T00:36:25Z",
-    "processed_at": "2026-11-09T00:36:25Z",
-    "processed_at_epoch": 1794184585,
-    "tick_id": "tick_20261109T003620Z_9e80a1",
+    "at": "2026-11-10T04:01:35Z",
+    "processed_at": "2026-11-10T04:01:35Z",
+    "processed_at_epoch": 1794283295,
+    "tick_id": "tick_20261110T040130Z_f53361",
     "pair": "dogeidr",
-    "action": "duplicate_candle_skip",
+    "action": "skip",
     "processed": true,
     "exit_reason": null,
-    "signal": null,
-    "entry_components": null,
-    "reason": "candle 2026-11-08T20:00:00Z sudah diproses (idempotency)",
+    "signal": {
+     "time": 1794268800,
+     "close": 1253.0,
+     "donchian_high": 1415.0,
+     "ema_fast": 1279.3029482407378,
+     "ema_trend": 1353.8816625613038,
+     "atr": 20.344582556675928,
+     "adv20_idr": 195747656.47715345,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
     "data_valid": true,
     "validation_reasons": [],
     "best_bid": 1253.0,
@@ -17457,113 +17500,1141 @@
     "equity": 100000000.0,
     "cash": 100000000.0,
     "positions": 0,
-    "candle_time": 1794168000,
-    "candle_time_iso": "2026-11-08T20:00:00Z",
-    "candle_close": 1247.0
+    "candle_time": 1794268800,
+    "candle_time_iso": "2026-11-10T00:00:00Z",
+    "candle_close": 1253.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
    },
    {
-    "at": "2026-11-09T00:36:25Z",
-    "processed_at": "2026-11-09T00:36:25Z",
-    "processed_at_epoch": 1794184585,
-    "tick_id": "tick_20261109T003620Z_9e80a1",
+    "at": "2026-11-10T04:01:35Z",
+    "processed_at": "2026-11-10T04:01:35Z",
+    "processed_at_epoch": 1794283295,
+    "tick_id": "tick_20261110T040130Z_f53361",
     "pair": "ethidr",
-    "action": "duplicate_candle_skip",
+    "action": "skip",
     "processed": true,
     "exit_reason": null,
-    "signal": null,
-    "entry_components": null,
-    "reason": "candle 2026-11-08T20:00:00Z sudah diproses (idempotency)",
+    "signal": {
+     "time": 1794268800,
+     "close": 38121000.0,
+     "donchian_high": 44291000.0,
+     "ema_fast": 39440751.33334604,
+     "ema_trend": 41280311.563529864,
+     "atr": 572818.9492846872,
+     "adv20_idr": 852465494.8842537,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
     "data_valid": true,
     "validation_reasons": [],
-    "best_bid": 38790000.0,
-    "best_ask": 38791000.0,
-    "spread_pct": 2.5779507869194777e-05,
+    "best_bid": 38096000.0,
+    "best_ask": 38142000.0,
+    "spread_pct": 0.0012067472913770037,
     "equity": 100000000.0,
     "cash": 100000000.0,
     "positions": 0,
-    "candle_time": 1794168000,
-    "candle_time_iso": "2026-11-08T20:00:00Z",
-    "candle_close": 38488000.0
+    "candle_time": 1794268800,
+    "candle_time_iso": "2026-11-10T00:00:00Z",
+    "candle_close": 38121000.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
    },
    {
-    "at": "2026-11-09T00:36:25Z",
-    "processed_at": "2026-11-09T00:36:25Z",
-    "processed_at_epoch": 1794184585,
-    "tick_id": "tick_20261109T003620Z_9e80a1",
+    "at": "2026-11-10T04:01:35Z",
+    "processed_at": "2026-11-10T04:01:35Z",
+    "processed_at_epoch": 1794283295,
+    "tick_id": "tick_20261110T040130Z_f53361",
     "pair": "xrpidr",
-    "action": "duplicate_candle_skip",
+    "action": "skip",
     "processed": true,
     "exit_reason": null,
-    "signal": null,
-    "entry_components": null,
-    "reason": "candle 2026-11-08T20:00:00Z sudah diproses (idempotency)",
+    "signal": {
+     "time": 1794268800,
+     "close": 19695.0,
+     "donchian_high": 24245.0,
+     "ema_fast": 20558.279790512992,
+     "ema_trend": 22313.934462716523,
+     "atr": 395.8026636077486,
+     "adv20_idr": 1736281056.9921594,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
     "data_valid": true,
     "validation_reasons": [],
-    "best_bid": 20276.0,
-    "best_ask": 20301.0,
-    "spread_pct": 0.0012322251521798063,
+    "best_bid": 19694.0,
+    "best_ask": 19695.0,
+    "spread_pct": 5.077559724796263e-05,
     "equity": 100000000.0,
     "cash": 100000000.0,
     "positions": 0,
-    "candle_time": 1794168000,
-    "candle_time_iso": "2026-11-08T20:00:00Z",
-    "candle_close": 20154.0
+    "candle_time": 1794268800,
+    "candle_time_iso": "2026-11-10T00:00:00Z",
+    "candle_close": 19695.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
    },
    {
-    "at": "2026-11-09T00:36:25Z",
-    "processed_at": "2026-11-09T00:36:25Z",
-    "processed_at_epoch": 1794184585,
-    "tick_id": "tick_20261109T003620Z_9e80a1",
+    "at": "2026-11-10T04:01:35Z",
+    "processed_at": "2026-11-10T04:01:35Z",
+    "processed_at_epoch": 1794283295,
+    "tick_id": "tick_20261110T040130Z_f53361",
     "pair": "bnbidr",
-    "action": "duplicate_candle_skip",
+    "action": "skip",
     "processed": true,
     "exit_reason": null,
-    "signal": null,
-    "entry_components": null,
-    "reason": "candle 2026-11-08T20:00:00Z sudah diproses (idempotency)",
+    "signal": {
+     "time": 1794268800,
+     "close": 12422848.0,
+     "donchian_high": 13110300.0,
+     "ema_fast": 12492258.45711587,
+     "ema_trend": 12824087.861614827,
+     "atr": 147012.80366792166,
+     "adv20_idr": 78019691.39705746,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
     "data_valid": true,
     "validation_reasons": [],
-    "best_bid": 12358090.0,
-    "best_ask": 12459928.0,
-    "spread_pct": 0.008206779445481907,
+    "best_bid": 12402702.0,
+    "best_ask": 12422848.0,
+    "spread_pct": 0.0016230053312011215,
     "equity": 100000000.0,
     "cash": 100000000.0,
     "positions": 0,
-    "candle_time": 1794168000,
-    "candle_time_iso": "2026-11-08T20:00:00Z",
-    "candle_close": 12431424.0
+    "candle_time": 1794268800,
+    "candle_time_iso": "2026-11-10T00:00:00Z",
+    "candle_close": 12422848.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
    },
    {
-    "at": "2026-11-09T00:36:25Z",
-    "processed_at": "2026-11-09T00:36:25Z",
-    "processed_at_epoch": 1794184585,
-    "tick_id": "tick_20261109T003620Z_9e80a1",
+    "at": "2026-11-10T04:01:35Z",
+    "processed_at": "2026-11-10T04:01:35Z",
+    "processed_at_epoch": 1794283295,
+    "tick_id": "tick_20261110T040130Z_f53361",
     "pair": "trxidr",
-    "action": "duplicate_candle_skip",
+    "action": "skip",
     "processed": true,
     "exit_reason": null,
-    "signal": null,
-    "entry_components": null,
-    "reason": "candle 2026-11-08T20:00:00Z sudah diproses (idempotency)",
+    "signal": {
+     "time": 1794268800,
+     "close": 5749.0,
+     "donchian_high": 5903.0,
+     "ema_fast": 5763.01702127421,
+     "ema_trend": 5840.225609807064,
+     "atr": 60.10505400296704,
+     "adv20_idr": 26338986.81294912,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
     "data_valid": true,
     "validation_reasons": [],
-    "best_bid": 5770.0,
-    "best_ask": 5791.0,
-    "spread_pct": 0.003632903728051207,
+    "best_bid": 5730.0,
+    "best_ask": 5749.0,
+    "spread_pct": 0.0033103928913668437,
     "equity": 100000000.0,
     "cash": 100000000.0,
     "positions": 0,
-    "candle_time": 1794168000,
-    "candle_time_iso": "2026-11-08T20:00:00Z",
-    "candle_close": 5772.0
+    "candle_time": 1794268800,
+    "candle_time_iso": "2026-11-10T00:00:00Z",
+    "candle_close": 5749.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-10T16:01:37Z",
+    "processed_at": "2026-11-10T16:01:37Z",
+    "processed_at_epoch": 1794326497,
+    "tick_id": "tick_20261110T160130Z_abe5e9",
+    "pair": "btcidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794312000,
+     "close": 1325446000.0,
+     "donchian_high": 1468996000.0,
+     "ema_fast": 1357679878.9452348,
+     "ema_trend": 1405763332.311453,
+     "atr": 15369608.676876634,
+     "adv20_idr": 4038744042.664693,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 1325200000.0,
+    "best_ask": 1325802000.0,
+    "spread_pct": 0.00045416789576167805,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794312000,
+    "candle_time_iso": "2026-11-10T12:00:00Z",
+    "candle_close": 1325446000.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-10T16:01:37Z",
+    "processed_at": "2026-11-10T16:01:37Z",
+    "processed_at_epoch": 1794326497,
+    "tick_id": "tick_20261110T160130Z_abe5e9",
+    "pair": "dogeidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794312000,
+     "close": 1222.0,
+     "donchian_high": 1415.0,
+     "ema_fast": 1270.4557738886967,
+     "ema_trend": 1347.6206422597822,
+     "atr": 22.259128235064512,
+     "adv20_idr": 262120831.5962647,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 1225.0,
+    "best_ask": 1227.0,
+    "spread_pct": 0.0016313213703099511,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794312000,
+    "candle_time_iso": "2026-11-10T12:00:00Z",
+    "candle_close": 1222.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-10T16:01:37Z",
+    "processed_at": "2026-11-10T16:01:37Z",
+    "processed_at_epoch": 1794326497,
+    "tick_id": "tick_20261110T160130Z_abe5e9",
+    "pair": "ethidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794312000,
+     "close": 36624000.0,
+     "donchian_high": 44291000.0,
+     "ema_fast": 38942798.552577525,
+     "ema_trend": 41063974.52179831,
+     "atr": 631933.3934323826,
+     "adv20_idr": 1109765198.6014132,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 36694000.0,
+    "best_ask": 36744000.0,
+    "spread_pct": 0.0013616928565592745,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794312000,
+    "candle_time_iso": "2026-11-10T12:00:00Z",
+    "candle_close": 36624000.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-10T16:01:37Z",
+    "processed_at": "2026-11-10T16:01:37Z",
+    "processed_at_epoch": 1794326497,
+    "tick_id": "tick_20261110T160130Z_abe5e9",
+    "pair": "xrpidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794312000,
+     "close": 18867.0,
+     "donchian_high": 24245.0,
+     "ema_fast": 20246.829617009895,
+     "ema_trend": 22143.243482330327,
+     "atr": 418.3554854031428,
+     "adv20_idr": 1697522531.228415,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 18873.0,
+    "best_ask": 18893.0,
+    "spread_pct": 0.0010591537361648044,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794312000,
+    "candle_time_iso": "2026-11-10T12:00:00Z",
+    "candle_close": 18867.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-10T16:01:37Z",
+    "processed_at": "2026-11-10T16:01:37Z",
+    "processed_at_epoch": 1794326497,
+    "tick_id": "tick_20261110T160130Z_abe5e9",
+    "pair": "bnbidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794312000,
+     "close": 12292662.0,
+     "donchian_high": 13110300.0,
+     "ema_fast": 12464410.303785525,
+     "ema_trend": 12798802.901980104,
+     "atr": 145062.9007501545,
+     "adv20_idr": 87287982.73388728,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 12207482.0,
+    "best_ask": 12292790.0,
+    "spread_pct": 0.006963841054499313,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794312000,
+    "candle_time_iso": "2026-11-10T12:00:00Z",
+    "candle_close": 12292662.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-10T16:01:37Z",
+    "processed_at": "2026-11-10T16:01:37Z",
+    "processed_at_epoch": 1794326497,
+    "tick_id": "tick_20261110T160130Z_abe5e9",
+    "pair": "trxidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794312000,
+     "close": 5784.0,
+     "donchian_high": 6000.0,
+     "ema_fast": 5765.623987573675,
+     "ema_trend": 5836.311038042237,
+     "atr": 74.06698383546596,
+     "adv20_idr": 22698145.721842986,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 5762.0,
+    "best_ask": 5781.0,
+    "spread_pct": 0.0032920384648704843,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794312000,
+    "candle_time_iso": "2026-11-10T12:00:00Z",
+    "candle_close": 5784.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-10T20:12:18Z",
+    "processed_at": "2026-11-10T20:12:18Z",
+    "processed_at_epoch": 1794341538,
+    "tick_id": "tick_20261110T201210Z_88ec04",
+    "pair": "btcidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794326400,
+     "close": 1330159000.0,
+     "donchian_high": 1468996000.0,
+     "ema_fast": 1355058842.8552125,
+     "ema_trend": 1404266216.8434393,
+     "atr": 15335493.771385446,
+     "adv20_idr": 4170689115.209021,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 1328182000.0,
+    "best_ask": 1329398000.0,
+    "spread_pct": 0.000915118265489656,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794326400,
+    "candle_time_iso": "2026-11-10T16:00:00Z",
+    "candle_close": 1330159000.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-10T20:12:18Z",
+    "processed_at": "2026-11-10T20:12:18Z",
+    "processed_at_epoch": 1794341538,
+    "tick_id": "tick_20261110T201210Z_88ec04",
+    "pair": "dogeidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794326400,
+     "close": 1221.0,
+     "donchian_high": 1415.0,
+     "ema_fast": 1265.7457001850112,
+     "ema_trend": 1345.113302839535,
+     "atr": 22.31204764684562,
+     "adv20_idr": 286559039.02803963,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 1221.0,
+    "best_ask": 1223.0,
+    "spread_pct": 0.0016366612111292963,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794326400,
+    "candle_time_iso": "2026-11-10T16:00:00Z",
+    "candle_close": 1221.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-10T20:12:18Z",
+    "processed_at": "2026-11-10T20:12:18Z",
+    "processed_at_epoch": 1794341538,
+    "tick_id": "tick_20261110T201210Z_88ec04",
+    "pair": "ethidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794326400,
+     "close": 37048000.0,
+     "donchian_high": 44291000.0,
+     "ema_fast": 38762341.54757015,
+     "ema_trend": 40984450.273156986,
+     "atr": 630866.7224729267,
+     "adv20_idr": 1149101241.9699078,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 37007000.0,
+    "best_ask": 37024000.0,
+    "spread_pct": 0.0004592670637975983,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794326400,
+    "candle_time_iso": "2026-11-10T16:00:00Z",
+    "candle_close": 37048000.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-10T20:12:18Z",
+    "processed_at": "2026-11-10T20:12:18Z",
+    "processed_at_epoch": 1794341538,
+    "tick_id": "tick_20261110T201210Z_88ec04",
+    "pair": "xrpidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794326400,
+     "close": 19282.0,
+     "donchian_high": 24245.0,
+     "ema_fast": 20154.941082056568,
+     "ema_trend": 22086.585196449552,
+     "atr": 430.18723644577545,
+     "adv20_idr": 1711922126.3785849,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 19239.0,
+    "best_ask": 19268.0,
+    "spread_pct": 0.00150621964837562,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794326400,
+    "candle_time_iso": "2026-11-10T16:00:00Z",
+    "candle_close": 19282.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-10T20:12:18Z",
+    "processed_at": "2026-11-10T20:12:18Z",
+    "processed_at_epoch": 1794341538,
+    "tick_id": "tick_20261110T201210Z_88ec04",
+    "pair": "bnbidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794326400,
+     "close": 12151794.0,
+     "donchian_high": 13110300.0,
+     "ema_fast": 12434637.322472619,
+     "ema_trend": 12785990.844725229,
+     "atr": 149111.33641085777,
+     "adv20_idr": 85805765.34179349,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 12152369.0,
+    "best_ask": 12206721.0,
+    "spread_pct": 0.004462564077722116,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794326400,
+    "candle_time_iso": "2026-11-10T16:00:00Z",
+    "candle_close": 12151794.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-10T20:12:18Z",
+    "processed_at": "2026-11-10T20:12:18Z",
+    "processed_at_epoch": 1794341538,
+    "tick_id": "tick_20261110T201210Z_88ec04",
+    "pair": "trxidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794326400,
+     "close": 5777.0,
+     "donchian_high": 6000.0,
+     "ema_fast": 5766.707417328563,
+     "ema_trend": 5835.136561645659,
+     "atr": 72.1336278472184,
+     "adv20_idr": 22681729.05034913,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 5744.0,
+    "best_ask": 5777.0,
+    "spread_pct": 0.005728669386337992,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794326400,
+    "candle_time_iso": "2026-11-10T16:00:00Z",
+    "candle_close": 5777.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-11T02:52:03Z",
+    "processed_at": "2026-11-11T02:52:03Z",
+    "processed_at_epoch": 1794365523,
+    "tick_id": "tick_20261111T004926Z_db6c1b",
+    "pair": "btcidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794340800,
+     "close": 1332654000.0,
+     "donchian_high": 1468996000.0,
+     "ema_fast": 1352925048.297573,
+     "ema_trend": 1402848153.1253197,
+     "atr": 15053172.787715059,
+     "adv20_idr": 4061263239.1466193,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 1333806000.0,
+    "best_ask": 1333807000.0,
+    "spread_pct": 7.497339381686924e-07,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794340800,
+    "candle_time_iso": "2026-11-10T20:00:00Z",
+    "candle_close": 1332654000.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-11T02:52:03Z",
+    "processed_at": "2026-11-11T02:52:03Z",
+    "processed_at_epoch": 1794365523,
+    "tick_id": "tick_20261111T004926Z_db6c1b",
+    "pair": "dogeidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794340800,
+     "close": 1227.0,
+     "donchian_high": 1415.0,
+     "ema_fast": 1262.0556335007245,
+     "ema_trend": 1342.7744256164676,
+     "atr": 21.646901386356646,
+     "adv20_idr": 287225869.2012085,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 1238.0,
+    "best_ask": 1240.0,
+    "spread_pct": 0.0016142050040355124,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794340800,
+    "candle_time_iso": "2026-11-10T20:00:00Z",
+    "candle_close": 1227.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-11T02:52:03Z",
+    "processed_at": "2026-11-11T02:52:03Z",
+    "processed_at_epoch": 1794365523,
+    "tick_id": "tick_20261111T004926Z_db6c1b",
+    "pair": "ethidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794340800,
+     "close": 37100000.0,
+     "donchian_high": 44291000.0,
+     "ema_fast": 38604023.30494442,
+     "ema_trend": 40907530.4661026,
+     "atr": 615519.0994391462,
+     "adv20_idr": 1135129614.7844827,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 37149000.0,
+    "best_ask": 37150000.0,
+    "spread_pct": 2.6918262695325645e-05,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794340800,
+    "candle_time_iso": "2026-11-10T20:00:00Z",
+    "candle_close": 37100000.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-11T02:52:03Z",
+    "processed_at": "2026-11-11T02:52:03Z",
+    "processed_at_epoch": 1794365523,
+    "tick_id": "tick_20261111T004926Z_db6c1b",
+    "pair": "xrpidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794340800,
+     "close": 19071.0,
+     "donchian_high": 24245.0,
+     "ema_fast": 20051.70859805118,
+     "ema_trend": 22026.87063964132,
+     "atr": 422.10243384250583,
+     "adv20_idr": 1698775469.592805,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 19104.0,
+    "best_ask": 19133.0,
+    "spread_pct": 0.0015168554018359182,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794340800,
+    "candle_time_iso": "2026-11-10T20:00:00Z",
+    "candle_close": 19071.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-11T02:52:03Z",
+    "processed_at": "2026-11-11T02:52:03Z",
+    "processed_at_epoch": 1794365523,
+    "tick_id": "tick_20261111T004926Z_db6c1b",
+    "pair": "bnbidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794340800,
+     "close": 12317445.0,
+     "donchian_high": 13110300.0,
+     "ema_fast": 12423476.148903798,
+     "ema_trend": 12776712.709189482,
+     "atr": 150292.74095293938,
+     "adv20_idr": 82242433.68929075,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 12269837.0,
+    "best_ask": 12317443.0,
+    "spread_pct": 0.0038724088227734014,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794340800,
+    "candle_time_iso": "2026-11-10T20:00:00Z",
+    "candle_close": 12317445.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
+   },
+   {
+    "at": "2026-11-11T02:52:03Z",
+    "processed_at": "2026-11-11T02:52:03Z",
+    "processed_at_epoch": 1794365523,
+    "tick_id": "tick_20261111T004926Z_db6c1b",
+    "pair": "trxidr",
+    "action": "skip",
+    "processed": true,
+    "exit_reason": null,
+    "signal": {
+     "time": 1794340800,
+     "close": 5774.0,
+     "donchian_high": 6000.0,
+     "ema_fast": 5767.401949011557,
+     "ema_trend": 5833.925936906109,
+     "atr": 69.90979728670281,
+     "adv20_idr": 21184341.54748465,
+     "entry_signal": false
+    },
+    "entry_components": {
+     "breakout": false,
+     "above_trend_ema": false,
+     "fast_above_trend": false,
+     "volume_positive": true,
+     "adv_positive": true
+    },
+    "reason": "tidak ada sinyal",
+    "data_valid": true,
+    "validation_reasons": [],
+    "best_bid": 5735.0,
+    "best_ask": 5764.0,
+    "spread_pct": 0.005043916862335855,
+    "equity": 100000000.0,
+    "cash": 100000000.0,
+    "positions": 0,
+    "candle_time": 1794340800,
+    "candle_time_iso": "2026-11-10T20:00:00Z",
+    "candle_close": 5774.0,
+    "warmup_bars": 100,
+    "bars_fetched": 900
    }
   ],
-  "errors": [],
+  "errors": [
+   {
+    "at": "2026-11-09T09:45:18Z",
+    "tick_id": "tick_20261109T094518Z_b99481",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 1,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-09T09:45:19Z",
+    "tick_id": "tick_20261109T094518Z_b99481",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 2,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-09T11:45:21Z",
+    "tick_id": "tick_20261109T094518Z_b99481",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 3,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-09T11:45:21Z",
+    "tick_id": "tick_20261109T094518Z_b99481",
+    "context": "server_time",
+    "pair": null,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "type": "ApiError"
+   },
+   {
+    "at": "2026-11-09T15:45:48Z",
+    "tick_id": "tick_20261109T154547Z_fd2e14",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 1,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-09T15:45:49Z",
+    "tick_id": "tick_20261109T154547Z_fd2e14",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 2,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-09T15:56:59Z",
+    "tick_id": "tick_20261109T154547Z_fd2e14",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 3,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-09T15:56:59Z",
+    "tick_id": "tick_20261109T154547Z_fd2e14",
+    "context": "server_time",
+    "pair": null,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "type": "ApiError"
+   },
+   {
+    "at": "2026-11-09T18:41:19Z",
+    "tick_id": "tick_20261109T184119Z_375ddb",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 1,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-09T18:41:20Z",
+    "tick_id": "tick_20261109T184119Z_375ddb",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 2,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-09T18:41:22Z",
+    "tick_id": "tick_20261109T184119Z_375ddb",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 3,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-09T18:41:22Z",
+    "tick_id": "tick_20261109T184119Z_375ddb",
+    "context": "server_time",
+    "pair": null,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "type": "ApiError"
+   },
+   {
+    "at": "2026-11-10T00:10:05Z",
+    "tick_id": "tick_20261110T001004Z_b7b55d",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 1,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-10T00:10:06Z",
+    "tick_id": "tick_20261110T001004Z_b7b55d",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 2,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-10T00:10:08Z",
+    "tick_id": "tick_20261110T001004Z_b7b55d",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 3,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-10T00:10:08Z",
+    "tick_id": "tick_20261110T001004Z_b7b55d",
+    "context": "server_time",
+    "pair": null,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "type": "ApiError"
+   },
+   {
+    "at": "2026-11-10T08:23:24Z",
+    "tick_id": "tick_20261110T082324Z_8d3f50",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 1,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-10T08:23:25Z",
+    "tick_id": "tick_20261110T082324Z_8d3f50",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 2,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-10T08:23:27Z",
+    "tick_id": "tick_20261110T082324Z_8d3f50",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 3,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-10T08:23:27Z",
+    "tick_id": "tick_20261110T082324Z_8d3f50",
+    "context": "server_time",
+    "pair": null,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "type": "ApiError"
+   },
+   {
+    "at": "2026-11-10T15:32:02Z",
+    "tick_id": "tick_20261110T153202Z_dd6156",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 1,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-10T15:32:03Z",
+    "tick_id": "tick_20261110T153202Z_dd6156",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 2,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-10T15:32:05Z",
+    "tick_id": "tick_20261110T153202Z_dd6156",
+    "context": "api",
+    "url": "https://indodax.com/api/server_time",
+    "attempt": 3,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "status": null
+   },
+   {
+    "at": "2026-11-10T15:32:05Z",
+    "tick_id": "tick_20261110T153202Z_dd6156",
+    "context": "server_time",
+    "pair": null,
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+    "type": "ApiError"
+   },
+   {
+    "at": "2026-11-11T01:37:27Z",
+    "tick_id": "tick_20261111T004926Z_db6c1b",
+    "context": "api",
+    "url": "https://indodax.com/api/price_increments",
+    "attempt": 1,
+    "error": "<urlopen error [Errno 54] Connection reset by peer>",
+    "status": null
+   }
+  ],
   "uptime": {
-   "expected": 0,
-   "on_time": 0,
-   "uptime": null,
-   "processed_candles": 6,
+   "expected": 72,
+   "on_time": 30,
+   "uptime": 0.4166666666666667,
+   "processed_candles": 36,
    "pairs": [
     "bnbidr",
     "btcidr",
@@ -17572,19 +18643,68 @@
     "trxidr",
     "xrpidr"
    ],
-   "details": [],
-   "definition": "candle per pair dihitung tepat waktu bila diproses sebelum candle berikutnya ditutup (open+tf)"
+   "details": [
+    {
+     "candle_time": 1794182400,
+     "on_time": false
+    },
+    {
+     "candle_time": 1794196800,
+     "on_time": false
+    },
+    {
+     "candle_time": 1794211200,
+     "on_time": false
+    },
+    {
+     "candle_time": 1794225600,
+     "on_time": false
+    },
+    {
+     "candle_time": 1794240000,
+     "on_time": false
+    },
+    {
+     "candle_time": 1794254400,
+     "on_time": false
+    },
+    {
+     "candle_time": 1794268800,
+     "on_time": false
+    },
+    {
+     "candle_time": 1794283200,
+     "on_time": false
+    },
+    {
+     "candle_time": 1794297600,
+     "on_time": false
+    },
+    {
+     "candle_time": 1794312000,
+     "on_time": false
+    },
+    {
+     "candle_time": 1794326400,
+     "on_time": false
+    },
+    {
+     "candle_time": 1794340800,
+     "on_time": false
+    }
+   ],
+   "definition": "candle per pair dihitung tepat waktu bila diproses setelah candle tutup (open+tf) dan sebelum candle berikutnya tutup (open+2*tf)"
   },
   "kill_switch": false,
   "kill_log": [],
   "state": {
    "cash": 100000000.0,
    "equity": 100000000.0,
-   "tick_count": 2,
-   "last_tick": "2026-11-09T00:36:20Z",
+   "tick_count": 7,
+   "last_tick": "2026-11-11T00:49:26Z",
    "daily_loss_blocked": false,
    "day_start_equity": 100000000.0,
-   "day_date_wib": "2026-11-09"
+   "day_date_wib": "2026-11-11"
   },
   "daily_equity": [
    {
@@ -17593,53 +18713,71 @@
     "at": "2026-11-09T00:35:58Z",
     "equity": 100000000.0,
     "note": "panggilan pertama setelah 00:00 WIB"
+   },
+   {
+    "date_wib": "2026-11-10",
+    "t": 1794283290,
+    "at": "2026-11-10T04:01:30Z",
+    "equity": 100000000.0,
+    "note": "panggilan pertama setelah 00:00 WIB"
+   },
+   {
+    "date_wib": "2026-11-11",
+    "t": 1794341530,
+    "at": "2026-11-10T20:12:10Z",
+    "equity": 100000000.0,
+    "note": "panggilan pertama setelah 00:00 WIB"
    }
   ],
   "snapshots": {
-   "count": 12,
+   "count": 42,
    "last": {
-    "ts": 1794184585,
-    "at_utc": "2026-11-09T00:36:25Z",
+    "ts": 1794361055,
+    "at_utc": "2026-11-11T01:37:35Z",
     "pair": "trxidr",
-    "bid": 5770.0,
-    "ask": 5791.0,
-    "spread_pct": 0.003632903728051207,
+    "bid": 5735.0,
+    "ask": 5764.0,
+    "spread_pct": 0.005043916862335855,
     "bids": [
      [
-      5770.0,
-      50266.86325823
+      5735.0,
+      38366.21098517
      ],
      [
-      5769.0,
-      6.41480325
+      5734.0,
+      4068.32420648
      ],
      [
-      5768.0,
-      7783.95656726
+      5730.0,
+      17.41605584
      ],
      [
-      5745.0,
-      246.04786771
+      5725.0,
+      3565.7611488
      ],
      [
-      5733.0,
-      4707.7965
+      5720.0,
+      348.70122377
      ],
      [
-      5726.0,
-      4.35696821
+      5715.0,
+      200.0
+     ],
+     [
+      5714.0,
+      8.73241162
+     ],
+     [
+      5710.0,
+      6470.9578
      ],
      [
       5705.0,
       8.74618755
      ],
      [
-      5701.0,
-      200.0
-     ],
-     [
       5700.0,
-      5.0
+      22.40315789
      ],
      [
       5694.0,
@@ -17654,12 +18792,8 @@
       16.54898856
      ],
      [
-      5665.0,
-      4.40388349
-     ],
-     [
       5650.0,
-      182.5858407
+      167.5858407
      ],
      [
       5645.0,
@@ -17679,189 +18813,263 @@
      ],
      [
       5620.0,
-      20.0
+      299.99964412
      ],
      [
       5617.0,
-      27.89513975
+      5.0
      ]
     ],
     "asks": [
      [
-      5791.0,
-      20273.74162681
+      5764.0,
+      324.54944484
      ],
      [
-      5792.0,
-      2524.0
+      5778.0,
+      13.86965033
      ],
      [
-      5793.0,
-      3874.0
+      5781.0,
+      1554.0
      ],
      [
-      5805.0,
-      179.03652775
+      5782.0,
+      62.45398557
      ],
      [
-      5810.0,
-      1705.68752504
-     ],
-     [
-      5820.0,
-      31.22537238
-     ],
-     [
-      5837.0,
-      5.0
-     ],
-     [
-      5856.0,
-      15.96321116
-     ],
-     [
-      5860.0,
-      4.80665529
-     ],
-     [
-      5866.0,
-      5.0
-     ],
-     [
-      5872.0,
-      273.03651676
-     ],
-     [
-      5891.0,
-      28.70648132
-     ],
-     [
-      5900.0,
-      22.670027
-     ],
-     [
-      5996.0,
-      1.86
+      5787.0,
+      19495.3311
      ],
      [
       5999.0,
-      353.28359649
+      123.69371043
      ],
      [
       6000.0,
-      28135.25300087
+      29260.18710194
      ],
      [
       6010.0,
       65.0
      ],
      [
-      6015.0,
-      631.53492379
-     ],
-     [
       6100.0,
-      341.09139102
+      351.09139102
      ],
      [
       6119.0,
-      627.49011932
+      8.22744834
+     ],
+     [
+      6137.0,
+      1.7
+     ],
+     [
+      6172.0,
+      28.70648133
+     ],
+     [
+      6188.0,
+      13.20555914
+     ],
+     [
+      6200.0,
+      988.86534998
+     ],
+     [
+      6220.0,
+      51.70718737
+     ],
+     [
+      6225.0,
+      5.44721233
+     ],
+     [
+      6250.0,
+      59.45080324
+     ],
+     [
+      6257.0,
+      219.7017601
+     ],
+     [
+      6267.0,
+      327.39271653
+     ],
+     [
+      6283.0,
+      15.98838131
      ]
     ],
     "target_notional_idr": 20000000.0,
-    "est_fill_vwap_buy": 5791.0,
+    "est_fill_vwap_buy": 5782.020023051503,
     "est_complete": true,
-    "tick_id": "tick_20261109T003620Z_9e80a1"
+    "tick_id": "tick_20261111T004926Z_db6c1b"
    }
   }
  },
  "gap": {
-  "generated_at": "2026-11-09T00:36:15Z",
+  "generated_at": "2026-11-11T03:54:09Z",
   "forward_start": "2026-11-09T00:35:58Z",
-  "forward_end": "2026-11-09T00:35:58Z",
+  "forward_end": "2026-11-11T00:49:26Z",
   "timeframe_seconds": 14400,
-  "duration_hours": 0.0,
-  "expected_candles": 0,
+  "duration_hours": 48.224444444444444,
+  "expected_candles": 12,
   "pairs_expected": 6,
   "per_pair": {
    "btcidr": {
-    "expected": 0,
-    "on_time": 0,
-    "uptime": null,
-    "missing_count": 0,
+    "expected": 12,
+    "on_time": 5,
+    "uptime": 0.4166666666666667,
+    "missing_count": 7,
     "late_count": 0,
     "duplicate_actions": {},
     "invalid_decisions": 0,
-    "missing_sample": [],
+    "missing_sample": [
+     "2026-11-09T04:00:00Z",
+     "2026-11-09T08:00:00Z",
+     "2026-11-09T12:00:00Z",
+     "2026-11-09T16:00:00Z",
+     "2026-11-09T20:00:00Z",
+     "2026-11-10T04:00:00Z",
+     "2026-11-10T08:00:00Z"
+    ],
     "late_sample": []
    },
    "dogeidr": {
-    "expected": 0,
-    "on_time": 0,
-    "uptime": null,
-    "missing_count": 0,
+    "expected": 12,
+    "on_time": 5,
+    "uptime": 0.4166666666666667,
+    "missing_count": 7,
     "late_count": 0,
     "duplicate_actions": {},
     "invalid_decisions": 0,
-    "missing_sample": [],
+    "missing_sample": [
+     "2026-11-09T04:00:00Z",
+     "2026-11-09T08:00:00Z",
+     "2026-11-09T12:00:00Z",
+     "2026-11-09T16:00:00Z",
+     "2026-11-09T20:00:00Z",
+     "2026-11-10T04:00:00Z",
+     "2026-11-10T08:00:00Z"
+    ],
     "late_sample": []
    },
    "ethidr": {
-    "expected": 0,
-    "on_time": 0,
-    "uptime": null,
-    "missing_count": 0,
+    "expected": 12,
+    "on_time": 5,
+    "uptime": 0.4166666666666667,
+    "missing_count": 7,
     "late_count": 0,
     "duplicate_actions": {},
     "invalid_decisions": 0,
-    "missing_sample": [],
+    "missing_sample": [
+     "2026-11-09T04:00:00Z",
+     "2026-11-09T08:00:00Z",
+     "2026-11-09T12:00:00Z",
+     "2026-11-09T16:00:00Z",
+     "2026-11-09T20:00:00Z",
+     "2026-11-10T04:00:00Z",
+     "2026-11-10T08:00:00Z"
+    ],
     "late_sample": []
    },
    "xrpidr": {
-    "expected": 0,
-    "on_time": 0,
-    "uptime": null,
-    "missing_count": 0,
+    "expected": 12,
+    "on_time": 5,
+    "uptime": 0.4166666666666667,
+    "missing_count": 7,
     "late_count": 0,
     "duplicate_actions": {},
     "invalid_decisions": 0,
-    "missing_sample": [],
+    "missing_sample": [
+     "2026-11-09T04:00:00Z",
+     "2026-11-09T08:00:00Z",
+     "2026-11-09T12:00:00Z",
+     "2026-11-09T16:00:00Z",
+     "2026-11-09T20:00:00Z",
+     "2026-11-10T04:00:00Z",
+     "2026-11-10T08:00:00Z"
+    ],
     "late_sample": []
    },
    "bnbidr": {
-    "expected": 0,
-    "on_time": 0,
-    "uptime": null,
-    "missing_count": 0,
+    "expected": 12,
+    "on_time": 5,
+    "uptime": 0.4166666666666667,
+    "missing_count": 7,
     "late_count": 0,
     "duplicate_actions": {},
     "invalid_decisions": 0,
-    "missing_sample": [],
+    "missing_sample": [
+     "2026-11-09T04:00:00Z",
+     "2026-11-09T08:00:00Z",
+     "2026-11-09T12:00:00Z",
+     "2026-11-09T16:00:00Z",
+     "2026-11-09T20:00:00Z",
+     "2026-11-10T04:00:00Z",
+     "2026-11-10T08:00:00Z"
+    ],
     "late_sample": []
    },
    "trxidr": {
-    "expected": 0,
-    "on_time": 0,
-    "uptime": null,
-    "missing_count": 0,
+    "expected": 12,
+    "on_time": 5,
+    "uptime": 0.4166666666666667,
+    "missing_count": 7,
     "late_count": 0,
     "duplicate_actions": {},
     "invalid_decisions": 0,
-    "missing_sample": [],
+    "missing_sample": [
+     "2026-11-09T04:00:00Z",
+     "2026-11-09T08:00:00Z",
+     "2026-11-09T12:00:00Z",
+     "2026-11-09T16:00:00Z",
+     "2026-11-09T20:00:00Z",
+     "2026-11-10T04:00:00Z",
+     "2026-11-10T08:00:00Z"
+    ],
     "late_sample": []
    }
   },
   "overall": {
-   "uptime_mean": null
+   "uptime_mean": 0.4166666666666667
   },
   "scheduler": {
-   "expected_ticks": 0,
-   "hit": 0,
-   "missing": 0,
-   "late": 0,
-   "uptime": null,
-   "missing_sample": [],
-   "late_sample": [],
+   "expected_ticks": 12,
+   "hit": 8,
+   "missing": 4,
+   "late": 4,
+   "uptime": 0.6666666666666666,
+   "missing_sample": [
+    "2026-11-09T08:07:00Z",
+    "2026-11-09T12:07:00Z",
+    "2026-11-09T20:07:00Z",
+    "2026-11-10T12:07:00Z"
+   ],
+   "late_sample": [
+    {
+     "expected": "2026-11-10T00:07:00Z",
+     "actual": "2026-11-10T00:10:04Z",
+     "late_seconds": 184
+    },
+    {
+     "expected": "2026-11-10T08:07:00Z",
+     "actual": "2026-11-10T08:23:24Z",
+     "late_seconds": 984
+    },
+    {
+     "expected": "2026-11-10T20:07:00Z",
+     "actual": "2026-11-10T20:12:10Z",
+     "late_seconds": 310
+    },
+    {
+     "expected": "2026-11-11T00:07:00Z",
+     "actual": "2026-11-11T00:49:26Z",
+     "late_seconds": 2546
+    }
+   ],
    "definition": "tick dihitung tepat waktu bila terjadi dalam ±45 menit dari candle close + 7 menit"
   },
   "note": "Gap dihitung dari log mentah. Tidak ada candle atau tick yang ditambahkan untuk menutupi gap."
@@ -17877,10 +19085,10 @@
  "costs_used": 366,
  "status": {
   "bot_active": true,
-  "last_tick": "2026-11-09T00:36:20Z",
+  "last_tick": "2026-11-11T00:49:26Z",
   "kill_switch": false,
   "daily_loss_blocked": false,
-  "errors_total": 0,
-  "ticks_total": 2
+  "errors_total": 25,
+  "ticks_total": 13
  }
 }

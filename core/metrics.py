@@ -159,7 +159,9 @@ def compute_uptime(decisions, forward_start, forward_end, tf_seconds, now_ts=Non
             pa = _to_epoch(d.get("processed_at"))
         if pa is None:
             pa = _to_epoch(d.get("at"))
-        if pa is not None and ct in opens and pa < ct + tf:
+        # Candle diproses setelah tutup (ct+tf); tepat waktu bila masih sebelum
+        # candle berikutnya tutup (ct+2*tf), bukan sebelum candle itu sendiri tutup.
+        if pa is not None and ct in opens and pa < ct + 2 * tf:
             on_time.add(key)
     details = [{"candle_time": t, "on_time": t in on_time} for t in opens]
     expected = len(opens) * len(pair_set)
@@ -170,5 +172,5 @@ def compute_uptime(decisions, forward_start, forward_end, tf_seconds, now_ts=Non
         "processed_candles": len(seen),
         "pairs": sorted(str(p) for p in pair_set),
         "details": details,
-        "definition": "candle per pair dihitung tepat waktu bila diproses sebelum candle berikutnya ditutup (open+tf)",
+        "definition": "candle per pair dihitung tepat waktu bila diproses setelah candle tutup (open+tf) dan sebelum candle berikutnya tutup (open+2*tf)",
     }

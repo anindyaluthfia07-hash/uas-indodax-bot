@@ -32,6 +32,23 @@ def read_json(path, default=None):
         return default if default is not None else {}
 
 
+def read_jsonl(path):
+    rows = []
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    rows.append(json.loads(line))
+                except Exception:
+                    pass
+    except Exception:
+        pass
+    return rows
+
+
 def pct(x, digits=2, signed=True):
     if x is None:
         return "n/a"
@@ -85,6 +102,8 @@ def main():
     project = read_json(os.path.join(ROOT, "data", "project_status.json"))
     universe = read_json(os.path.join(ROOT, "data", "universe.json"))
     local_state = read_json(os.path.join(ROOT, "data", "local", "state.json"))
+    local_ticks = read_jsonl(os.path.join(ROOT, "data", "local", "ticks.jsonl"))
+    local_errors = read_jsonl(os.path.join(ROOT, "data", "local", "errors.jsonl"))
     manifest = read_json(os.path.join(ROOT, "docs", "FREEZE_MANIFEST.json"))
     raw_meta_path = os.path.join(ROOT, "data", "raw", "download_meta_240.json")
     raw_meta = read_json(raw_meta_path)
@@ -373,6 +392,19 @@ def main():
         add("| Mulai | %s |" % start_fwd)
         add("| Durasi aktual | %s |" % dur_text(duration_days))
         add("| Jumlah tick | %s |" % st.get("tick_count"))
+        ok_ticks = sum(1 for t in local_ticks if t.get("status") == "ok")
+        if local_ticks:
+            add("| Tick sukses / percobaan | %d / %d |" % (ok_ticks, len(local_ticks)))
+        if local_errors:
+            dns_errors = sum(1 for e in local_errors
+                             if "nodename" in str(e.get("error", "")) or "Errno 8" in str(e.get("error", "")))
+            add("| Error API tercatat | %d baris (%d DNS, %d lainnya) |" % (
+                len(local_errors), dns_errors, len(local_errors) - dns_errors))
+        per_pair_gap = gap.get("per_pair") or {}
+        missing_per_pair = max([int(v.get("missing_count") or 0) for v in per_pair_gap.values()] or [0])
+        expected_per_pair = max([int(v.get("expected") or 0) for v in per_pair_gap.values()] or [0])
+        if expected_per_pair:
+            add("| Candle hilang (per pair) | %d dari %d |" % (missing_per_pair, expected_per_pair))
         add("| Trade tertutup | %s |" % rec.get("trade_count"))
         add("| Ekuitas terakhir | %s |" % rp(fm.get("final_equity")))
         add("| Return | %s |" % pct(fm.get("total_return")))
@@ -392,6 +424,13 @@ def main():
             add("**Catatan jujur:** durasi belum mencapai 10 hari. Ini belum cukup untuk "
                 "menyimpulkan strategi berhasil. Angka di atas hanya menunjukkan bot berjalan "
                 "dan log konsisten.")
+            add("")
+        if local_ticks and ok_ticks < len(local_ticks):
+            add("**Catatan kualitas:** %d dari %d tick gagal, terutama karena error jaringan "
+                "(DNS/koneksi) saat laptop tidur atau Wi-Fi terputus. Bot pulih sendiri, tetapi "
+                "candle yang terlewat tetap hilang dan **tidak** ditambal. Karena itu uptime di "
+                "atas bukan 100%%; forward test ini tidak boleh diklaim bersih."
+                % (len(local_ticks) - ok_ticks, len(local_ticks)))
             add("")
         add("Rincian: `data/recomputed.json`, `data/gap_analysis.json`, `docs/FORWARD_TEST.md`.")
     add("")

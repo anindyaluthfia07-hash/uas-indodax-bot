@@ -115,36 +115,54 @@ Forward test dimulai setelah freeze, dengan tick pertama yang benar-benar
 terjadi. Timestamp `forward_test_start` ditulis otomatis oleh bot pada tick
 pertama yang sukses. Tidak ada backdate. Lihat `docs/FORWARD_TEST.md`.
 
-## 7. Patch pasca-freeze (hanya tampilan laporan)
+## 7. Patch pasca-freeze (tampilan laporan + metrik uptime)
 
-Setelah freeze, ditemukan bug **tampilan** di `scripts/build_report.py`: tag
-dibaca dari kunci manifest yang salah sehingga laporan menulis "Tag: belum ada",
-dan durasi forward di bawah satu hari ditampilkan "0.00 hari". Patch hanya
-mengubah format tampilan laporan.
+Setelah freeze, ditemukan dua bug **pelaporan**, bukan bug strategi:
+
+1. **Tampilan** di `scripts/build_report.py`: tag dibaca dari kunci manifest
+   yang salah sehingga laporan menulis "Tag: belum ada", dan durasi forward di
+   bawah satu hari ditampilkan "0.00 hari". Patch hanya mengubah format
+   tampilan laporan.
+2. **Definisi metrik uptime** di `scripts/gap_analysis.py` dan
+   `core/metrics.py`: candle dianggap tepat waktu bila
+   `processed_at < candle_open + 1×timeframe`. Padahal candle baru boleh
+   diproses setelah tutup (`candle_open + 1×tf`), sehingga syarat lama tidak
+   mungkin terpenuhi dan uptime selalu tampak 0%. Definisi yang benar adalah
+   diproses setelah tutup dan sebelum candle berikutnya tutup
+   (`candle_open + 2×tf`). Perbaikan ini hanya mengubah **metrik uptime**;
+   trade, ekuitas, hasil backtest, parameter, dan universe tidak berubah.
 
 Yang **tidak** berubah pada patch ini: strategi, parameter, universe, model
 biaya, hasil backtest, dan data mentah. Untuk memeriksa:
 
 ```bash
-# tidak ada perubahan pada inti strategi dan hasil backtest
-git diff 1bc8152..HEAD -- core config data/backtest_results.json data/costs.json
+# inti eksekusi strategi dan hasil backtest tidak berubah
+git diff 1bc8152..HEAD -- core/strategy.py core/backtest_engine.py core/bot.py \
+  core/config.py core/exchange.py core/indicators.py core/storage.py \
+  config data/backtest_results.json data/costs.json data/raw data/snapshots
 
-# commit patch hanya menyentuh file pelaporan/dokumen
-git log --oneline 1bc8152..HEAD -- scripts/build_report.py README.md docs/PERNYATAAN_AI.md
+# satu-satunya perubahan di core/ adalah fungsi compute_uptime + tesnya
+git diff 1bc8152..HEAD -- core/metrics.py scripts/gap_analysis.py tests/test_core.py
+
+# commit patch hanya menyentuh file pelaporan/dokumen/analisis
+git log --oneline 1bc8152..HEAD -- scripts/build_report.py scripts/gap_analysis.py \
+  core/metrics.py tests/test_core.py README.md docs/PERNYATAAN_AI.md
 ```
 
 Manifest tetap merujuk versi pada commit freeze. Versi beku skrip laporan dapat
 diperiksa dengan `git show 1bc8152:scripts/build_report.py`. Perbedaan hash
-`scripts/build_report.py` antara manifest dan HEAD adalah konsekuensi patch
-tampilan ini dan dicatat, bukan disembunyikan.
+`scripts/build_report.py`, `scripts/gap_analysis.py`, `core/metrics.py`, dan
+`tests/test_core.py` antara manifest dan HEAD adalah konsekuensi patch
+pelaporan/analisis ini dan dicatat, bukan disembunyikan.
 
 Patch tampilan tersebut adalah commit `21cbd32` dan commit lanjutan yang hanya
-menyentuh file pelaporan/dokumen; daftar lengkapnya dapat dilihat dengan
-`git log --oneline 1bc8152..HEAD`. Commit-commit itu juga menyimpan log forward
-test aktual dan membangun ulang dashboard/laporan.
+menyentuh file pelaporan/dokumen/analisis; daftar lengkapnya dapat dilihat
+dengan `git log --oneline 1bc8152..HEAD`. Commit-commit itu juga menyimpan log
+forward test aktual dan membangun ulang dashboard/laporan.
 
-Pada working tree saat laporan ini dibuat, ada **3 file** yang berbeda dari
-manifest: `README.md`, `docs/PERNYATAAN_AI.md`, dan `scripts/build_report.py`.
-Ketiganya adalah dokumen/tampilan. Verifikasi terhadap tag (bagian 4) tetap
-menghasilkan **90/90 file cocok**, sehingga bukti bahwa strategi, parameter,
-universe, biaya, dan hasil backtest tidak berubah tetap kuat.
+Pada working tree saat laporan ini dibuat, ada **6 file** yang berbeda dari
+manifest: `README.md`, `docs/PERNYATAAN_AI.md`, `scripts/build_report.py`,
+`scripts/gap_analysis.py`, `core/metrics.py`, dan `tests/test_core.py`.
+Keenamnya adalah dokumen/tampilan/analisis. Verifikasi terhadap tag (bagian 4)
+tetap menghasilkan **90/90 file cocok**, sehingga bukti bahwa strategi,
+parameter, universe, biaya, dan hasil backtest tidak berubah tetap kuat.
