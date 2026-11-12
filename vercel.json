@@ -1,9 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "",
+  "installCommand": "",
   "functions": {
     "api/*.py": {
       "maxDuration": 60,
-      "includeFiles": ["config/**", "data/**", "core/**"]
+      "includeFiles": "**"
     }
   },
   "crons": [
