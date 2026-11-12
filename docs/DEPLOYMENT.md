@@ -165,6 +165,23 @@ Simpan nilai itu di tempat aman. Nilai yang sama dipakai di GitHub Actions.
 9. Klik **Deploy** dan tunggu selesai.
 10. Catat URL produksi, misalnya `https://uas-indodax-bot.vercel.app`.
 
+> **Penting — penulis commit harus dikenali Vercel.** Pada paket Hobby, Vercel
+> memblokir deployment bila email penulis commit tidak terhubung ke akun Vercel
+> pemilik proyek. Gejalanya: status GitHub berbunyi
+> `Vercel – ... failure "Deployment was blocked"`, bukan error build. Perbaikannya:
+>
+> ```bash
+> git config user.name "Nama Anda"
+> git config user.email "email-yang-terdaftar-di-GitHub-dan-Vercel"
+> git commit --allow-empty -m "chore: picu deployment Vercel"
+> git push origin main
+> ```
+>
+> Email penulis commit di repo ini diset ke
+> `anindyaluthfia07-hash@users.noreply.github.com` (email noreply akun GitHub
+> yang terhubung ke Vercel). Jangan memakai email lokal seperti `*.local` —
+> deployment akan diblokir walau kode sudah benar.
+
 ---
 
 ## 5. Uji endpoint **[MANUAL + terminal]**
