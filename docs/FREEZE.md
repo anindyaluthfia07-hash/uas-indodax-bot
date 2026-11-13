@@ -115,7 +115,7 @@ Forward test dimulai setelah freeze, dengan tick pertama yang benar-benar
 terjadi. Timestamp `forward_test_start` ditulis otomatis oleh bot pada tick
 pertama yang sukses. Tidak ada backdate. Lihat `docs/FORWARD_TEST.md`.
 
-## 7. Patch pasca-freeze (tampilan laporan + metrik uptime)
+## 7. Patch pasca-freeze (pelaporan, metrik, infrastruktur, payload dashboard)
 
 Setelah freeze, ditemukan dua bug **pelaporan**, bukan bug strategi:
 
@@ -141,20 +141,27 @@ Setelah freeze, ditemukan dua bug **pelaporan**, bukan bug strategi:
    berubah docstring-nya. `scripts/build_offline_dashboard.py` menambahkan label
    sumber data. Tidak ada keputusan entry/exit, parameter, atau bobot risiko yang
    berubah.
+4. **Payload dashboard** di `core/bot.py`: `dashboard_payload()` hanya
+   menambahkan satu kunci baru, `forward_vs_backtest`, yang membaca
+   `data/forward_vs_backtest.json` (bukti banding sinyal). Tidak ada perubahan
+   pada `run_tick`, perhitungan sinyal, ukuran posisi, atau eksekusi order —
+   murni penambahan data untuk ditampilkan.
 
 Yang **tidak** berubah pada patch ini: strategi, parameter, universe, model
 biaya, hasil backtest, dan data mentah. Untuk memeriksa:
 
 ```bash
 # inti eksekusi strategi dan hasil backtest tidak berubah
-# (core/storage.py dikecualikan karena hanya ditambah backend baca-saja)
-git diff 1bc8152..HEAD -- core/strategy.py core/backtest_engine.py core/bot.py \
+# (core/storage.py dikecualikan karena hanya ditambah backend baca-saja;
+#  core/bot.py dikecualikan karena hanya menambah kunci payload dashboard)
+git diff 1bc8152..HEAD -- core/strategy.py core/backtest_engine.py \
   core/config.py core/exchange.py core/indicators.py \
   config data/backtest_results.json data/costs.json data/raw data/snapshots
 
 # satu-satunya perubahan di core/ adalah fungsi compute_uptime + tesnya,
-# ditambah RepoSnapshotStorage (baca-saja) di core/storage.py
-git diff 1bc8152..HEAD -- core/metrics.py core/storage.py scripts/gap_analysis.py tests/test_core.py
+# RepoSnapshotStorage (baca-saja) di core/storage.py, dan kunci payload
+# forward_vs_backtest di core/bot.py (2 baris, tanpa logika trading)
+git diff 1bc8152..HEAD -- core/metrics.py core/storage.py core/bot.py scripts/gap_analysis.py tests/test_core.py
 
 # commit patch hanya menyentuh file pelaporan/dokumen/analisis/infrastruktur
 git log --oneline 1bc8152..HEAD -- scripts/build_report.py scripts/gap_analysis.py \
@@ -178,7 +185,7 @@ adalah dokumen/tampilan (`README.md`, `docs/PERNYATAAN_AI.md`,
 `docs/DEPLOYMENT.md`, `docs/FORWARD_TEST.md`, `scripts/build_report.py`,
 `scripts/build_offline_dashboard.py`), analisis uptime
 (`scripts/gap_analysis.py`, `core/metrics.py`, `tests/test_core.py`),
-infrastruktur deployment (`core/storage.py`, `api/tick.py`,
+infrastruktur deployment (`core/storage.py`, `core/bot.py`, `api/tick.py`,
 `.github/workflows/tick.yml`), dan alat migrasi deployment
 (`scripts/migrate_local_to_redis.py`, `tests/test_migration.py`). Tidak ada file
 strategi (`core/strategy.py`, `core/backtest_engine.py`), parameter, universe,
