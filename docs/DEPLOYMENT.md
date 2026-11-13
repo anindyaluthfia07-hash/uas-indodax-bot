@@ -173,7 +173,7 @@ python3 -c "import secrets; print(secrets.token_urlsafe(40))"
 Simpan nilai itu di tempat aman. Nilai yang sama dipakai di GitHub Actions.
 
 9. Klik **Deploy** dan tunggu selesai.
-10. Catat URL produksi, misalnya `https://uas-indodax-bot.vercel.app`.
+10. Catat URL produksi, misalnya `https://uas-indodax-bot-25110200036.vercel.app`.
 
 > **Penting — penulis commit harus dikenali Vercel.** Pada paket Hobby, Vercel
 > memblokir deployment bila email penulis commit tidak terhubung ke akun Vercel
@@ -203,7 +203,7 @@ Simpan nilai itu di tempat aman. Nilai yang sama dipakai di GitHub Actions.
 Ganti `URL` dan `SECRET` dengan milik Anda.
 
 ```bash
-URL="https://uas-indodax-bot.vercel.app"
+URL="https://uas-indodax-bot-25110200036.vercel.app"
 SECRET="isi-CRON_SECRET-anda"
 
 # health: boleh tanpa secret
@@ -269,7 +269,7 @@ itu di repo (langsung di GitHub: klik file → ikon pensil → commit):
 ```json
 {
   "github_repo": "https://github.com/USERNAME/uas-indodax-bot",
-  "vercel_url": "https://uas-indodax-bot.vercel.app",
+  "vercel_url": "https://uas-indodax-bot-25110200036.vercel.app",
   "vercel_deployed": true,
   "github_actions_enabled": true,
   "updated_at": "2026-11-08T00:00:00Z",
