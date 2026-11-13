@@ -222,3 +222,35 @@ baca-saja); penjadwal 4 jam sepenuhnya di GitHub Actions.
 | [`docs/PERNYATAAN_AI.md`](docs/PERNYATAAN_AI.md) | Penggunaan AI (wajib diperiksa) |
 | [`docs/REFLEKSI.md`](docs/REFLEKSI.md) | Refleksi hasil dan kelemahan |
 | [`data/README.md`](data/README.md) | Arti setiap file data dan cara membuat ulang |
+
+---
+
+## Sebelum mengumpulkan
+
+Forward test masih berjalan, jadi angka berubah tiap tick. Jalankan urutan ini
+tepat sebelum membuat ZIP agar laporan, dashboard, dan data konsisten:
+
+```bash
+cd uas-indodax-bot
+python3 -m unittest discover -s tests
+python3 scripts/forward_vs_backtest.py
+python3 scripts/recompute.py --source local
+python3 scripts/gap_analysis.py --source local
+python3 scripts/build_offline_dashboard.py
+python3 scripts/build_report.py
+git add -A && git commit -m "final: regenerasi dari log terakhir" && git push
+cd ..
+rm -f uas-indodax-bot_25110200036.zip
+zip -r uas-indodax-bot_25110200036.zip uas-indodax-bot \
+  -x "uas-indodax-bot/.env" "uas-indodax-bot/*.pem" "uas-indodax-bot/*.key" \
+     "*/.DS_Store" "*/__pycache__/*" "*.pyc" "uas-indodax-bot/.vercel/*"
+```
+
+> **Akses repo:** repo GitHub saat ini **privat** (URL mengembalikan 404 tanpa
+> login). Sebelum mengumpulkan, ubah ke publik lewat *Settings → General →
+> Danger Zone → Change visibility*, atau undang dosen sebagai collaborator.
+> Tanpa itu, tautan repo tidak bisa dibuka penilai.
+
+Setelah ZIP dibuat, cek isinya: `.git` harus ada (bukti freeze), `data/local/`
+harus berisi log mentah, dan tidak boleh ada `.env` atau kunci.
+
