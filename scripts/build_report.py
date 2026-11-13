@@ -99,6 +99,7 @@ def main():
     costs = read_json(os.path.join(ROOT, "data", "costs.json"))
     rec = read_json(os.path.join(ROOT, "data", "recomputed.json"))
     gap = read_json(os.path.join(ROOT, "data", "gap_analysis.json"))
+    fvb = read_json(os.path.join(ROOT, "data", "forward_vs_backtest.json"))
     project = read_json(os.path.join(ROOT, "data", "project_status.json"))
     universe = read_json(os.path.join(ROOT, "data", "universe.json"))
     local_state = read_json(os.path.join(ROOT, "data", "local", "state.json"))
@@ -435,6 +436,57 @@ def main():
                 % (len(local_ticks) - ok_ticks, len(local_ticks)))
             add("")
         add("Rincian: `data/recomputed.json`, `data/gap_analysis.json`, `docs/FORWARD_TEST.md`.")
+        add("")
+        fsum = fvb.get("summary") or {}
+        fwin = fvb.get("window") or {}
+        if fsum:
+            btwin = fvb.get("backtest_window") or {}
+            fwwin = fvb.get("forward_window") or {}
+            bwm = btwin.get("metrics") or {}
+            fwm = rec.get("metrics") or {}
+            add("### D.1 Kecocokan backtest vs forward pada jendela yang sama")
+            add("")
+            add("Backtest dijalankan ulang pada candle 4 jam yang sama dengan forward test, "
+                "memakai fungsi sinyal yang sama (`core/strategy.py`). Angka dihitung oleh "
+                "`scripts/forward_vs_backtest.py`.")
+            add("")
+            add("| Hal | Nilai |")
+            add("|---|---|")
+            add("| Jendela | %s s/d %s |" % (fwin.get("first_candle"), fwin.get("last_candle")))
+            add("| Candle per pair | %d |" % int(fwin.get("candles_per_pair") or 0))
+            add("| Pair-candle diharapkan | %d |" % int(fsum.get("expected_pair_candles") or 0))
+            add("| Pair-candle diproses bot | %d |" % int(fsum.get("processed_pair_candles") or 0))
+            add("| Cakupan candle | %s |" % pct(fsum.get("coverage_rate"), signed=False, digits=1))
+            add("| Candle sinyal diperiksa | %d |" % int(fsum.get("signal_checked") or 0))
+            add("| Sinyal cocok | %d |" % int(fsum.get("signal_match") or 0))
+            add("| Sinyal tidak cocok | %d |" % int(fsum.get("signal_mismatch") or 0))
+            add("| **Match rate sinyal** | **%s** |" % pct(fsum.get("signal_match_rate"), signed=False, digits=1))
+            add("| Return backtest jendela | %s |" % pct(bwm.get("total_return_pct")))
+            add("| Trade backtest jendela | %d |" % len(btwin.get("trades") or []))
+            add("| Return forward | %s |" % pct(fwm.get("total_return_pct")))
+            add("| Trade forward | %d |" % len(fwwin.get("trades") or []))
+            add("")
+            add("| Pair | Candle diharapkan | Diproses | Cocok | Mismatch | Missing | Match rate |")
+            add("|---|---:|---:|---:|---:|---:|---:|")
+            for pair, x in (fvb.get("per_pair") or {}).items():
+                add("| %s | %d | %d | %d | %d | %d | %s |" % (
+                    pair, int(x.get("expected") or 0), int(x.get("processed") or 0),
+                    int(x.get("signal_match") or 0), int(x.get("signal_mismatch") or 0),
+                    int(x.get("missing") or 0), pct(x.get("signal_match_rate"), signed=False, digits=1)))
+            add("")
+            if fsum.get("signal_match_rate") == 1.0:
+                add("**Interpretasi:** pada candle yang benar-benar diproses bot, sinyal masuk "
+                    "identik 100%% dengan backtest. Tidak ada perbedaan sinyal yang disebabkan kode. "
+                    "Selisih cakupan (%s) berasal dari candle yang tidak diproses karena jadwal "
+                    "terlewat/error jaringan, dan dicatat sebagai missing - bukan ditambal."
+                    % pct(fsum.get("coverage_rate"), signed=False, digits=1))
+            else:
+                add("**Interpretasi:** match rate %s. Mismatch yang tersisa diperiksa di "
+                    "`data/forward_vs_backtest.json` (contoh per pair) dan dijelaskan di refleksi."
+                    % pct(fsum.get("signal_match_rate"), signed=False, digits=1))
+            add("")
+            add("Rincian candle-per-candle: `data/forward_signals.csv`.")
+            add("")
     add("")
 
     # ================= E =================
@@ -488,6 +540,9 @@ def main():
         vercel if deployed else "butuh akun mahasiswa; lihat E/G"))
     add("| Dashboard HTML offline | **Terpenuhi** | `public/offline_dashboard.html` |")
     add("| Skrip hitung ulang | **Terpenuhi** | `scripts/recompute.py`, `scripts/gap_analysis.py` |")
+    add("| Backtest ulang jendela forward + banding sinyal | %s | `data/forward_vs_backtest.json`, `data/forward_signals.csv` |" % (
+        ("**Terpenuhi** (match %.1f%%)" % ((fvb.get("summary") or {}).get("signal_match_rate", 0) * 100))
+        if (fvb.get("summary") or {}).get("signal_match_rate") is not None else "**Belum dijalankan**"))
     add("| `.env.example`, tanpa secret | **Terpenuhi** | `.env.example`, `.gitignore` |")
     add("| Freeze tepat waktu | **TIDAK** (%s) | `docs/FREEZE.md` |" % (
         ("terlambat %.1f hari" % freeze_delay_days) if freeze_delay_days is not None else "belum tercatat"))

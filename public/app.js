@@ -491,6 +491,51 @@
       return '<div class="card kpi ' + k.cls + '"><div class="label">' + esc(k.label) + '</div><div class="value sm">' + k.value + '</div><div class="foot">' + esc(k.foot) + "</div></div>";
     }).join("");
 
+    // Kecocokan backtest vs forward pada jendela yang sama (rubrik 25%).
+    var fvb = D.forward_vs_backtest || {};
+    var fs = fvb.summary || {};
+    if (fvb.window && fs.expected_pair_candles) {
+      var btW = (fvb.backtest_window || {}).metrics || {};
+      var fwW = fvb.forward_window || {};
+      var fwM = fwd.metrics || {};
+      var pairRows = Object.keys(fvb.per_pair || {}).map(function (p) {
+        var x = fvb.per_pair[p] || {};
+        var mrate = x.signal_match_rate;
+        return "<tr><td>" + esc(p) + '</td><td class="mono">' + num(x.expected, 0) +
+          '</td><td class="mono">' + num(x.processed, 0) +
+          '</td><td class="mono pos">' + num(x.signal_match, 0) +
+          '</td><td class="mono ' + (x.signal_mismatch ? "neg" : "") + '">' + num(x.signal_mismatch, 0) +
+          '</td><td class="mono warn">' + num(x.missing, 0) +
+          '</td><td class="mono">' + (isNum(mrate) ? pctPlain(mrate * 100, 1) : "—") + "</td></tr>";
+      }).join("");
+      var coverage = fs.coverage_rate;
+      var matchRate = fs.signal_match_rate;
+      $("fwdCompare").innerHTML =
+        '<div class="grid g4" style="margin-bottom:14px">' +
+        '<div class="card kpi"><div class="label">Jendela</div><div class="value sm">' +
+        esc(dt(fvb.window.first_candle, true)) + '<br>→ ' + esc(dt(fvb.window.last_candle, true)) +
+        '</div><div class="foot">' + num(fvb.window.candles_per_pair, 0) + " candle/pair</div></div>" +
+        '<div class="card kpi ' + (isNum(matchRate) && matchRate >= 1 ? "pos" : "warn") + '"><div class="label">Sinyal cocok</div><div class="value sm">' +
+        (isNum(matchRate) ? pctPlain(matchRate * 100, 1) : "—") +
+        '</div><div class="foot">' + num(fs.signal_match, 0) + "/" + num(fs.signal_checked, 0) + " candle diperiksa</div></div>" +
+        '<div class="card kpi ' + (isNum(coverage) && coverage >= 0.95 ? "pos" : "warn") + '"><div class="label">Cakupan candle</div><div class="value sm">' +
+        (isNum(coverage) ? pctPlain(coverage * 100, 1) : "—") +
+        '</div><div class="foot">' + num(fs.processed_pair_candles, 0) + "/" + num(fs.expected_pair_candles, 0) + " pair-candle</div></div>" +
+        '<div class="card kpi"><div class="label">Return jendela</div><div class="value sm">BT ' + pct(btW.total_return_pct) +
+        '<br>FWD ' + pct(fwM.total_return_pct) + '</div><div class="foot">Trade BT ' + num((fvb.backtest_window || {}).trades ? (fvb.backtest_window.trades || []).length : 0, 0) +
+        " · FWD " + num(fwW.trade_count, 0) + "</div></div>" +
+        "</div>" +
+        '<div class="tbl-scroll" style="max-height:none"><table><thead><tr><th>Pair</th><th>Candle diharapkan</th><th>Diproses</th><th>Cocok</th><th>Mismatch</th><th>Missing</th><th>Match rate</th></tr></thead><tbody>' +
+        pairRows + "</tbody></table></div>" +
+        '<p class="hint" style="margin-top:10px">' + esc(fvb.definition || "") +
+        " Candle yang tidak diproses dihitung <b>missing</b>, bukan mismatch, sehingga match rate tidak menutupi gap jadwal. " +
+        "Backtest jendela: return " + pct(btW.total_return_pct) + ", " + num(((fvb.backtest_window || {}).trades || []).length, 0) +
+        " trade; forward: return " + pct(fwM.total_return_pct) + ", " + num(fwW.trade_count, 0) + " trade.</p>";
+    } else {
+      $("fwdCompare").innerHTML = note("info", "Perbandingan belum tersedia",
+        "Jalankan <code>python3 scripts/forward_vs_backtest.py</code> setelah forward test berjalan untuk mengisi bagian ini. Skrip memakai candle yang sama dan fungsi sinyal yang sama.");
+    }
+
     var fe = normalize((fwd.equity || []));
     if (fe.length > 1) {
       makeChart($("fwdChart"), [{ name: "Forward", color: "#22c55e", pts: fe, fill: true }],

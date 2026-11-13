@@ -3,7 +3,7 @@
 **Nama:** Anindya Rahma Luthfia  
 **NIM:** 25110200036  
 **Mata kuliah:** Algoritma Trading  
-**Tanggal laporan:** 2026-11-13 07:30 WIB (2026-11-13T00:30:26Z)  
+**Tanggal laporan:** 2026-11-13 07:31 WIB (2026-11-13T00:31:08Z)  
 **Strategi:** Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)  
 **Timeframe:** 4 jam · **Universe:** 6 pair IDR · **Modal simulasi:** Rp100.000.000
 
@@ -143,7 +143,7 @@ python3 scripts/build_offline_dashboard.py
 | Commit pembekuan dibuat | 2026-11-09T00:35:31Z |
 | Commit hash pembekuan | `1bc81524f6babff24406b17593633f5a10cd336f` |
 | Ref/tag yang dipakai config | freeze-2026-11-09 |
-| HEAD saat laporan dibuat | `2176cdbfa8e29237b0d6f49e85c6da16d78ba83d` |
+| HEAD saat laporan dibuat | `f2f46f4792e45b0b32c8355b98f1bd98c64ab2cb` |
 | Tag | freeze-2026-11-09 |
 | Status | **TERLAMBAT 4.8 hari** (commit aktual 2026-11-09T00:35:31Z; pekerjaan dimulai 8 November 2026) |
 
@@ -189,6 +189,40 @@ Pemeriksaan integritas:
 
 Rincian: `data/recomputed.json`, `data/gap_analysis.json`, `docs/FORWARD_TEST.md`.
 
+### D.1 Kecocokan backtest vs forward pada jendela yang sama
+
+Backtest dijalankan ulang pada candle 4 jam yang sama dengan forward test, memakai fungsi sinyal yang sama (`core/strategy.py`). Angka dihitung oleh `scripts/forward_vs_backtest.py`.
+
+| Hal | Nilai |
+|---|---|
+| Jendela | 2026-11-09T00:00:00Z s/d 2026-11-12T20:00:00Z |
+| Candle per pair | 24 |
+| Pair-candle diharapkan | 144 |
+| Pair-candle diproses bot | 66 |
+| Cakupan candle | 45.8% |
+| Candle sinyal diperiksa | 60 |
+| Sinyal cocok | 60 |
+| Sinyal tidak cocok | 0 |
+| **Match rate sinyal** | **100.0%** |
+| Return backtest jendela | +0.00% |
+| Trade backtest jendela | 0 |
+| Return forward | +0.00% |
+| Trade forward | 0 |
+
+| Pair | Candle diharapkan | Diproses | Cocok | Mismatch | Missing | Match rate |
+|---|---:|---:|---:|---:|---:|---:|
+| btcidr | 24 | 11 | 10 | 0 | 13 | 100.0% |
+| dogeidr | 24 | 11 | 10 | 0 | 13 | 100.0% |
+| ethidr | 24 | 11 | 10 | 0 | 13 | 100.0% |
+| xrpidr | 24 | 11 | 10 | 0 | 13 | 100.0% |
+| bnbidr | 24 | 11 | 10 | 0 | 13 | 100.0% |
+| trxidr | 24 | 11 | 10 | 0 | 13 | 100.0% |
+
+**Interpretasi:** pada candle yang benar-benar diproses bot, sinyal masuk identik 100% dengan backtest. Tidak ada perbedaan sinyal yang disebabkan kode. Selisih cakupan (45.8%) berasal dari candle yang tidak diproses karena jadwal terlewat/error jaringan, dan dicatat sebagai missing - bukan ditambal.
+
+Rincian candle-per-candle: `data/forward_signals.csv`.
+
+
 ## E. Status deployment
 
 | Hal | Nilai |
@@ -222,6 +256,7 @@ Langkah manual ada di `docs/DEPLOYMENT.md` dan bagian G di bawah.
 | Deploy Vercel | **Terpenuhi** | https://uas-indodax-bot-25110200036.vercel.app |
 | Dashboard HTML offline | **Terpenuhi** | `public/offline_dashboard.html` |
 | Skrip hitung ulang | **Terpenuhi** | `scripts/recompute.py`, `scripts/gap_analysis.py` |
+| Backtest ulang jendela forward + banding sinyal | **Terpenuhi** (match 100.0%) | `data/forward_vs_backtest.json`, `data/forward_signals.csv` |
 | `.env.example`, tanpa secret | **Terpenuhi** | `.env.example`, `.gitignore` |
 | Freeze tepat waktu | **TIDAK** (terlambat 4.8 hari) | `docs/FREEZE.md` |
 | Forward test 10 hari | **Berjalan 4.00 hari** | lihat D |
