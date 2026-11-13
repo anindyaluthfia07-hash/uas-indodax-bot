@@ -132,21 +132,34 @@ Setelah freeze, ditemukan dua bug **pelaporan**, bukan bug strategi:
    (`candle_open + 2×tf`). Perbaikan ini hanya mengubah **metrik uptime**;
    trade, ekuitas, hasil backtest, parameter, dan universe tidak berubah.
 
+3. **Infrastruktur penjadwal cloud** (bukan strategi): `.github/workflows/tick.yml`
+   sekarang menjalankan tick di runner GitHub Actions lalu meng-commit state/log
+   ke repo; commit itu memicu redeploy Vercel. Di `core/storage.py` ditambahkan
+   `RepoSnapshotStorage`, yaitu backend **baca-saja** untuk Vercel tanpa Upstash,
+   supaya `/api/health` dan `/api/dashboard` menampilkan data commit terakhir
+   dan `POST /api/tick` menolak menulis dengan pesan jelas. `api/tick.py` hanya
+   berubah docstring-nya. `scripts/build_offline_dashboard.py` menambahkan label
+   sumber data. Tidak ada keputusan entry/exit, parameter, atau bobot risiko yang
+   berubah.
+
 Yang **tidak** berubah pada patch ini: strategi, parameter, universe, model
 biaya, hasil backtest, dan data mentah. Untuk memeriksa:
 
 ```bash
 # inti eksekusi strategi dan hasil backtest tidak berubah
+# (core/storage.py dikecualikan karena hanya ditambah backend baca-saja)
 git diff 1bc8152..HEAD -- core/strategy.py core/backtest_engine.py core/bot.py \
-  core/config.py core/exchange.py core/indicators.py core/storage.py \
+  core/config.py core/exchange.py core/indicators.py \
   config data/backtest_results.json data/costs.json data/raw data/snapshots
 
-# satu-satunya perubahan di core/ adalah fungsi compute_uptime + tesnya
-git diff 1bc8152..HEAD -- core/metrics.py scripts/gap_analysis.py tests/test_core.py
+# satu-satunya perubahan di core/ adalah fungsi compute_uptime + tesnya,
+# ditambah RepoSnapshotStorage (baca-saja) di core/storage.py
+git diff 1bc8152..HEAD -- core/metrics.py core/storage.py scripts/gap_analysis.py tests/test_core.py
 
-# commit patch hanya menyentuh file pelaporan/dokumen/analisis
+# commit patch hanya menyentuh file pelaporan/dokumen/analisis/infrastruktur
 git log --oneline 1bc8152..HEAD -- scripts/build_report.py scripts/gap_analysis.py \
-  core/metrics.py tests/test_core.py README.md docs/PERNYATAAN_AI.md
+  core/metrics.py core/storage.py tests/test_core.py README.md docs/PERNYATAAN_AI.md \
+  .github/workflows/tick.yml
 ```
 
 Manifest tetap merujuk versi pada commit freeze. Versi beku skrip laporan dapat
@@ -162,10 +175,13 @@ forward test aktual dan membangun ulang dashboard/laporan.
 
 Pada working tree saat laporan ini dibuat, file yang berbeda dari manifest
 adalah dokumen/tampilan (`README.md`, `docs/PERNYATAAN_AI.md`,
-`scripts/build_report.py`, `docs/DEPLOYMENT.md`), analisis uptime
-(`scripts/gap_analysis.py`, `core/metrics.py`, `tests/test_core.py`), dan alat
-migrasi deployment (`scripts/migrate_local_to_redis.py`,
-`tests/test_migration.py`). Tidak ada file strategi, parameter, universe, model
-biaya, data mentah, atau hasil backtest yang berubah. Verifikasi terhadap tag
-(bagian 4) tetap menghasilkan **90/90 file cocok**, sehingga bukti bahwa
+`docs/DEPLOYMENT.md`, `docs/FORWARD_TEST.md`, `scripts/build_report.py`,
+`scripts/build_offline_dashboard.py`), analisis uptime
+(`scripts/gap_analysis.py`, `core/metrics.py`, `tests/test_core.py`),
+infrastruktur deployment (`core/storage.py`, `api/tick.py`,
+`.github/workflows/tick.yml`), dan alat migrasi deployment
+(`scripts/migrate_local_to_redis.py`, `tests/test_migration.py`). Tidak ada file
+strategi (`core/strategy.py`, `core/backtest_engine.py`), parameter, universe,
+model biaya, data mentah, atau hasil backtest yang berubah. Verifikasi terhadap
+tag (bagian 4) tetap menghasilkan **90/90 file cocok**, sehingga bukti bahwa
 strategi dan hasil backtest tidak berubah tetap kuat.

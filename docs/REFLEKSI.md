@@ -104,16 +104,20 @@ Hasil pada jendela 2026-11-09T00:00Z → 2026-11-12T20:00Z:
 | Candle diproses bot | 66 (45,8%) |
 | Candle diperiksa sinyalnya | 60 |
 | Sinyal cocok | **60/60 (100%)** |
+| Komponen sinyal identik | **300/300** (5 komponen × 60 candle) |
 | Sinyal mismatch | 0 |
 | Trade backtest jendela | 0 |
 | Trade forward jendela | 0 |
 
 Arti dan batasnya: 100% berarti jalur kode sinyal (Donchian 40, filter EMA
 20/100, ATR 3×) konsisten antara backtest dan bot, dan tidak ada perbedaan
-keputusan pada candle yang sempat diproses. Angka ini **bukan** bukti strategi
-menguntungkan — di jendela ini tidak ada trade sama sekali, sehingga belum ada
-trade nyata yang bisa dibandingkan. Candle yang tidak diproses dihitung
-*missing*, bukan mismatch, supaya match rate tidak menutupi gap jadwal.
+keputusan pada candle yang sempat diproses. Perbandingan tidak berhenti di
+keputusan akhir: kelima komponen sinyal (breakout, harga di atas EMA tren, EMA
+cepat di atas EMA tren, volume, dan A/D) juga dibandingkan, dan **300 dari 300
+komponen identik**. Angka ini **bukan** bukti strategi menguntungkan — di
+jendela ini tidak ada trade sama sekali, sehingga belum ada trade nyata yang
+bisa dibandingkan. Candle yang tidak diproses dihitung *missing*, bukan
+mismatch, supaya match rate tidak menutupi gap jadwal.
 
 Saya juga membandingkan spread yang benar-benar terukur saat forward test
 (84 snapshot order book, 14 tick × 6 pair) dengan spread yang dipakai model

@@ -2,7 +2,7 @@
  "meta": {
   "student": "Anindya Rahma Luthfia",
   "nim": "25110200036",
-  "generated_at": "2026-11-13T00:31:08Z",
+  "generated_at": "2026-11-13T00:34:06Z",
   "storage": "repo git (data/local) + Upstash opsional",
   "strategy": "Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)",
   "timeframe": "240",
@@ -17109,8 +17109,8 @@
  },
  "forward": {
   "start": "2026-11-09T00:35:58Z",
-  "end": "2026-11-13T00:31:08Z",
-  "duration_days": 3.9966442101973074,
+  "end": "2026-11-13T00:34:06Z",
+  "duration_days": 3.9987139144567427,
   "metrics": {
    "initial_capital": 100000000.0,
    "final_equity": 100000000.0,
@@ -19206,7 +19206,7 @@
   "note": "Gap dihitung dari log mentah. Tidak ada candle atau tick yang ditambahkan untuk menutupi gap."
  },
  "forward_vs_backtest": {
-  "generated_at": "2026-11-13T00:25:16Z",
+  "generated_at": "2026-11-13T00:34:06Z",
   "definition": "Backtest dijalankan ulang pada jendela forward memakai candle 4 jam yang sama. Sinyal masuk dibandingkan candle demi candle. Candle yang tidak diproses bot dihitung missing, bukan mismatch.",
   "storage": "local",
   "forward_start": "2026-11-09T00:35:58Z",
@@ -19217,7 +19217,7 @@
    "pairs": 6,
    "expected_pair_candles": 144
   },
-  "server_time": 1794529514.194,
+  "server_time": 1794530044.194,
   "fetch": {
    "btcidr": {
     "requests": 1,
@@ -19257,6 +19257,9 @@
    "signal_match": 60,
    "signal_mismatch": 0,
    "signal_match_rate": 1.0,
+   "component_checks": 300,
+   "component_match": 300,
+   "component_match_rate": 1.0,
    "coverage_rate": 0.4583333333333333
   },
   "per_pair": {

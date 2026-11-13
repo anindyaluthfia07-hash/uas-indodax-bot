@@ -3,7 +3,7 @@
 **Nama:** Anindya Rahma Luthfia  
 **NIM:** 25110200036  
 **Mata kuliah:** Algoritma Trading  
-**Tanggal laporan:** 2026-11-13 07:31 WIB (2026-11-13T00:31:08Z)  
+**Tanggal laporan:** 2026-11-13 07:34 WIB (2026-11-13T00:34:07Z)  
 **Strategi:** Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)  
 **Timeframe:** 4 jam · **Universe:** 6 pair IDR · **Modal simulasi:** Rp100.000.000
 
@@ -143,7 +143,7 @@ python3 scripts/build_offline_dashboard.py
 | Commit pembekuan dibuat | 2026-11-09T00:35:31Z |
 | Commit hash pembekuan | `1bc81524f6babff24406b17593633f5a10cd336f` |
 | Ref/tag yang dipakai config | freeze-2026-11-09 |
-| HEAD saat laporan dibuat | `f2f46f4792e45b0b32c8355b98f1bd98c64ab2cb` |
+| HEAD saat laporan dibuat | `dfc7c695d2f90b067b271449f3818d60fdc41401` |
 | Tag | freeze-2026-11-09 |
 | Status | **TERLAMBAT 4.8 hari** (commit aktual 2026-11-09T00:35:31Z; pekerjaan dimulai 8 November 2026) |
 
@@ -201,6 +201,8 @@ Backtest dijalankan ulang pada candle 4 jam yang sama dengan forward test, memak
 | Pair-candle diproses bot | 66 |
 | Cakupan candle | 45.8% |
 | Candle sinyal diperiksa | 60 |
+| Komponen sinyal dibandingkan | 300 |
+| Komponen sinyal identik | 300 |
 | Sinyal cocok | 60 |
 | Sinyal tidak cocok | 0 |
 | **Match rate sinyal** | **100.0%** |
@@ -218,7 +220,7 @@ Backtest dijalankan ulang pada candle 4 jam yang sama dengan forward test, memak
 | bnbidr | 24 | 11 | 10 | 0 | 13 | 100.0% |
 | trxidr | 24 | 11 | 10 | 0 | 13 | 100.0% |
 
-**Interpretasi:** pada candle yang benar-benar diproses bot, sinyal masuk identik 100% dengan backtest. Tidak ada perbedaan sinyal yang disebabkan kode. Selisih cakupan (45.8%) berasal dari candle yang tidak diproses karena jadwal terlewat/error jaringan, dan dicatat sebagai missing - bukan ditambal.
+**Interpretasi:** pada candle yang benar-benar diproses bot, sinyal masuk identik 100% dengan backtest. Perbandingan dilakukan bukan hanya pada keputusan akhir, tetapi juga pada 5 komponen sinyal (breakout Donchian, harga di atas EMA tren, EMA cepat di atas EMA tren, volume, dan A/D): 300 dari 300 komponen identik. Tidak ada perbedaan sinyal yang disebabkan kode. Selisih cakupan (45.8%) berasal dari candle yang tidak diproses karena jadwal terlewat/error jaringan, dan dicatat sebagai missing - bukan ditambal.
 
 Rincian candle-per-candle: `data/forward_signals.csv`.
 

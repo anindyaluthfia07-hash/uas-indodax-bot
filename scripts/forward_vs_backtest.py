@@ -130,6 +130,7 @@ def main():
     expected = list(range(first_open, last_open + 1, TF))
     rows, per_pair = [], {}
     total_match = total_checked = total_processed = 0
+    total_comp_checks = total_comp_match = 0
     for pair in cfg["universe"]:
         bars = data.get(pair) or []
         if len(bars) < 150:
@@ -172,6 +173,9 @@ def main():
                 match = ""
             else:
                 total_checked += 1
+                comp_keys = sorted(set(bt_comp) | set(fwd_comp))
+                total_comp_checks += len(comp_keys)
+                total_comp_match += sum(1 for k in comp_keys if bt_comp.get(k) == fwd_comp.get(k))
                 match = bool(fwd_entry) == bt_entry and fwd_comp == bt_comp
                 if match:
                     total_match += 1
@@ -238,6 +242,9 @@ def main():
             "signal_match": total_match,
             "signal_mismatch": checked - total_match,
             "signal_match_rate": (total_match / checked) if checked else None,
+            "component_checks": total_comp_checks,
+            "component_match": total_comp_match,
+            "component_match_rate": (total_comp_match / total_comp_checks) if total_comp_checks else None,
             "coverage_rate": (total_processed / (len(expected) * len(cfg["universe"])))
                              if expected and cfg["universe"] else None,
         },
@@ -270,6 +277,9 @@ def main():
         (total_processed / (len(expected) * len(cfg["universe"])) * 100) if expected else 0))
     print("Sinyal cocok  : %d/%d (%.1f%%)" % (
         total_match, checked, (total_match / checked * 100) if checked else 0))
+    print("Komponen      : %d/%d identik (%.1f%%)" % (
+        total_comp_match, total_comp_checks,
+        (total_comp_match / total_comp_checks * 100) if total_comp_checks else 0))
     print("Backtest window: return %.2f%%, trade %d" % (
         (bt_window.get("metrics") or {}).get("total_return_pct") or 0,
         len(bt_window.get("trades") or [])))

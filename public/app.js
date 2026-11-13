@@ -528,7 +528,9 @@
         '<div class="tbl-scroll" style="max-height:none"><table><thead><tr><th>Pair</th><th>Candle diharapkan</th><th>Diproses</th><th>Cocok</th><th>Mismatch</th><th>Missing</th><th>Match rate</th></tr></thead><tbody>' +
         pairRows + "</tbody></table></div>" +
         '<p class="hint" style="margin-top:10px">' + esc(fvb.definition || "") +
-        " Candle yang tidak diproses dihitung <b>missing</b>, bukan mismatch, sehingga match rate tidak menutupi gap jadwal. " +
+        " Match rate dihitung hanya dari candle yang benar-benar diperiksa, sehingga gap jadwal tidak menutupi perbedaan sinyal. " +
+        "Kecocokan juga diuji per komponen (breakout, EMA tren, EMA cepat, volume, A/D): " +
+        num((fvb.summary || {}).component_match, 0) + "/" + num((fvb.summary || {}).component_checks, 0) + " komponen identik. " +
         "Backtest jendela: return " + pct(btW.total_return_pct) + ", " + num(((fvb.backtest_window || {}).trades || []).length, 0) +
         " trade; forward: return " + pct(fwM.total_return_pct) + ", " + num(fwW.trade_count, 0) + " trade.</p>";
     } else {

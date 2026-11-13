@@ -458,6 +458,8 @@ def main():
             add("| Pair-candle diproses bot | %d |" % int(fsum.get("processed_pair_candles") or 0))
             add("| Cakupan candle | %s |" % pct(fsum.get("coverage_rate"), signed=False, digits=1))
             add("| Candle sinyal diperiksa | %d |" % int(fsum.get("signal_checked") or 0))
+            add("| Komponen sinyal dibandingkan | %d |" % int(fsum.get("component_checks") or 0))
+            add("| Komponen sinyal identik | %d |" % int(fsum.get("component_match") or 0))
             add("| Sinyal cocok | %d |" % int(fsum.get("signal_match") or 0))
             add("| Sinyal tidak cocok | %d |" % int(fsum.get("signal_mismatch") or 0))
             add("| **Match rate sinyal** | **%s** |" % pct(fsum.get("signal_match_rate"), signed=False, digits=1))
@@ -476,10 +478,14 @@ def main():
             add("")
             if fsum.get("signal_match_rate") == 1.0:
                 add("**Interpretasi:** pada candle yang benar-benar diproses bot, sinyal masuk "
-                    "identik 100%% dengan backtest. Tidak ada perbedaan sinyal yang disebabkan kode. "
+                    "identik 100%% dengan backtest. Perbandingan dilakukan bukan hanya pada "
+                    "keputusan akhir, tetapi juga pada 5 komponen sinyal (breakout Donchian, "
+                    "harga di atas EMA tren, EMA cepat di atas EMA tren, volume, dan A/D): "
+                    "%d dari %d komponen identik. Tidak ada perbedaan sinyal yang disebabkan kode. "
                     "Selisih cakupan (%s) berasal dari candle yang tidak diproses karena jadwal "
                     "terlewat/error jaringan, dan dicatat sebagai missing - bukan ditambal."
-                    % pct(fsum.get("coverage_rate"), signed=False, digits=1))
+                    % (int(fsum.get("component_match") or 0), int(fsum.get("component_checks") or 0),
+                       pct(fsum.get("coverage_rate"), signed=False, digits=1)))
             else:
                 add("**Interpretasi:** match rate %s. Mismatch yang tersisa diperiksa di "
                     "`data/forward_vs_backtest.json` (contoh per pair) dan dijelaskan di refleksi."
