@@ -9,12 +9,6 @@
       "includeFiles": "**"
     }
   },
-  "crons": [
-    {
-      "path": "/api/tick",
-      "schedule": "7 0 * * *"
-    }
-  ],
   "headers": [
     {
       "source": "/api/(.*)",

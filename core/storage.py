@@ -176,6 +176,43 @@ class LocalStorage(BaseStorage):
         return {"ok": True, "backend": "local", "root": self.root}
 
 
+class RepoSnapshotStorage(LocalStorage):
+    """Baca-saja dari `data/local/` yang ikut dibundel ke deployment Vercel.
+
+    Dipakai hanya bila deployment Vercel tidak dikonfigurasi dengan Upstash.
+    Dashboard dan `/api/health` tetap menampilkan data nyata dari commit
+    terakhir (bukan angka kosong), sedangkan semua operasi tulis ditolak
+    dengan pesan jelas supaya tidak ada state yang hilang diam-diam.
+    """
+
+    name = "repo_snapshot"
+
+    def _readonly(self, *args, **kwargs):
+        raise StorageConfigError(
+            "Deployment ini hanya punya penyimpanan baca-saja (snapshot repo). "
+            "Tick dari cloud butuh UPSTASH_REDIS_REST_URL dan "
+            "UPSTASH_REDIS_REST_TOKEN. Scheduler GitHub Actions menulis lewat "
+            "commit repo, bukan lewat endpoint ini."
+        )
+
+    set_state = _readonly
+    append = _readonly
+    claim_order = _readonly
+    set_kill = _readonly
+    acquire_lock = _readonly
+    release_lock = _readonly
+
+    def health(self):
+        state = self.get_state() or {}
+        return {
+            "ok": True,
+            "backend": "repo_snapshot",
+            "writable": False,
+            "last_tick_in_snapshot": state.get("last_tick"),
+            "note": "Data dibaca dari data/local/*.jsonl pada commit terakhir.",
+        }
+
+
 class RedisStorage(BaseStorage):
     name = "upstash_redis"
 
@@ -290,9 +327,8 @@ def get_storage():
     if url and token:
         return RedisStorage(url, token)
     if os.environ.get("VERCEL"):
-        raise StorageConfigError(
-            "UPSTASH_REDIS_REST_URL dan UPSTASH_REDIS_REST_TOKEN belum diset. "
-            "Vercel tidak memiliki filesystem permanen; hubungkan Upstash Redis "
-            "dari Vercel Marketplace lalu redeploy."
-        )
+        # Tanpa Upstash, Vercel tidak punya filesystem permanen. Fallback
+        # baca-saja: dashboard tetap menampilkan snapshot commit terakhir,
+        # sedangkan tick ditolak dengan pesan jelas (lihat RepoSnapshotStorage).
+        return RepoSnapshotStorage()
     return LocalStorage()

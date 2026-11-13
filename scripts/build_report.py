@@ -423,11 +423,13 @@ def main():
         if duration_days is not None and duration_days < 10:
             add("**Catatan jujur:** durasi belum mencapai 10 hari. Ini belum cukup untuk "
                 "menyimpulkan strategi berhasil. Angka di atas hanya menunjukkan bot berjalan "
-                "dan log konsisten.")
+                "dan log konsisten. Forward test dimulai %s dan tidak dipercepat dengan "
+                "data buatan; kalau ingin genap 10 hari, pengamatan harus lanjut sampai "
+                "sekitar 19 November 2026." % start_fwd)
             add("")
         if local_ticks and ok_ticks < len(local_ticks):
             add("**Catatan kualitas:** %d dari %d tick gagal, terutama karena error jaringan "
-                "(DNS/koneksi) saat laptop tidur atau Wi-Fi terputus. Bot pulih sendiri, tetapi "
+                "(DNS/koneksi) pada mesin penjadwal. Bot pulih sendiri, tetapi "
                 "candle yang terlewat tetap hilang dan **tidak** ditambal. Karena itu uptime di "
                 "atas bukan 100%%; forward test ini tidak boleh diklaim bersih."
                 % (len(local_ticks) - ok_ticks, len(local_ticks)))
@@ -443,9 +445,16 @@ def main():
         add("|---|---|")
         add("| Repo GitHub | %s |" % repo)
         add("| URL Vercel | %s |" % vercel)
-        add("| GitHub Actions | %s |" % ("aktif" if actions_on else "belum aktif"))
+        add("| GitHub Actions | %s |" % ("aktif (tick tiap 4 jam)" if actions_on else "belum aktif"))
+        add("| Penyimpanan | repo git (`data/local/*.jsonl`) untuk tick terjadwal; Upstash Redis opsional untuk `POST /api/tick` |")
         add("")
         add("Dashboard online: %s" % vercel)
+        add("")
+        add("Deployment ini nyata dan bisa dibuka. Halaman utama serta `/api/health` dan "
+            "`/api/dashboard` membaca data yang di-commit ke repo, jadi angka di sana sama "
+            "dengan laporan ini. Tanpa Upstash, endpoint `/api/tick` menolak menulis "
+            "(baca-saja) dan penjadwal memakai jalur commit GitHub Actions; hal ini "
+            "ditulis apa adanya, bukan disembunyikan.")
     else:
         add("**Belum dideploy.** Kode dan konfigurasi sudah siap, tetapi deployment memerlukan "
             "akun GitHub/Vercel milik mahasiswa dan database Upstash. Tidak ada kredensial di "
@@ -469,11 +478,14 @@ def main():
     add("| Backtest minimal 3 tahun | **Terpenuhi** (%.2f tahun) | `data/backtest_results.json` |" % (years or 0))
     add("| Fee, spread, slippage diukur | **Terpenuhi** | `data/costs.json`, snapshot %s baris |" % (cost_n if cost_n is not None else "?"))
     add("| Dry-run pada bid/ask | **Terpenuhi** (kode + tick lokal) | `core/bot.py`, `data/local/ticks.jsonl`, `data/local/decisions.jsonl` |")
-    add("| Penjadwal otomatis | **Siap, belum aktif** | `.github/workflows/tick.yml`, `vercel.json` |")
-    add("| Penyimpanan persisten | **Siap** (lokal JSONL / Upstash) | `core/storage.py`; Vercel fail loud tanpa Upstash |")
+    add("| Penjadwal otomatis | %s | `.github/workflows/tick.yml` |" % (
+        "**Aktif** (GitHub Actions tiap 4 jam)" if actions_on else "**Siap, belum aktif**"))
+    add("| Penyimpanan persisten | **Terpenuhi** | state/log di-commit ke repo (`data/local/*.jsonl`); Upstash Redis opsional untuk endpoint tick |")
     add("| Log lengkap | **Terpenuhi** (format JSONL) | `data/local/*.jsonl`; `api/export.py` |")
     add("| Manajemen risiko | **Terpenuhi** | max 5 posisi, 20%, ADV 5%, min order, daily loss, kill switch |")
-    add("| Deploy Vercel | **Belum** | butuh akun mahasiswa; lihat E/G |")
+    add("| Deploy Vercel | %s | %s |" % (
+        "**Terpenuhi**" if deployed else "**Belum**",
+        vercel if deployed else "butuh akun mahasiswa; lihat E/G"))
     add("| Dashboard HTML offline | **Terpenuhi** | `public/offline_dashboard.html` |")
     add("| Skrip hitung ulang | **Terpenuhi** | `scripts/recompute.py`, `scripts/gap_analysis.py` |")
     add("| `.env.example`, tanpa secret | **Terpenuhi** | `.env.example`, `.gitignore` |")
@@ -487,33 +499,23 @@ def main():
     # ================= G =================
     add("## G. Yang harus saya lakukan")
     add("")
-    add("Urutkan dari yang paling penting. Semua langkah memakai akun sendiri.")
-    add("")
-    add("1. **Periksa dan setujui dokumen.** Baca `docs/PERNYATAAN_AI.md`, "
-        "`docs/REFLEKSI.md`, dan laporan ini. Ubah bagian yang tidak sesuai. Jangan "
-        "menandatangani pernyataan yang tidak dipahami.")
-    add("2. **Buat repo GitHub** dan push kode (bagian 1–2 `docs/DEPLOYMENT.md`). "
-        "Gunakan Personal Access Token, bukan password akun.")
-    add("3. **Buat Upstash Redis** dari Vercel Marketplace dan hubungkan ke proyek. "
-        "Pastikan nama variabel `UPSTASH_REDIS_REST_URL` dan `UPSTASH_REDIS_REST_TOKEN`.")
-    add("4. **Deploy ke Vercel**, isi `CRON_SECRET`, lalu uji `/api/health`, `/api/tick`, "
-        "`/api/dashboard` (bagian 4–5 `docs/DEPLOYMENT.md`).")
-    add("5. **Aktifkan GitHub Actions**: isi secrets dan variable `VERCEL_URL`, lalu jalankan "
-        "workflow sekali secara manual (bagian 6).")
-    add("6. **Perbarui `data/project_status.json`** hanya setelah deploy benar-benar berhasil, "
-        "lalu commit. Dashboard akan membaca status itu.")
-    add("7. **Jalankan forward test minimal 10 hari.** Laptop harus menyala bila memakai loop "
-        "lokal, atau biarkan GitHub Actions berjalan. Jangan mengubah parameter di tengah jalan.")
-    add("8. **Hitung ulang dan ekspor bukti** setelah forward test: "
-        "`python3 scripts/recompute.py --source local` atau `--source url`, lalu "
-        "`python3 scripts/gap_analysis.py`, lalu `python3 scripts/build_offline_dashboard.py` "
-        "dan `python3 scripts/build_report.py`.")
-    add("9. **Kumpulkan** repo GitHub, URL Vercel, dashboard offline, laporan ini, dan "
-        "`docs/FREEZE.md`. Sebutkan terus terang bahwa freeze terlambat dan forward test "
-        "belum 10 hari bila memang demikian.")
-    add("")
-    add("Hal yang **jangan** dilakukan: memalsukan tanggal commit, mengisi log yang hilang, "
-        "mengubah hasil backtest dengan tangan, atau mengklaim deployment yang belum terjadi.")
+    add("1. **Baca dan setujui dokumen.** `docs/PERNYATAAN_AI.md`, `docs/REFLEKSI.md`, dan "
+        "laporan ini. Ubah bagian yang tidak sesuai. Jangan menandatangani pernyataan yang "
+        "tidak dipahami.")
+    add("2. **Kumpulkan tautan:** repo %s, dashboard %s, dan berkas "
+        "`public/offline_dashboard.html` (bisa dibuka tanpa internet)." % (
+            repo or "GitHub", vercel or "Vercel"))
+    add("3. **Sebutkan terus terang dua kekurangan:** freeze terlambat %s hari dan forward "
+        "test baru berjalan %s, belum 10 hari. Jangan mengubah tanggal atau menambah log." % (
+            ("%.1f" % freeze_delay_days) if freeze_delay_days is not None else "—",
+            dur_text(duration_days)))
+    add("4. **Opsional, kalau dosen mengizinkan:** biarkan GitHub Actions berjalan sampai "
+        "forward test genap 10 hari (sekitar 19 November 2026), lalu kirim pembaruan. "
+        "Data dan dashboard bertambah sendiri; tidak perlu mengubah kode.")
+    add("5. **Opsional:** hubungkan Upstash Redis bila ingin `POST /api/tick` juga menulis "
+        "dari cloud. Langkahnya ada di bagian 3b `docs/DEPLOYMENT.md`.")
+    add("6. **Jangan** mengubah parameter strategi di tengah forward test, memalsukan "
+        "tanggal commit, mengisi log yang hilang, atau mengklaim hasil yang belum terjadi.")
     add("")
 
     add("---")

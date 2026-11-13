@@ -2,8 +2,16 @@ name: indodax-dry-run-tick
 
 # Penjadwal utama: setiap 4 jam pada menit ke-7 UTC.
 # Candle 4 jam Indodax ditutup pada 00:00, 04:00, ... UTC, jadi tick jatuh
-# beberapa menit setelah candle tertutup. Idempotensi mencegah order ganda
-# bila Vercel Cron (harian) juga memanggil pada jam yang sama.
+# beberapa menit setelah candle tertutup.
+#
+# Tick dijalankan langsung di runner GitHub Actions memakai penyimpanan file
+# (`data/local/*.jsonl`), lalu hasilnya di-commit kembali ke repo. Repo menjadi
+# penyimpanan persisten yang bisa diaudit lewat riwayat git, dan setiap commit
+# memicu redeploy Vercel sehingga dashboard selalu menampilkan data terbaru.
+#
+# Jalur Upstash + `POST /api/tick` tetap tersedia (lihat docs/DEPLOYMENT.md);
+# aktif otomatis bila secret UPSTASH_REDIS_REST_URL/TOKEN dan variabel
+# VERCEL_URL diisi. Tanpa itu, workflow memakai mode repo di bawah.
 on:
   schedule:
     - cron: "7 */4 * * *"
@@ -14,12 +22,17 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   tick:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
+    env:
+      CRON_SECRET: ${{ secrets.CRON_SECRET }}
+      UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
+      UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
+      VERCEL_URL: ${{ vars.VERCEL_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,15 +43,12 @@ jobs:
           python-version: "3.11"
 
       - name: Jalankan tick
-        env:
-          CRON_SECRET: ${{ secrets.CRON_SECRET }}
-          UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
-          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
-          VERCEL_URL: ${{ vars.VERCEL_URL }}
+        id: tick
+        continue-on-error: true
         run: |
           set -euo pipefail
-          if [ -n "${VERCEL_URL:-}" ]; then
-            echo "Memanggil endpoint Vercel: $VERCEL_URL/api/tick"
+          if [ -n "${VERCEL_URL:-}" ] && [ -n "${UPSTASH_REDIS_REST_URL:-}" ]; then
+            echo "Mode cloud API: $VERCEL_URL/api/tick"
             code=$(curl -sS -o /tmp/tick.json -w "%{http_code}" -X POST \
               "$VERCEL_URL/api/tick" \
               -H "Authorization: Bearer $CRON_SECRET" \
@@ -47,28 +57,44 @@ jobs:
               --max-time 120)
             cat /tmp/tick.json
             echo
-            if [ "$code" != "200" ]; then
-              echo "Tick gagal dengan HTTP $code" >&2
-              exit 1
-            fi
+            [ "$code" = "200" ] || { echo "Tick gagal HTTP $code" >&2; exit 1; }
           else
-            echo "VERCEL_URL belum diset; menjalankan kode langsung dengan Upstash."
-            if [ -z "${UPSTASH_REDIS_REST_URL:-}" ] || [ -z "${UPSTASH_REDIS_REST_TOKEN:-}" ]; then
-              echo "UPSTASH_REDIS_REST_URL/TOKEN belum diset. Tidak ada penyimpanan persisten." >&2
-              exit 1
-            fi
-            python3 scripts/run_tick.py --trigger github_actions
+            echo "Mode repo: tick langsung di runner, state di data/local/"
+            python3 scripts/run_tick.py --trigger github_actions --no-snapshots
           fi
 
-      - name: Simpan ringkasan ke job summary
+      - name: Segarkan analisis, dashboard, dan laporan
+        if: always()
+        run: |
+          set -uo pipefail
+          python3 scripts/gap_analysis.py --source local || true
+          python3 scripts/recompute.py --source local || true
+          python3 scripts/build_offline_dashboard.py || true
+          python3 scripts/build_report.py || true
+
+      - name: Commit hasil tick
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name "Anindya Rahma Luthfia"
+          git config user.email "anindyaluthfia07-hash@users.noreply.github.com"
+          git add data public docs/LAPORAN_AKHIR.md
+          if git diff --cached --quiet; then
+            echo "Tidak ada perubahan data."
+          else
+            git commit -m "tick(cloud): $(date -u +%Y-%m-%dT%H:%M:%SZ) [skip ci]"
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Ringkasan job
         if: always()
         run: |
           {
             echo "## Tick Indodax"
             echo ""
             echo "- Waktu UTC: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            echo "- Repo commit: ${GITHUB_SHA}"
-            if [ -f /tmp/tick.json ]; then
-              echo "- Respons tersimpan di /tmp/tick.json (lihat log langkah sebelumnya)."
-            fi
+            echo "- Mode: ${VERCEL_URL:+cloud API}${VERCEL_URL:-repo (runner)}"
+            echo "- Commit: $(git rev-parse --short HEAD)"
+            echo "- Tick terakhir: $(python3 -c "import json;s=json.load(open('data/local/state.json'));print(s.get('last_tick'), '| tick_count', s.get('tick_count'))")"
           } >> "$GITHUB_STEP_SUMMARY"

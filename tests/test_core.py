@@ -21,7 +21,7 @@ from core.backtest_engine import run_backtest
 from core.config import load_strategy
 from core.indicators import atr_series, ema_series, rolling_max_prev
 from core.metrics import compute_metrics, compute_uptime
-from core.storage import LocalStorage
+from core.storage import LocalStorage, RepoSnapshotStorage, StorageConfigError
 from core.strategy import StrategyEngine
 
 TF = 14400
@@ -222,6 +222,20 @@ class TestStorage(unittest.TestCase):
             self.assertFalse(s.get_kill())
             s.set_kill(True, note="test")
             self.assertTrue(s.get_kill())
+
+    def test_repo_snapshot_reads_but_refuses_writes(self):
+        with tempfile.TemporaryDirectory() as d:
+            LocalStorage(root=d).set_state({"last_tick": "2026-11-12T16:15:59Z"})
+            s = RepoSnapshotStorage(root=d)
+            self.assertEqual(s.name, "repo_snapshot")
+            self.assertEqual(s.get_state()["last_tick"], "2026-11-12T16:15:59Z")
+            self.assertTrue(s.health()["ok"])
+            self.assertFalse(s.health()["writable"])
+            for call in (lambda: s.set_state({}), lambda: s.append("ticks", {}),
+                         lambda: s.claim_order("o1"), lambda: s.set_kill(True),
+                         lambda: s.acquire_lock("tick", 5)):
+                with self.assertRaises(StorageConfigError):
+                    call()
 
 
 class TestBacktest(unittest.TestCase):

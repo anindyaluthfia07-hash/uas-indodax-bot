@@ -1,17 +1,17 @@
 {
- "generated_at": "2026-11-11T04:02:59Z",
+ "generated_at": "2026-11-13T00:24:30Z",
  "forward_start": "2026-11-09T00:35:58Z",
- "forward_end": "2026-11-11T04:01:30Z",
+ "forward_end": "2026-11-13T00:23:04Z",
  "timeframe_seconds": 14400,
- "duration_hours": 51.425555555555555,
- "expected_candles": 13,
+ "duration_hours": 95.785,
+ "expected_candles": 24,
  "pairs_expected": 6,
  "per_pair": {
   "btcidr": {
-   "expected": 13,
-   "on_time": 6,
-   "uptime": 0.46153846153846156,
-   "missing_count": 7,
+   "expected": 24,
+   "on_time": 11,
+   "uptime": 0.4583333333333333,
+   "missing_count": 13,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -22,15 +22,21 @@
     "2026-11-09T16:00:00Z",
     "2026-11-09T20:00:00Z",
     "2026-11-10T04:00:00Z",
-    "2026-11-10T08:00:00Z"
+    "2026-11-10T08:00:00Z",
+    "2026-11-11T04:00:00Z",
+    "2026-11-11T08:00:00Z",
+    "2026-11-11T20:00:00Z",
+    "2026-11-12T00:00:00Z",
+    "2026-11-12T04:00:00Z",
+    "2026-11-12T16:00:00Z"
    ],
    "late_sample": []
   },
   "dogeidr": {
-   "expected": 13,
-   "on_time": 6,
-   "uptime": 0.46153846153846156,
-   "missing_count": 7,
+   "expected": 24,
+   "on_time": 11,
+   "uptime": 0.4583333333333333,
+   "missing_count": 13,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -41,15 +47,21 @@
     "2026-11-09T16:00:00Z",
     "2026-11-09T20:00:00Z",
     "2026-11-10T04:00:00Z",
-    "2026-11-10T08:00:00Z"
+    "2026-11-10T08:00:00Z",
+    "2026-11-11T04:00:00Z",
+    "2026-11-11T08:00:00Z",
+    "2026-11-11T20:00:00Z",
+    "2026-11-12T00:00:00Z",
+    "2026-11-12T04:00:00Z",
+    "2026-11-12T16:00:00Z"
    ],
    "late_sample": []
   },
   "ethidr": {
-   "expected": 13,
-   "on_time": 6,
-   "uptime": 0.46153846153846156,
-   "missing_count": 7,
+   "expected": 24,
+   "on_time": 11,
+   "uptime": 0.4583333333333333,
+   "missing_count": 13,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -60,15 +72,21 @@
     "2026-11-09T16:00:00Z",
     "2026-11-09T20:00:00Z",
     "2026-11-10T04:00:00Z",
-    "2026-11-10T08:00:00Z"
+    "2026-11-10T08:00:00Z",
+    "2026-11-11T04:00:00Z",
+    "2026-11-11T08:00:00Z",
+    "2026-11-11T20:00:00Z",
+    "2026-11-12T00:00:00Z",
+    "2026-11-12T04:00:00Z",
+    "2026-11-12T16:00:00Z"
    ],
    "late_sample": []
   },
   "xrpidr": {
-   "expected": 13,
-   "on_time": 6,
-   "uptime": 0.46153846153846156,
-   "missing_count": 7,
+   "expected": 24,
+   "on_time": 11,
+   "uptime": 0.4583333333333333,
+   "missing_count": 13,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -79,15 +97,21 @@
     "2026-11-09T16:00:00Z",
     "2026-11-09T20:00:00Z",
     "2026-11-10T04:00:00Z",
-    "2026-11-10T08:00:00Z"
+    "2026-11-10T08:00:00Z",
+    "2026-11-11T04:00:00Z",
+    "2026-11-11T08:00:00Z",
+    "2026-11-11T20:00:00Z",
+    "2026-11-12T00:00:00Z",
+    "2026-11-12T04:00:00Z",
+    "2026-11-12T16:00:00Z"
    ],
    "late_sample": []
   },
   "bnbidr": {
-   "expected": 13,
-   "on_time": 6,
-   "uptime": 0.46153846153846156,
-   "missing_count": 7,
+   "expected": 24,
+   "on_time": 11,
+   "uptime": 0.4583333333333333,
+   "missing_count": 13,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -98,15 +122,21 @@
     "2026-11-09T16:00:00Z",
     "2026-11-09T20:00:00Z",
     "2026-11-10T04:00:00Z",
-    "2026-11-10T08:00:00Z"
+    "2026-11-10T08:00:00Z",
+    "2026-11-11T04:00:00Z",
+    "2026-11-11T08:00:00Z",
+    "2026-11-11T20:00:00Z",
+    "2026-11-12T00:00:00Z",
+    "2026-11-12T04:00:00Z",
+    "2026-11-12T16:00:00Z"
    ],
    "late_sample": []
   },
   "trxidr": {
-   "expected": 13,
-   "on_time": 6,
-   "uptime": 0.46153846153846156,
-   "missing_count": 7,
+   "expected": 24,
+   "on_time": 11,
+   "uptime": 0.4583333333333333,
+   "missing_count": 13,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -117,25 +147,36 @@
     "2026-11-09T16:00:00Z",
     "2026-11-09T20:00:00Z",
     "2026-11-10T04:00:00Z",
-    "2026-11-10T08:00:00Z"
+    "2026-11-10T08:00:00Z",
+    "2026-11-11T04:00:00Z",
+    "2026-11-11T08:00:00Z",
+    "2026-11-11T20:00:00Z",
+    "2026-11-12T00:00:00Z",
+    "2026-11-12T04:00:00Z",
+    "2026-11-12T16:00:00Z"
    ],
    "late_sample": []
   }
  },
  "overall": {
-  "uptime_mean": 0.46153846153846156
+  "uptime_mean": 0.4583333333333333
  },
  "scheduler": {
-  "expected_ticks": 13,
-  "hit": 9,
-  "missing": 4,
-  "late": 4,
-  "uptime": 0.6923076923076923,
+  "expected_ticks": 24,
+  "hit": 15,
+  "missing": 9,
+  "late": 9,
+  "uptime": 0.625,
   "missing_sample": [
    "2026-11-09T08:07:00Z",
    "2026-11-09T12:07:00Z",
    "2026-11-09T20:07:00Z",
-   "2026-11-10T12:07:00Z"
+   "2026-11-10T12:07:00Z",
+   "2026-11-11T08:07:00Z",
+   "2026-11-11T12:07:00Z",
+   "2026-11-12T00:07:00Z",
+   "2026-11-12T12:07:00Z",
+   "2026-11-12T20:07:00Z"
   ],
   "late_sample": [
    {
@@ -157,6 +198,31 @@
     "expected": "2026-11-11T00:07:00Z",
     "actual": "2026-11-11T00:49:26Z",
     "late_seconds": 2546
+   },
+   {
+    "expected": "2026-11-11T16:07:00Z",
+    "actual": "2026-11-11T16:31:00Z",
+    "late_seconds": 1440
+   },
+   {
+    "expected": "2026-11-11T20:07:00Z",
+    "actual": "2026-11-11T20:23:40Z",
+    "late_seconds": 1000
+   },
+   {
+    "expected": "2026-11-12T08:07:00Z",
+    "actual": "2026-11-12T08:29:04Z",
+    "late_seconds": 1324
+   },
+   {
+    "expected": "2026-11-12T16:07:00Z",
+    "actual": "2026-11-12T16:15:59Z",
+    "late_seconds": 539
+   },
+   {
+    "expected": "2026-11-13T00:07:00Z",
+    "actual": "2026-11-13T00:22:34Z",
+    "late_seconds": 934
    }
   ],
   "definition": "tick dihitung tepat waktu bila terjadi dalam ±45 menit dari candle close + 7 menit"

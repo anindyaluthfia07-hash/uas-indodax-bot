@@ -529,6 +529,7 @@ def dashboard_payload(storage, cfg=None, now=None):
     backtest = load_json(os.path.join(ROOT, "data", "backtest_results.json"), default={}) or {}
     costs = load_json(os.path.join(ROOT, "data", "costs.json"), default={}) or {}
     project_status = load_json(os.path.join(ROOT, "data", "project_status.json"), default={}) or {}
+    forward_vs_backtest = load_json(os.path.join(ROOT, "data", "forward_vs_backtest.json"), default={}) or {}
 
     points = [{"t": x["t"], "equity": x["equity"]} for x in equity_log]
     initial = float(cfg["capital_idr"])
@@ -591,6 +592,7 @@ def dashboard_payload(storage, cfg=None, now=None):
             "snapshots": {"count": len(snaps), "last": snaps[-1] if snaps else None},
         },
         "gap": gap,
+        "forward_vs_backtest": forward_vs_backtest,
         "project_status": project_status,
         "costs_used": costs.get("total_snapshots_used", 0),
         "status": {

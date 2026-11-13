@@ -77,6 +77,25 @@ def main():
             summary.get("status"), summary.get("equity"), summary.get("orders")))
         return 0 if summary.get("status") == "ok" else 1
 
+    # Tick awal: setelah loop/restart, jangan menunggu 4 jam berikutnya.
+    # Idempotensi per candle mencegah pemrosesan ganda. Ini perbaikan
+    # infrastruktur penjadwal, bukan perubahan aturan strategi.
+    summary = run_tick(storage, trigger="forward_loop_start",
+                       save_snapshots=not a.no_snapshots)
+    log_line("tick awal status=%s equity=%s posisi=%s order=%s error=%s" % (
+        summary.get("status"), summary.get("equity"), summary.get("positions"),
+        summary.get("orders"), summary.get("errors")))
+    for attempt in range(1, 3):
+        if summary.get("status") == "ok":
+            break
+        log_line("tick awal gagal (%s), coba ulang %d/2 dalam 60 detik" % (
+            summary.get("status"), attempt))
+        time.sleep(60)
+        summary = run_tick(storage, trigger="forward_loop_start_retry",
+                           save_snapshots=not a.no_snapshots)
+        log_line("tick awal retry %d status=%s equity=%s" % (
+            attempt, summary.get("status"), summary.get("equity")))
+
     started = utc_now()
     stop_at = started.timestamp() + a.days * 86400.0
     n = 0
@@ -97,12 +116,18 @@ def main():
         log_line("tick %d status=%s equity=%s posisi=%s order=%s error=%s" % (
             n, summary.get("status"), summary.get("equity"),
             summary.get("positions"), summary.get("orders"), summary.get("errors")))
-        if summary.get("status") == "locked":
-            # beri kesempatan tick lain selesai, lalu coba sekali lagi
-            time.sleep(120)
+        for attempt in range(1, 3):
+            if summary.get("status") == "ok":
+                break
+            # Masih ada waktu sebelum candle berikutnya ditutup (4 jam), jadi
+            # kegagalan jaringan sesaat tidak perlu mengorbankan candle ini.
+            log_line("tick %d gagal (%s), coba ulang %d/2 dalam 60 detik" % (
+                n, summary.get("status"), attempt))
+            time.sleep(60)
             summary = run_tick(storage, trigger="forward_loop_retry",
                                save_snapshots=not a.no_snapshots)
-            log_line("retry status=%s equity=%s" % (summary.get("status"), summary.get("equity")))
+            log_line("retry %d status=%s equity=%s" % (
+                attempt, summary.get("status"), summary.get("equity")))
     log_line("loop selesai: %d tick" % n)
     return 0
 

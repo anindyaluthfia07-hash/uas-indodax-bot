@@ -44,6 +44,9 @@ def main():
         payload = fetch_json(a.url)
     else:
         payload = dashboard_payload(LocalStorage())
+        # Data yang sama di-commit ke repo dan dibundel ke Vercel; sebut sumber
+        # sebenarnya, bukan sekadar "local", supaya dashboard tidak menyesatkan.
+        payload.setdefault("meta", {})["storage"] = "repo git (data/local) + Upstash opsional"
 
     public = os.path.join(ROOT, "public")
     os.makedirs(public, exist_ok=True)

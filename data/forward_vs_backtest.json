@@ -1,0 +1,219 @@
+{
+ "generated_at": "2026-11-13T00:25:16Z",
+ "definition": "Backtest dijalankan ulang pada jendela forward memakai candle 4 jam yang sama. Sinyal masuk dibandingkan candle demi candle. Candle yang tidak diproses bot dihitung missing, bukan mismatch.",
+ "storage": "local",
+ "forward_start": "2026-11-09T00:35:58Z",
+ "window": {
+  "first_candle": "2026-11-09T00:00:00Z",
+  "last_candle": "2026-11-12T20:00:00Z",
+  "candles_per_pair": 24,
+  "pairs": 6,
+  "expected_pair_candles": 144
+ },
+ "server_time": 1794529514.194,
+ "fetch": {
+  "btcidr": {
+   "requests": 1,
+   "bars": 331,
+   "ok": true
+  },
+  "dogeidr": {
+   "requests": 1,
+   "bars": 331,
+   "ok": true
+  },
+  "ethidr": {
+   "requests": 1,
+   "bars": 331,
+   "ok": true
+  },
+  "xrpidr": {
+   "requests": 1,
+   "bars": 331,
+   "ok": true
+  },
+  "bnbidr": {
+   "requests": 1,
+   "bars": 331,
+   "ok": true
+  },
+  "trxidr": {
+   "requests": 1,
+   "bars": 331,
+   "ok": true
+  }
+ },
+ "summary": {
+  "expected_pair_candles": 144,
+  "processed_pair_candles": 66,
+  "signal_checked": 60,
+  "signal_match": 60,
+  "signal_mismatch": 0,
+  "signal_match_rate": 1.0,
+  "coverage_rate": 0.4583333333333333
+ },
+ "per_pair": {
+  "btcidr": {
+   "expected": 24,
+   "processed": 11,
+   "signal_match": 10,
+   "signal_mismatch": 0,
+   "missing": 13,
+   "invalid": 0,
+   "mismatch_samples": [],
+   "uptime": 0.4583333333333333,
+   "signal_match_rate": 1.0
+  },
+  "dogeidr": {
+   "expected": 24,
+   "processed": 11,
+   "signal_match": 10,
+   "signal_mismatch": 0,
+   "missing": 13,
+   "invalid": 0,
+   "mismatch_samples": [],
+   "uptime": 0.4583333333333333,
+   "signal_match_rate": 1.0
+  },
+  "ethidr": {
+   "expected": 24,
+   "processed": 11,
+   "signal_match": 10,
+   "signal_mismatch": 0,
+   "missing": 13,
+   "invalid": 0,
+   "mismatch_samples": [],
+   "uptime": 0.4583333333333333,
+   "signal_match_rate": 1.0
+  },
+  "xrpidr": {
+   "expected": 24,
+   "processed": 11,
+   "signal_match": 10,
+   "signal_mismatch": 0,
+   "missing": 13,
+   "invalid": 0,
+   "mismatch_samples": [],
+   "uptime": 0.4583333333333333,
+   "signal_match_rate": 1.0
+  },
+  "bnbidr": {
+   "expected": 24,
+   "processed": 11,
+   "signal_match": 10,
+   "signal_mismatch": 0,
+   "missing": 13,
+   "invalid": 0,
+   "mismatch_samples": [],
+   "uptime": 0.4583333333333333,
+   "signal_match_rate": 1.0
+  },
+  "trxidr": {
+   "expected": 24,
+   "processed": 11,
+   "signal_match": 10,
+   "signal_mismatch": 0,
+   "missing": 13,
+   "invalid": 0,
+   "mismatch_samples": [],
+   "uptime": 0.4583333333333333,
+   "signal_match_rate": 1.0
+  }
+ },
+ "backtest_window": {
+  "start": "2026-11-09T00:00:00Z",
+  "end": "2026-11-12T20:00:00Z",
+  "metrics": {
+   "initial_capital": 100000000.0,
+   "final_equity": 100000000.0,
+   "total_return": 0.0,
+   "total_return_pct": 0.0,
+   "cagr": 0.0,
+   "cagr_pct": 0.0,
+   "max_drawdown": 0.0,
+   "max_drawdown_pct": 0.0,
+   "profit_factor": null,
+   "win_rate": null,
+   "win_rate_pct": null,
+   "trades": 0,
+   "wins": 0,
+   "losses": 0,
+   "avg_win_idr": null,
+   "avg_loss_idr": null,
+   "avg_win_pct": null,
+   "avg_loss_pct": null,
+   "gross_profit_idr": 0,
+   "gross_loss_idr": 0,
+   "gross_pnl_idr": 0,
+   "net_pnl_idr": 0,
+   "fee_idr": 0,
+   "spread_cost_idr": 0,
+   "slippage_cost_idr": 0,
+   "total_cost_idr": 0,
+   "cost_share_of_gross_profit": null,
+   "years": 0.010495094684006388,
+   "start": 1794182400,
+   "end": 1794513600,
+   "cagr_note": null
+  },
+  "trades": [],
+  "open_positions": [],
+  "orders": [],
+  "decision_counts": {
+   "entry_signals": 0,
+   "exit_signals": 0
+  },
+  "skipped": {
+   "no_slot": 0,
+   "no_cash_or_min_order": 0,
+   "no_next_bar": 0,
+   "invalid": 0
+  },
+  "benchmark": {
+   "pair": "btcidr",
+   "metrics": {
+    "initial_capital": 100000000.0,
+    "final_equity": 95957447.94074428,
+    "total_return": -0.04042552059255722,
+    "total_return_pct": -4.042552059255722,
+    "cagr": -0.9803930183212568,
+    "cagr_pct": -98.03930183212569,
+    "max_drawdown": -0.04300799484109252,
+    "max_drawdown_pct": -4.300799484109252,
+    "profit_factor": null,
+    "win_rate": null,
+    "win_rate_pct": null,
+    "trades": 0,
+    "wins": 0,
+    "losses": 0,
+    "avg_win_idr": null,
+    "avg_loss_idr": null,
+    "avg_win_pct": null,
+    "avg_loss_pct": null,
+    "gross_profit_idr": 0,
+    "gross_loss_idr": 0,
+    "gross_pnl_idr": 0,
+    "net_pnl_idr": 0,
+    "fee_idr": 0,
+    "spread_cost_idr": 0,
+    "slippage_cost_idr": 0,
+    "total_cost_idr": 0,
+    "cost_share_of_gross_profit": null,
+    "years": 0.010495094684006388,
+    "start": 1794182400,
+    "end": 1794513600,
+    "cagr_note": null
+   }
+  }
+ },
+ "forward_window": {
+  "trades": [],
+  "trade_count": 0,
+  "orders": [],
+  "note": "Trade forward hanya yang benar-benar tercatat di log; tidak ada trade rekaan."
+ },
+ "gap_explanation": {
+  "signal": "Bila match rate < 100%, selisih berasal dari candle yang hilang/terlambat atau perbedaan window data indikator. Contoh mismatch ada di per_pair.",
+  "fill": "Tidak ada trade pada jendela ini, sehingga selisih fill tidak dapat diukur. Bila ada trade, selisih dihitung dari fill bid/ask vs open candle backtest."
+ }
+}
