@@ -2,7 +2,7 @@
  "meta": {
   "student": "Anindya Rahma Luthfia",
   "nim": "25110200036",
-  "generated_at": "2026-11-13T12:06:21Z",
+  "generated_at": "2026-11-13T14:45:49Z",
   "storage": "repo git (data/local) + Upstash opsional",
   "strategy": "Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)",
   "timeframe": "240",
@@ -17109,8 +17109,8 @@
  },
  "forward": {
   "start": "2026-11-09T00:35:58Z",
-  "end": "2026-11-13T12:06:21Z",
-  "duration_days": 4.479437965971452,
+  "end": "2026-11-13T14:45:49Z",
+  "duration_days": 4.590182079305803,
   "metrics": {
    "initial_capital": 100000000.0,
    "final_equity": 100000000.0,
@@ -18893,7 +18893,7 @@
   }
  },
  "gap": {
-  "generated_at": "2026-11-13T12:06:21Z",
+  "generated_at": "2026-11-13T14:45:49Z",
   "forward_start": "2026-11-09T00:35:58Z",
   "forward_end": "2026-11-13T12:06:07Z",
   "timeframe_seconds": 14400,
