@@ -2,7 +2,7 @@
   "github_repo": "https://github.com/anindyaluthfia07-hash/uas-indodax-bot",
   "vercel_url": "https://uas-indodax-bot-25110200036.vercel.app",
   "vercel_deployed": true,
-  "github_actions_enabled": false,
-  "updated_at": "2026-11-12T18:20:00Z",
-  "note": "URL produksi Vercel yang terhubung ke repo GitHub (deploy otomatis tiap push ke main). github_actions_enabled baru diisi true setelah workflow tick pertama benar-benar sukses."
+  "github_actions_enabled": true,
+  "updated_at": "2026-11-13T00:30:22Z",
+  "note": "Deploy Vercel terhubung ke repo (auto-deploy tiap push ke main). Tick tiap 4 jam dijalankan GitHub Actions di runner lalu di-commit ke repo; Vercel membaca snapshot itu (baca-saja tanpa Upstash)."
 }

@@ -76,11 +76,17 @@ Kalau berhasil, buka halaman repo di GitHub dan pastikan file muncul.
 
 ---
 
-## 3. Buat database Upstash Redis **[MANUAL]**
+## 3. Buat database Upstash Redis **[OPSIONAL]**
 
-Vercel menghapus file sementara setiap function selesai. Tanpa database, state
-bot dan log akan hilang. Kode sengaja **menolak berjalan** di Vercel bila
-variabel Redis tidak ada.
+Vercel menghapus file sementara setiap function selesai, jadi endpoint yang
+menulis state (`POST /api/tick`) memerlukan database. Pada proyek ini jalur
+utama **tidak** memakai Upstash: penjadwal GitHub Actions menulis ke repo
+(lihat bagian 6), dan Vercel hanya membaca snapshot commit terakhir
+(`RepoSnapshotStorage`, baca-saja).
+
+Isi bagian ini hanya bila ingin tick lewat cloud API. Tanpa variabel Redis,
+`/api/tick` akan menolak menulis dengan pesan yang jelas; `/api/health` dan
+`/api/dashboard` tetap menampilkan data nyata dari repo.
 
 1. Buka dashboard Vercel → tab **Storage** (atau **Marketplace**).
 2. Pilih **Upstash Redis** → **Create Database**.
@@ -145,14 +151,18 @@ kunci UAS lalu menyalin ulang dari log lokal, tidak menyentuh data lain.
 5. **Root Directory:** biarkan kosong (root repo).
 6. **Build Command:** biarkan kosong.
 7. **Output Directory:** biarkan kosong (Vercel otomatis memakai `public/`).
-8. Buka **Environment Variables**, tambahkan:
+8. **Environment Variables bersifat opsional** untuk dashboard statis. Isi hanya
+   bila memakai endpoint tulis:
 
 | Nama | Nilai | Wajib |
 |---|---|---|
-| `CRON_SECRET` | string acak panjang, buat sendiri | ya |
-| `UPSTASH_REDIS_REST_URL` | dari Upstash | ya |
-| `UPSTASH_REDIS_REST_TOKEN` | dari Upstash | ya |
+| `CRON_SECRET` | string acak panjang, buat sendiri | hanya untuk `/api/tick`, `/api/kill` |
+| `UPSTASH_REDIS_REST_URL` | dari Upstash | hanya untuk `/api/tick` |
+| `UPSTASH_REDIS_REST_TOKEN` | dari Upstash | hanya untuk `/api/tick` |
 | `KILL_SWITCH` | `0` | tidak |
+
+Tanpa ketiganya, deployment tetap hidup: dashboard, `/api/health`, dan
+`/api/dashboard` membaca snapshot `data/local/` yang di-commit ke repo.
 
 Membuat `CRON_SECRET` acak (jalankan di terminal):
 
@@ -227,25 +237,27 @@ mengambil data dari `/api/dashboard`. Versi offline ada di
 ## 6. Aktifkan penjadwal 4 jam **[MANUAL]**
 
 Vercel Hobby hanya mengizinkan cron **harian**; karena itu penjadwal utama ada
-di GitHub Actions.
+di GitHub Actions. Workflow di repo ini berjalan **tanpa secret** dengan cara
+menjalankan tick di runner lalu meng-commit state/log ke repo (`data/local/`).
+Commit tersebut memicu redeploy Vercel sehingga dashboard ikut segar.
 
-1. Di repo GitHub → **Settings → Secrets and variables → Actions**.
-2. Tab **Secrets** → **New repository secret**:
-   - `CRON_SECRET` = sama dengan Vercel
-   - `UPSTASH_REDIS_REST_URL` = sama dengan Vercel
-   - `UPSTASH_REDIS_REST_TOKEN` = sama dengan Vercel
-3. Tab **Variables** → **New repository variable**:
-   - `VERCEL_URL` = `https://uas-indodax-bot.vercel.app` (tanpa garis miring di akhir)
-4. Buka tab **Actions** → workflow **indodax-dry-run-tick** → **Enable workflow**
+1. Buka tab **Actions** → workflow **indodax-dry-run-tick** → **Enable workflow**
    bila diminta.
-5. Klik **Run workflow** sekali untuk uji manual. Lihat log; harus ada respons
-   JSON dari `/api/tick`.
+2. Klik **Run workflow** sekali untuk uji manual. Log harus menampilkan
+   `"status": "ok"` dan langkah **Commit hasil tick** membuat commit baru.
+3. Tidak ada secret yang wajib. Opsional, bila ingin tick lewat endpoint
+   `POST /api/tick` (butuh Upstash), isi di **Settings → Secrets and variables →
+   Actions**:
+   - Secrets: `CRON_SECRET`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`
+   - Variable: `VERCEL_URL` = `https://uas-indodax-bot-25110200036.vercel.app`
 
 Setelah itu workflow berjalan otomatis setiap 4 jam pada menit ke-7 UTC
 (00:07, 04:07, 08:07, 12:07, 16:07, 20:07 UTC = 07:07, 11:07, 15:07, 19:07,
 23:07, 03:07 WIB).
 
-Vercel Cron tetap aktif sebagai cadangan harian `07:00 UTC`.
+Vercel Cron **tidak** diaktifkan pada deployment ini (tanpa Upstash endpoint
+tick bersifat baca-saja). Bila Upstash sudah terhubung, tambahkan blok `crons`
+di `vercel.json` seperti contoh pada `config/strategy.json`.
 
 ---
 

@@ -2,7 +2,7 @@
  "meta": {
   "student": "Anindya Rahma Luthfia",
   "nim": "25110200036",
-  "generated_at": "2026-11-13T00:26:37Z",
+  "generated_at": "2026-11-13T00:30:26Z",
   "storage": "repo git (data/local) + Upstash opsional",
   "strategy": "Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)",
   "timeframe": "240",
@@ -17109,8 +17109,8 @@
  },
  "forward": {
   "start": "2026-11-09T00:35:58Z",
-  "end": "2026-11-13T00:26:37Z",
-  "duration_days": 3.993508005487146,
+  "end": "2026-11-13T00:30:26Z",
+  "duration_days": 3.996160439675053,
   "metrics": {
    "initial_capital": 100000000.0,
    "final_equity": 100000000.0,
@@ -18975,7 +18975,7 @@
   }
  },
  "gap": {
-  "generated_at": "2026-11-13T00:26:36Z",
+  "generated_at": "2026-11-13T00:30:26Z",
   "forward_start": "2026-11-09T00:35:58Z",
   "forward_end": "2026-11-13T00:26:23Z",
   "timeframe_seconds": 14400,
@@ -19428,9 +19428,9 @@
   "github_repo": "https://github.com/anindyaluthfia07-hash/uas-indodax-bot",
   "vercel_url": "https://uas-indodax-bot-25110200036.vercel.app",
   "vercel_deployed": true,
-  "github_actions_enabled": false,
-  "updated_at": "2026-11-12T18:20:00Z",
-  "note": "URL produksi Vercel yang terhubung ke repo GitHub (deploy otomatis tiap push ke main). github_actions_enabled baru diisi true setelah workflow tick pertama benar-benar sukses."
+  "github_actions_enabled": true,
+  "updated_at": "2026-11-13T00:30:22Z",
+  "note": "Deploy Vercel terhubung ke repo (auto-deploy tiap push ke main). Tick tiap 4 jam dijalankan GitHub Actions di runner lalu di-commit ke repo; Vercel membaca snapshot itu (baca-saja tanpa Upstash)."
  },
  "costs_used": 366,
  "status": {

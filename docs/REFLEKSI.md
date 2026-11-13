@@ -38,8 +38,12 @@ biaya.
    dan slippage masa lalu tidak benar-benar diukur.
 6. **Survivorship bias.** Kandidat pair diambil dari daftar yang masih ada pada
    November 2026. Pair yang delisted tidak masuk.
-7. **Forward test pendek.** Saat laporan disusun, forward test baru berjalan
-   beberapa jam, bukan 10 hari. Ini tidak cukup untuk menyimpulkan apa pun.
+7. **Forward test pendek dan bolong.** Saat laporan disusun, forward test baru
+   berjalan 95,8 jam (≈4 hari), bukan 10 hari, dan hanya 66 dari 144 pair-candle
+   (45,8%) yang benar-benar diproses. Sisanya hilang karena scheduler mati
+   (kegagalan DNS), bukan karena pasar tutup. Gap ini dilaporkan apa adanya dan
+   tidak diisi ulang. Dengan cakupan di bawah 50%, hasil forward belum bisa
+   dipakai untuk menyimpulkan apa pun.
 
 ## 3. Apa yang saya ubah dari UTS dan mengapa?
 
@@ -82,3 +86,51 @@ negatif, freeze yang terlambat, dan forward test yang belum selesai terasa tidak
 nyaman, tetapi itu satu-satunya cara agar hasil bisa dipercaya. Saya juga belajar
 bahwa kode yang bisa dihitung ulang (log mentah + skrip recompute) lebih berharga
 daripada dashboard yang hanya menampilkan angka cantik.
+
+## 6. Uji konsistensi backtest vs forward
+
+Karena forward test tidak cukup panjang untuk membandingkan profit, saya
+membandingkan hal yang bisa diuji sekarang: **apakah sinyal yang dihasilkan bot
+identik dengan sinyal backtest pada candle yang sama**. Skrip
+`scripts/forward_vs_backtest.py` menjalankan ulang logika backtest memakai
+candle 4 jam yang sama dengan yang diproses bot, lalu membandingkan keputusan
+per candle.
+
+Hasil pada jendela 2026-11-09T00:00Z → 2026-11-12T20:00Z:
+
+| Ukuran | Nilai |
+|---|---|
+| Candle diharapkan | 144 pair-candle (24 × 6 pair) |
+| Candle diproses bot | 66 (45,8%) |
+| Candle diperiksa sinyalnya | 60 |
+| Sinyal cocok | **60/60 (100%)** |
+| Sinyal mismatch | 0 |
+| Trade backtest jendela | 0 |
+| Trade forward jendela | 0 |
+
+Arti dan batasnya: 100% berarti jalur kode sinyal (Donchian 40, filter EMA
+20/100, ATR 3×) konsisten antara backtest dan bot, dan tidak ada perbedaan
+keputusan pada candle yang sempat diproses. Angka ini **bukan** bukti strategi
+menguntungkan — di jendela ini tidak ada trade sama sekali, sehingga belum ada
+trade nyata yang bisa dibandingkan. Candle yang tidak diproses dihitung
+*missing*, bukan mismatch, supaya match rate tidak menutupi gap jadwal.
+
+Saya juga membandingkan spread yang benar-benar terukur saat forward test
+(84 snapshot order book, 14 tick × 6 pair) dengan spread yang dipakai model
+biaya di backtest:
+
+| Pair | Median spread forward | Median spread model | Selisih |
+|---|---|---|---|
+| btcidr | 0,0434% | 0,0388% | +0,46 bp |
+| dogeidr | 0,1595% | 0,1552% | +0,43 bp |
+| ethidr | 0,0510% | 0,0914% | −4,04 bp |
+| xrpidr | 0,1118% | 0,0527% | +5,91 bp |
+| bnbidr | 0,4890% | 0,4412% | +4,79 bp |
+| trxidr | 0,3814% | 0,3451% | +3,63 bp |
+| Rata-rata | 0,2060% | 0,1874% | **+1,86 bp** |
+
+Rata-rata spread forward 1,86 bp lebih lebar dari model. Untuk pair tipis
+seperti xrpidr dan bnbidr selisihnya 5–6 bp, jadi asumsi biaya backtest
+cenderung **terlalu optimistis**, bukan terlalu konservatif. Ini memperkuat
+kesimpulan bahwa hasil backtest tidak boleh dibaca sebagai perkiraan laba
+realistis.

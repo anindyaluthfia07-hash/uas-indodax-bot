@@ -45,9 +45,15 @@ python3 scripts/recompute.py --source local
 
 ### B. Di cloud (setelah deploy)
 
-- **GitHub Actions** menjalankan `POST /api/tick` setiap 4 jam pada menit ke-7.
-- **Vercel Cron** memanggil `/api/tick` sekali sehari sebagai cadangan.
-- Keduanya memakai `CRON_SECRET` yang sama.
+- **GitHub Actions** menjalankan tick setiap 4 jam pada menit ke-7 UTC, langsung di
+  runner, lalu meng-commit state/log ke repo. Commit itu memicu redeploy Vercel,
+  jadi dashboard ikut diperbarui tanpa server yang harus menyala 24 jam.
+- **Vercel Cron** tidak diaktifkan pada deployment ini. `config/strategy.json`
+  masih mencantumkannya sebagai rencana cadangan harian, tetapi Hobby hanya
+  mengizinkan cron harian dan endpoint `/api/tick` butuh Upstash; karena itu
+  jadwal sepenuhnya ditangani GitHub Actions. Bila Upstash dihubungkan, cron
+  cadangan bisa diaktifkan lagi dari `vercel.json`.
+- Kalau memakai jalur `/api/tick`, keduanya memakai `CRON_SECRET` yang sama.
 - Idempotensi per candle mencegah order ganda bila dua penjadwal bertemu.
 
 Aktifkan workflow dari tab **Actions** di repo GitHub (workflow `tick.yml`),

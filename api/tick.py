@@ -1,8 +1,9 @@
 """POST/GET /api/tick - jalankan satu siklus bot (dry-run).
 
-Dipanggil oleh Vercel Cron (harian, backup) dan GitHub Actions (tiap 4 jam).
-Wajib menyertakan CRON_SECRET. Idempotensi candle mencegah order ganda bila
-dua penjadwal memanggil pada candle yang sama.
+Jalur utama penjadwalan adalah GitHub Actions yang menjalankan tick di runner
+lalu meng-commit state ke repo. Endpoint ini dipakai bila Upstash dihubungkan
+(atau dipanggil manual). Wajib menyertakan CRON_SECRET. Idempotensi candle
+mencegah order ganda bila dua penjadwal memanggil pada candle yang sama.
 """
 import os
 import sys
