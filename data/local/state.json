@@ -12,16 +12,16 @@
   "trxidr": 1794571200
  },
  "last_prices": {
-  "btcidr": 1248417000.0,
-  "dogeidr": 1181.0,
-  "ethidr": 35033000.0,
-  "xrpidr": 18475.0,
-  "bnbidr": 11500003.0,
-  "trxidr": 5704.0
+  "btcidr": 1260000000.0,
+  "dogeidr": 1197.0,
+  "ethidr": 35584000.0,
+  "xrpidr": 18761.0,
+  "bnbidr": 11568414.0,
+  "trxidr": 5710.0
  },
- "last_tick": "2026-11-13T16:19:00Z",
- "tick_count": 18,
- "day_date_wib": "2026-11-13",
+ "last_tick": "2026-11-13T19:37:11Z",
+ "tick_count": 19,
+ "day_date_wib": "2026-11-14",
  "day_start_equity": 100000000.0,
  "daily_loss_blocked": false,
  "daily_loss_block_date": null,
