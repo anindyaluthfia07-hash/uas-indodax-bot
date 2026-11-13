@@ -3,7 +3,7 @@
 **Nama:** Anindya Rahma Luthfia  
 **NIM:** 25110200036  
 **Mata kuliah:** Algoritma Trading  
-**Tanggal laporan:** 2026-11-13 08:00 WIB (2026-11-13T01:00:46Z)  
+**Tanggal laporan:** 2026-11-13 19:06 WIB (2026-11-13T12:06:21Z)  
 **Strategi:** Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)  
 **Timeframe:** 4 jam · **Universe:** 6 pair IDR · **Modal simulasi:** Rp100.000.000
 
@@ -27,7 +27,7 @@
 | Unit test | 17 tes lulus | `tests/test_core.py` |
 | `.env.example`, `.gitignore`, tanpa secret di repo | Selesai | root repo |
 | Pembekuan (freeze) | **Terlambat** | `docs/FREEZE.md` |
-| Forward test 10 hari | Berjalan 4.02 hari | `data/local/`, `data/gap_analysis.json` |
+| Forward test 10 hari | Berjalan 4.48 hari | `data/local/`, `data/gap_analysis.json` |
 | Deploy Vercel/GitHub | Sudah | `data/project_status.json` |
 
 ## B. Hasil backtest
@@ -143,7 +143,7 @@ python3 scripts/build_offline_dashboard.py
 | Commit pembekuan dibuat | 2026-11-09T00:35:31Z |
 | Commit hash pembekuan | `1bc81524f6babff24406b17593633f5a10cd336f` |
 | Ref/tag yang dipakai config | freeze-2026-11-09 |
-| HEAD saat laporan dibuat | `9594000251d849915928b51ea10cef493cb23bf5` |
+| HEAD saat laporan dibuat | `ad5c63ea97d15684c19110141db6429f2c77532e` |
 | Tag | freeze-2026-11-09 |
 | Status | **TERLAMBAT 4.8 hari** (commit aktual 2026-11-09T00:35:31Z; pekerjaan dimulai 8 November 2026) |
 
@@ -156,22 +156,22 @@ Manifest freeze: 90 file, dibuat 2026-11-09T00:35:37Z.
 | Hal | Nilai |
 |---|---|
 | Mulai | 2026-11-09T00:35:58Z |
-| Durasi aktual | 4.02 hari |
-| Jumlah tick | 16 |
-| Tick sukses / percobaan | 16 / 27 |
+| Durasi aktual | 4.48 hari |
+| Jumlah tick | 17 |
+| Tick sukses / percobaan | 17 / 28 |
 | Error API tercatat | 45 baris (44 DNS, 1 lainnya) |
-| Candle hilang (per pair) | 13 dari 24 |
+| Candle hilang (per pair) | 15 dari 27 |
 | Trade tertutup | 0 |
 | Ekuitas terakhir | Rp100.000.000 |
 | Return | +0.00% |
 | Max drawdown | +0.00% |
-| Uptime candle (rata-rata pair) | 45.83% |
-| Uptime scheduler | 62.50% |
+| Uptime candle (rata-rata pair) | 44.44% |
+| Uptime scheduler | 59.26% |
 | Status hitung ulang | PASS |
 
 Pemeriksaan integritas:
 
-- [PASS] ada titik ekuitas — 16 titik
+- [PASS] ada titik ekuitas — 17 titik
 - [PASS] ada state forward — 2026-11-09T00:35:58Z
 - [PASS] final equity == metrik — equity=100000000.0
 - [PASS] net_pnl = gross - fee - spread - slippage — 0 trade diperiksa, 0 menyimpang
@@ -185,7 +185,7 @@ Pemeriksaan integritas:
 
 **Catatan jujur:** durasi belum mencapai 10 hari. Ini belum cukup untuk menyimpulkan strategi berhasil. Angka di atas hanya menunjukkan bot berjalan dan log konsisten. Forward test dimulai 2026-11-09T00:35:58Z dan tidak dipercepat dengan data buatan; kalau ingin genap 10 hari, pengamatan harus lanjut sampai sekitar 19 November 2026.
 
-**Catatan kualitas:** 11 dari 27 tick gagal, terutama karena error jaringan (DNS/koneksi) pada mesin penjadwal. Bot pulih sendiri, tetapi candle yang terlewat tetap hilang dan **tidak** ditambal. Karena itu uptime di atas bukan 100%; forward test ini tidak boleh diklaim bersih.
+**Catatan kualitas:** 11 dari 28 tick gagal, terutama karena error jaringan (DNS/koneksi) pada mesin penjadwal. Bot pulih sendiri, tetapi candle yang terlewat tetap hilang dan **tidak** ditambal. Karena itu uptime di atas bukan 100%; forward test ini tidak boleh diklaim bersih.
 
 Rincian: `data/recomputed.json`, `data/gap_analysis.json`, `docs/FORWARD_TEST.md`.
 
@@ -261,13 +261,13 @@ Langkah manual ada di `docs/DEPLOYMENT.md` dan bagian G di bawah.
 | Backtest ulang jendela forward + banding sinyal | **Terpenuhi** (match 100.0%) | `data/forward_vs_backtest.json`, `data/forward_signals.csv` |
 | `.env.example`, tanpa secret | **Terpenuhi** | `.env.example`, `.gitignore` |
 | Freeze tepat waktu | **TIDAK** (terlambat 4.8 hari) | `docs/FREEZE.md` |
-| Forward test 10 hari | **Berjalan 4.02 hari** | lihat D |
+| Forward test 10 hari | **Berjalan 4.48 hari** | lihat D |
 
 ## G. Yang harus saya lakukan
 
 1. **Baca dan setujui dokumen.** `docs/PERNYATAAN_AI.md`, `docs/REFLEKSI.md`, dan laporan ini. Ubah bagian yang tidak sesuai. Jangan menandatangani pernyataan yang tidak dipahami.
 2. **Kumpulkan tautan:** repo https://github.com/anindyaluthfia07-hash/uas-indodax-bot, dashboard https://uas-indodax-bot-25110200036.vercel.app, dan berkas `public/offline_dashboard.html` (bisa dibuka tanpa internet).
-3. **Sebutkan terus terang dua kekurangan:** freeze terlambat 4.8 hari dan forward test baru berjalan 4.02 hari, belum 10 hari. Jangan mengubah tanggal atau menambah log.
+3. **Sebutkan terus terang dua kekurangan:** freeze terlambat 4.8 hari dan forward test baru berjalan 4.48 hari, belum 10 hari. Jangan mengubah tanggal atau menambah log.
 4. **Opsional, kalau dosen mengizinkan:** biarkan GitHub Actions berjalan sampai forward test genap 10 hari (sekitar 19 November 2026), lalu kirim pembaruan. Data dan dashboard bertambah sendiri; tidak perlu mengubah kode.
 5. **Opsional:** hubungkan Upstash Redis bila ingin `POST /api/tick` juga menulis dari cloud. Langkahnya ada di bagian 3b `docs/DEPLOYMENT.md`.
 6. **Jangan** mengubah parameter strategi di tengah forward test, memalsukan tanggal commit, mengisi log yang hilang, atau mengklaim hasil yang belum terjadi.

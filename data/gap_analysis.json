@@ -1,17 +1,17 @@
 {
- "generated_at": "2026-11-13T01:00:46Z",
+ "generated_at": "2026-11-13T12:06:21Z",
  "forward_start": "2026-11-09T00:35:58Z",
- "forward_end": "2026-11-13T01:00:32Z",
+ "forward_end": "2026-11-13T12:06:07Z",
  "timeframe_seconds": 14400,
- "duration_hours": 96.40944444444445,
- "expected_candles": 24,
+ "duration_hours": 107.5025,
+ "expected_candles": 27,
  "pairs_expected": 6,
  "per_pair": {
   "btcidr": {
-   "expected": 24,
-   "on_time": 11,
-   "uptime": 0.4583333333333333,
-   "missing_count": 13,
+   "expected": 27,
+   "on_time": 12,
+   "uptime": 0.4444444444444444,
+   "missing_count": 15,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -28,15 +28,17 @@
     "2026-11-11T20:00:00Z",
     "2026-11-12T00:00:00Z",
     "2026-11-12T04:00:00Z",
-    "2026-11-12T16:00:00Z"
+    "2026-11-12T16:00:00Z",
+    "2026-11-13T00:00:00Z",
+    "2026-11-13T04:00:00Z"
    ],
    "late_sample": []
   },
   "dogeidr": {
-   "expected": 24,
-   "on_time": 11,
-   "uptime": 0.4583333333333333,
-   "missing_count": 13,
+   "expected": 27,
+   "on_time": 12,
+   "uptime": 0.4444444444444444,
+   "missing_count": 15,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -53,15 +55,17 @@
     "2026-11-11T20:00:00Z",
     "2026-11-12T00:00:00Z",
     "2026-11-12T04:00:00Z",
-    "2026-11-12T16:00:00Z"
+    "2026-11-12T16:00:00Z",
+    "2026-11-13T00:00:00Z",
+    "2026-11-13T04:00:00Z"
    ],
    "late_sample": []
   },
   "ethidr": {
-   "expected": 24,
-   "on_time": 11,
-   "uptime": 0.4583333333333333,
-   "missing_count": 13,
+   "expected": 27,
+   "on_time": 12,
+   "uptime": 0.4444444444444444,
+   "missing_count": 15,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -78,15 +82,17 @@
     "2026-11-11T20:00:00Z",
     "2026-11-12T00:00:00Z",
     "2026-11-12T04:00:00Z",
-    "2026-11-12T16:00:00Z"
+    "2026-11-12T16:00:00Z",
+    "2026-11-13T00:00:00Z",
+    "2026-11-13T04:00:00Z"
    ],
    "late_sample": []
   },
   "xrpidr": {
-   "expected": 24,
-   "on_time": 11,
-   "uptime": 0.4583333333333333,
-   "missing_count": 13,
+   "expected": 27,
+   "on_time": 12,
+   "uptime": 0.4444444444444444,
+   "missing_count": 15,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -103,15 +109,17 @@
     "2026-11-11T20:00:00Z",
     "2026-11-12T00:00:00Z",
     "2026-11-12T04:00:00Z",
-    "2026-11-12T16:00:00Z"
+    "2026-11-12T16:00:00Z",
+    "2026-11-13T00:00:00Z",
+    "2026-11-13T04:00:00Z"
    ],
    "late_sample": []
   },
   "bnbidr": {
-   "expected": 24,
-   "on_time": 11,
-   "uptime": 0.4583333333333333,
-   "missing_count": 13,
+   "expected": 27,
+   "on_time": 12,
+   "uptime": 0.4444444444444444,
+   "missing_count": 15,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -128,15 +136,17 @@
     "2026-11-11T20:00:00Z",
     "2026-11-12T00:00:00Z",
     "2026-11-12T04:00:00Z",
-    "2026-11-12T16:00:00Z"
+    "2026-11-12T16:00:00Z",
+    "2026-11-13T00:00:00Z",
+    "2026-11-13T04:00:00Z"
    ],
    "late_sample": []
   },
   "trxidr": {
-   "expected": 24,
-   "on_time": 11,
-   "uptime": 0.4583333333333333,
-   "missing_count": 13,
+   "expected": 27,
+   "on_time": 12,
+   "uptime": 0.4444444444444444,
+   "missing_count": 15,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -153,20 +163,22 @@
     "2026-11-11T20:00:00Z",
     "2026-11-12T00:00:00Z",
     "2026-11-12T04:00:00Z",
-    "2026-11-12T16:00:00Z"
+    "2026-11-12T16:00:00Z",
+    "2026-11-13T00:00:00Z",
+    "2026-11-13T04:00:00Z"
    ],
    "late_sample": []
   }
  },
  "overall": {
-  "uptime_mean": 0.4583333333333333
+  "uptime_mean": 0.4444444444444444
  },
  "scheduler": {
-  "expected_ticks": 24,
-  "hit": 15,
-  "missing": 9,
+  "expected_ticks": 27,
+  "hit": 16,
+  "missing": 11,
   "late": 9,
-  "uptime": 0.625,
+  "uptime": 0.5925925925925926,
   "missing_sample": [
    "2026-11-09T08:07:00Z",
    "2026-11-09T12:07:00Z",
@@ -176,7 +188,9 @@
    "2026-11-11T12:07:00Z",
    "2026-11-12T00:07:00Z",
    "2026-11-12T12:07:00Z",
-   "2026-11-12T20:07:00Z"
+   "2026-11-12T20:07:00Z",
+   "2026-11-13T04:07:00Z",
+   "2026-11-13T08:07:00Z"
   ],
   "late_sample": [
    {

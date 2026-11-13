@@ -1,8 +1,8 @@
 {
- "generated_at": "2026-11-13T01:00:46Z",
+ "generated_at": "2026-11-13T12:06:21Z",
  "source": "local",
  "forward_start": "2026-11-09T00:35:58Z",
- "forward_end": 1794531632,
+ "forward_end": 1794571567,
  "initial_capital": 100000000.0,
  "metrics": {
   "initial_capital": 100000000.0,
@@ -32,9 +32,9 @@
   "slippage_cost_idr": 0,
   "total_cost_idr": 0,
   "cost_share_of_gross_profit": null,
-  "years": 0.010998111389966285,
+  "years": 0.01226357517681953,
   "start": "2026-11-09T00:35:58Z",
-  "end": 1794531632,
+  "end": 1794571567,
   "cagr_note": "CAGR tidak dihitung untuk periode forward test pendek"
  },
  "trade_count": 0,
@@ -42,7 +42,7 @@
   {
    "check": "ada titik ekuitas",
    "ok": true,
-   "detail": "16 titik"
+   "detail": "17 titik"
   },
   {
    "check": "ada state forward",
@@ -97,12 +97,12 @@
  ],
  "all_pass": true,
  "logs": {
-  "ticks": 27,
-  "decisions": 97,
+  "ticks": 28,
+  "decisions": 103,
   "orders": 0,
   "trades": 0,
   "errors": 45,
-  "equity": 16,
+  "equity": 17,
   "daily_equity": 5,
   "snapshots": 84,
   "kill_log": 0
@@ -111,7 +111,7 @@
   "cash": 100000000.0,
   "equity": 100000000.0,
   "positions": 0,
-  "tick_count": 16,
+  "tick_count": 17,
   "kill_switch": false
  }
 }
