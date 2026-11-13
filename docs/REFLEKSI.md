@@ -38,12 +38,12 @@ biaya.
    dan slippage masa lalu tidak benar-benar diukur.
 6. **Survivorship bias.** Kandidat pair diambil dari daftar yang masih ada pada
    November 2026. Pair yang delisted tidak masuk.
-7. **Forward test pendek dan bolong.** Saat laporan disusun, forward test baru
-   berjalan 95,8 jam (≈4 hari), bukan 10 hari, dan hanya 66 dari 144 pair-candle
-   (45,8%) yang benar-benar diproses. Sisanya hilang karena scheduler mati
-   (kegagalan DNS), bukan karena pasar tutup. Gap ini dilaporkan apa adanya dan
-   tidak diisi ulang. Dengan cakupan di bawah 50%, hasil forward belum bisa
-   dipakai untuk menyimpulkan apa pun.
+7. **Forward test pendek dan bolong.** Periode yang disepakati hanya dari
+   9 Nov sampai 14 Nov 2026 12.00 WIB (sekitar 5,2 hari), dan tidak semua
+   candle terproses karena scheduler sempat mati (kegagalan DNS). Angka cakupan
+   aktual ada di `data/gap_analysis.json` dan laporan akhir. Gap ini dilaporkan
+   apa adanya dan tidak diisi ulang. Dengan periode sependek ini, hasil forward
+   belum bisa dipakai untuk menyimpulkan apa pun.
 
 ## 3. Apa yang saya ubah dari UTS dan mengapa?
 

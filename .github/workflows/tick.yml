@@ -9,12 +9,21 @@ name: indodax-dry-run-tick
 # penyimpanan persisten yang bisa diaudit lewat riwayat git, dan setiap commit
 # memicu redeploy Vercel sehingga dashboard selalu menampilkan data terbaru.
 #
+# Periode forward test ditetapkan dari tick pertama sampai
+# 2026-11-14T05:00:00Z (14 Nov 2026 12.00 WIB). Setelah waktu itu workflow
+# berhenti melakukan tick, menyegarkan laporan sekali lagi, lalu menulis
+# `data/forward_period_closed.json`. Selama marker itu ada, seluruh job tidak
+# menambah data baru.
+#
 # Jalur Upstash + `POST /api/tick` tetap tersedia (lihat docs/DEPLOYMENT.md);
 # aktif otomatis bila secret UPSTASH_REDIS_REST_URL/TOKEN dan variabel
 # VERCEL_URL diisi. Tanpa itu, workflow memakai mode repo di bawah.
 on:
   schedule:
     - cron: "7 */4 * * *"
+    # Satu kali setelah periode berakhir (05:07 UTC = 12:07 WIB, 14 Nov 2026)
+    # untuk menyegarkan laporan terakhir dan menulis marker penutupan.
+    - cron: "7 5 14 11 *"
   workflow_dispatch:
 
 concurrency:
@@ -42,8 +51,25 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Cek status periode forward test
+        id: period
+        run: |
+          set -euo pipefail
+          if [ -f data/forward_period_closed.json ]; then
+            echo "closed=true" >> "$GITHUB_OUTPUT"
+            echo "ended=true" >> "$GITHUB_OUTPUT"
+            echo "Periode sudah ditutup (marker ada). Tidak ada tick baru."
+          else
+            echo "closed=false" >> "$GITHUB_OUTPUT"
+            ended=$(python3 -c "from core.period import forward_period; print('true' if forward_period()['complete'] else 'false')")
+            echo "ended=$ended" >> "$GITHUB_OUTPUT"
+            echo "Periode berakhir: $(python3 -c "from core.period import FORWARD_TEST_END; print(FORWARD_TEST_END)")"
+            echo "Sudah berakhir: $ended"
+          fi
+
       - name: Jalankan tick
         id: tick
+        if: steps.period.outputs.closed != 'true' && steps.period.outputs.ended != 'true'
         continue-on-error: true
         run: |
           set -euo pipefail
@@ -64,7 +90,7 @@ jobs:
           fi
 
       - name: Segarkan analisis, dashboard, dan laporan
-        if: always()
+        if: always() && steps.period.outputs.closed != 'true'
         run: |
           set -uo pipefail
           python3 scripts/gap_analysis.py --source local || true
@@ -72,13 +98,32 @@ jobs:
           python3 scripts/build_offline_dashboard.py || true
           python3 scripts/build_report.py || true
 
+      - name: Tutup periode forward test
+        if: always() && steps.period.outputs.closed != 'true' && steps.period.outputs.ended == 'true'
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from core.period import FORWARD_TEST_END
+          payload = {
+              "closed_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+              "period_end": FORWARD_TEST_END,
+              "reason": "Periode forward test berakhir; tick otomatis dihentikan.",
+          }
+          with open("data/forward_period_closed.json", "w", encoding="utf-8") as f:
+              json.dump(payload, f, indent=2, ensure_ascii=False)
+              f.write("\n")
+          print(json.dumps(payload, indent=2))
+          PY
+
       - name: Commit hasil tick
-        if: always()
+        if: always() && steps.period.outputs.closed != 'true'
         run: |
           set -euo pipefail
           git config user.name "Anindya Rahma Luthfia"
           git config user.email "anindyaluthfia07-hash@users.noreply.github.com"
-          git add data public docs/LAPORAN_AKHIR.md
+          git add data public docs/LAPORAN_AKHIR.md dashboard_offline.html
           if git diff --cached --quiet; then
             echo "Tidak ada perubahan data."
           else

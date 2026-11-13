@@ -14,8 +14,8 @@ membuat tag palsu bertanggal 4 November. Commit dibuat dengan waktu sebenarnya.
 Keterlambatan ini adalah fakta dan konsekuensinya ditulis di laporan akhir:
 
 - proyek tidak dapat diklaim dibekukan tepat waktu;
-- forward test baru bisa dimulai setelah pembekuan, sehingga durasinya jauh
-  lebih pendek dari 10 hari saat laporan disusun;
+- forward test baru bisa dimulai setelah pembekuan, sehingga periode efektifnya
+  (9 Nov → 14 Nov 2026 12.00 WIB) lebih pendek dari ideal;
 - nilai untuk komponen "ketepatan waktu" harus dianggap tidak terpenuhi.
 
 ## 2. Apa yang dibekukan
@@ -113,7 +113,9 @@ Diisi setelah commit dan tag dibuat:
 
 Forward test dimulai setelah freeze, dengan tick pertama yang benar-benar
 terjadi. Timestamp `forward_test_start` ditulis otomatis oleh bot pada tick
-pertama yang sukses. Tidak ada backdate. Lihat `docs/FORWARD_TEST.md`.
+pertama yang sukses. Tidak ada backdate. Periode berakhir pada
+**14 November 2026 12.00 WIB** (`2026-11-14T05:00:00Z`), bukan target 10 hari;
+lihat `docs/FORWARD_TEST.md`.
 
 ## 7. Patch pasca-freeze (pelaporan, metrik, infrastruktur, payload dashboard)
 
@@ -146,6 +148,15 @@ Setelah freeze, ditemukan dua bug **pelaporan**, bukan bug strategi:
    `data/forward_vs_backtest.json` (bukti banding sinyal). Tidak ada perubahan
    pada `run_tick`, perhitungan sinyal, ukuran posisi, atau eksekusi order —
    murni penambahan data untuk ditampilkan.
+5. **Periode forward test** (pelaporan, bukan strategi): periode ditetapkan
+   dari tick pertama sampai 14 Nov 2026 12.00 WIB di `core/period.py`, lalu
+   dipakai untuk menampilkan durasi/sisa waktu/status selesai di
+   `core/bot.py` (payload), `scripts/gap_analysis.py` (cakupan periode),
+   `scripts/build_report.py`, dan `public/app.js`. `scripts/run_tick.py` dan
+   `scripts/forward_loop.py` berhenti setelah periode itu;
+   `.github/workflows/tick.yml` menulis `data/forward_period_closed.json` dan
+   tidak menambah tick lagi. Tidak ada aturan entry/exit, parameter, universe,
+   atau bobot risiko yang berubah.
 
 Yang **tidak** berubah pada patch ini: strategi, parameter, universe, model
 biaya, hasil backtest, dan data mentah. Untuk memeriksa:
@@ -182,12 +193,13 @@ forward test aktual dan membangun ulang dashboard/laporan.
 
 Pada working tree saat laporan ini dibuat, file yang berbeda dari manifest
 adalah dokumen/tampilan (`README.md`, `docs/PERNYATAAN_AI.md`,
-`docs/DEPLOYMENT.md`, `docs/FORWARD_TEST.md`, `scripts/build_report.py`,
-`scripts/build_offline_dashboard.py`), analisis uptime
-(`scripts/gap_analysis.py`, `core/metrics.py`, `tests/test_core.py`),
-infrastruktur deployment (`core/storage.py`, `core/bot.py`, `api/tick.py`,
-`.github/workflows/tick.yml`), dan alat migrasi deployment
-(`scripts/migrate_local_to_redis.py`, `tests/test_migration.py`). Tidak ada file
+`docs/DEPLOYMENT.md`, `docs/FORWARD_TEST.md`, `public/app.js`,
+`scripts/build_report.py`, `scripts/build_offline_dashboard.py`), analisis
+uptime dan periode (`scripts/gap_analysis.py`, `core/metrics.py`,
+`core/period.py`, `scripts/run_tick.py`, `scripts/forward_loop.py`,
+`tests/test_core.py`), infrastruktur deployment (`core/storage.py`,
+`core/bot.py`, `api/tick.py`, `.github/workflows/tick.yml`), dan alat migrasi
+deployment (`scripts/migrate_local_to_redis.py`, `tests/test_migration.py`). Tidak ada file
 strategi (`core/strategy.py`, `core/backtest_engine.py`), parameter, universe,
 model biaya, data mentah, atau hasil backtest yang berubah. Verifikasi terhadap
 tag (bagian 4) tetap menghasilkan **90/90 file cocok**, sehingga bukti bahwa

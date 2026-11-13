@@ -2,11 +2,12 @@
 """Loop forward test lokal.
 
 Menjalankan tick pada setiap candle 4 jam ditutup (default: 90 detik setelah
-close) selama durasi yang diminta. Untuk produksi, gunakan GitHub Actions +
-Vercel cron; loop ini untuk laptop yang harus tetap menyala.
+close) sampai periode forward test berakhir, yaitu **14 November 2026 12.00 WIB**
+(`2026-11-14T05:00:00Z`). Untuk produksi, gunakan GitHub Actions; loop ini
+untuk laptop yang harus tetap menyala.
 
-Contoh 10 hari:
-  python3 scripts/forward_loop.py --days 10 --offset-seconds 90
+Contoh:
+  python3 scripts/forward_loop.py --offset-seconds 90
 
 Satu tick sekarang lalu keluar:
   python3 scripts/forward_loop.py --once
@@ -22,7 +23,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from core.bot import run_tick
-from core.config import load_strategy, iso_utc, utc_now
+from core.config import load_strategy, iso_utc, utc_now, parse_iso
+from core.period import FORWARD_TEST_END, forward_period
 from core.storage import get_storage
 
 
@@ -58,7 +60,8 @@ def sleep_until(target_ts, stop_at):
 def main():
     ap = argparse.ArgumentParser(description="Forward test loop lokal")
     ap.add_argument("--once", action="store_true", help="jalankan satu tick lalu keluar")
-    ap.add_argument("--days", type=float, default=10.0, help="durasi total (default 10 hari)")
+    ap.add_argument("--days", type=float, default=None,
+                    help="opsional: batasi durasi lebih pendek; default sampai akhir periode")
     ap.add_argument("--offset-seconds", type=int, default=90,
                     help="tunggu berapa detik setelah candle close (default 90)")
     ap.add_argument("--no-snapshots", action="store_true")
@@ -67,8 +70,13 @@ def main():
     cfg = load_strategy()
     tf = int(cfg["timeframe_seconds"])
     storage = get_storage()
-    log_line("loop mulai storage=%s timeframe=%ss target=%.2f hari offset=%ss" % (
-        storage.name, tf, a.days, a.offset_seconds))
+    period_end = parse_iso(FORWARD_TEST_END)
+    fp = forward_period()
+    if fp["complete"]:
+        log_line("periode forward test sudah berakhir pada %s; tidak ada tick baru." % FORWARD_TEST_END)
+        return 0
+    log_line("loop mulai storage=%s timeframe=%ss sampai=%s (%s) offset=%ss" % (
+        storage.name, tf, FORWARD_TEST_END, fp["target_end_wib"], a.offset_seconds))
 
     if a.once:
         summary = run_tick(storage, trigger="forward_loop_once",
@@ -97,7 +105,10 @@ def main():
             attempt, summary.get("status"), summary.get("equity")))
 
     started = utc_now()
-    stop_at = started.timestamp() + a.days * 86400.0
+    stop_at = period_end.timestamp()
+    if a.days is not None:
+        stop_at = min(stop_at, started.timestamp() + a.days * 86400.0)
+    log_line("batas loop: %s" % iso_utc(datetime.fromtimestamp(stop_at, timezone.utc)))
     n = 0
     while True:
         now = utc_now()

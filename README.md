@@ -8,15 +8,17 @@ mentah, dashboard offline/online, dan skrip hitung ulang.
 
 > **Status jujur:** freeze **terlambat 4,8 hari** (tenggat 4 Nov 2026 12.00 WIB;
 > commit aktual **9 Nov 2026 07.35 WIB**, hash `1bc8152…`, tag
-> `freeze-2026-11-09`). Forward test **belum 10 hari**: mulai 9 Nov 2026
-> 07.35 WIB dan per 13 Nov 2026 baru mencakup **45,8%** candle yang diharapkan
-> (66/144) karena scheduler sempat mati; gap dihitung dan dilaporkan, tidak
-> diisi ulang. Deployment Vercel **sudah aktif** di
+> `freeze-2026-11-09`). Forward test mengikuti periode yang disepakati: dari
+> tick pertama **9 Nov 2026 07.35 WIB** sampai **14 Nov 2026 12.00 WIB**
+> (bukan target 10 hari). Scheduler sempat mati beberapa kali sehingga tidak
+> semua candle terproses; gap dihitung dan dilaporkan, tidak diisi ulang.
+> Deployment Vercel **sudah aktif** di
 > <https://uas-indodax-bot-25110200036.vercel.app> dengan tick 4 jam dari GitHub
-> Actions. Pada 60 sinyal yang bisa dibandingkan, sinyal backtest dan bot
-> **cocok 100%** — ini bukti konsistensi kode, bukan bukti profit. Semua status
-> aktual ada di [`docs/LAPORAN_AKHIR.md`](docs/LAPORAN_AKHIR.md), bukan di
-> README ini.
+> Actions. Dashboard bisa dibuka online atau sebagai satu file offline
+> (`dashboard_offline.html`). Pada 60 sinyal yang bisa dibandingkan, sinyal
+> backtest dan bot **cocok 100%** — ini bukti konsistensi kode, bukan bukti
+> profit. Semua status aktual ada di
+> [`docs/LAPORAN_AKHIR.md`](docs/LAPORAN_AKHIR.md), bukan di README ini.
 
 ---
 
@@ -72,8 +74,8 @@ cd uas-indodax-bot
 # 1. satu tick bot (butuh internet)
 python3 scripts/run_tick.py
 
-# 2. loop forward test 10 hari (laptop harus menyala)
-python3 scripts/forward_loop.py --days 10 --offset-seconds 90
+# 2. loop forward test lokal sampai 14 Nov 2026 12.00 WIB (laptop harus menyala)
+python3 scripts/forward_loop.py --offset-seconds 90
 
 # 3. backtest ulang
 python3 scripts/backtest.py --final
@@ -92,9 +94,10 @@ python3 scripts/build_report.py
 python3 -m unittest discover -s tests -v
 ```
 
-Dashboard offline: buka `public/offline_dashboard.html` langsung di browser
-(tanpa server). Versi online memakai `public/index.html` + `/api/dashboard`
-setelah deploy.
+Dashboard offline: buka `dashboard_offline.html` (root repo/ZIP) atau
+`public/offline_dashboard.html` langsung di browser (tanpa server, tanpa
+internet). Versi online memakai `public/index.html` + `/api/dashboard` setelah
+deploy. Keduanya dibangun dari payload yang sama, jadi angkanya identik.
 
 ---
 
@@ -155,8 +158,9 @@ uas-indodax-bot/
 
 ## Dashboard
 
-- **Offline:** `public/offline_dashboard.html` — satu file, data tertanam, bisa
-  dibuka via `file://`.
+- **Offline:** `dashboard_offline.html` (root repo/ZIP) dan
+  `public/offline_dashboard.html` — satu file, data tertanam, bisa dibuka via
+  `file://` tanpa server maupun internet.
 - **Online:** `public/index.html` — mengambil `/api/dashboard`; angka forward
   test dihitung ulang dari log, bukan ditulis tangan.
 - **Data mentah:** `public/dashboard_data.json`.
@@ -202,8 +206,9 @@ baca-saja); penjadwal 4 jam sepenuhnya di GitHub Actions.
 - OOS 30% terakhir **negatif**; parameter tidak dipilih ulang setelah melihat OOS.
 - Survivorship bias: pair delisted tidak ada di daftar kandidat.
 - Backtest memakai open candle berikutnya; bot memakai bid/ask saat tick.
-- Freeze terlambat 4,8 hari; forward test baru berjalan dan belum 10 hari.
-- Forward test hanya mencakup 45,8% candle (scheduler sempat mati). Gap tidak
+- Freeze terlambat 4,8 hari; periode forward test mengikuti kesepakatan
+  9 Nov → 14 Nov 2026 12.00 WIB sehingga lebih pendek dari ideal.
+- Tidak semua candle forward terproses (scheduler sempat mati). Gap tidak
   diisi, jadi hasil forward belum bisa dipakai menyimpulkan profitabilitas.
 - Deployment Vercel dan GitHub Actions sudah aktif; `/api/tick` di cloud tetap
   butuh Upstash, sehingga tick berjalan di runner GitHub lalu di-commit ke repo.

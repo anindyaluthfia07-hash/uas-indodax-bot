@@ -15,6 +15,7 @@ sys.path.insert(0, ROOT)
 
 from core.bot import run_tick
 from core.config import load_strategy
+from core.period import FORWARD_TEST_END, forward_period
 from core.storage import get_storage
 
 
@@ -24,7 +25,16 @@ def main():
     ap.add_argument("--no-snapshots", action="store_true",
                     help="jangan simpan order book mentah (hemat ruang)")
     ap.add_argument("--lock-ttl", type=int, default=600)
+    ap.add_argument("--force", action="store_true",
+                    help="jalankan tick walau periode forward test sudah berakhir")
     a = ap.parse_args()
+    fp = forward_period()
+    if fp["complete"] and not a.force:
+        print("Periode forward test sudah berakhir pada %s (%s)." % (
+            FORWARD_TEST_END, fp["target_end_wib"]))
+        print("Tick tidak dijalankan agar log periode tidak tercampur data baru.")
+        print("Gunakan --force hanya untuk keperluan uji, bukan untuk menambah hasil.")
+        return 4
     cfg = load_strategy()
     storage = get_storage()
     print("Storage : %s" % storage.name)

@@ -14,6 +14,7 @@ from .exchange import (RateLimiter, get_server_time, get_pairs, get_price_increm
                        get_depth, get_candles, closed_bars, spread_pct, walk_book_notional,
                        walk_book_qty, validate_bars)
 from .metrics import compute_metrics, compute_uptime
+from .period import forward_period
 from .strategy import StrategyEngine, entry_reasons
 
 
@@ -536,6 +537,7 @@ def dashboard_payload(storage, cfg=None, now=None):
     if not points:
         points = [{"t": int(now.timestamp()), "equity": float(state.get("last_equity", initial))}]
     forward_start = state.get("forward_test_start")
+    fwd_period = forward_period(forward_start, now)
     fwd_metrics = compute_metrics(points, trades, initial,
                                   start=forward_start or points[0]["t"],
                                   end=points[-1]["t"], include_cagr=False)
@@ -577,8 +579,13 @@ def dashboard_payload(storage, cfg=None, now=None):
             "sensitivity": backtest.get("sensitivity", []),
         },
         "forward": {
-            "start": forward_start, "end": iso_utc(now),
-            "duration_days": ((now.timestamp() - datetime.fromisoformat(forward_start.replace("Z", "+00:00")).timestamp()) / 86400.0) if forward_start else 0,
+            "start": forward_start, "end": _iso(points[-1]["t"]),
+            "duration_days": (fwd_period["elapsed_days"] or 0),
+            "target_end": fwd_period["target_end"],
+            "target_end_wib": fwd_period["target_end_wib"],
+            "period_days": fwd_period["period_days"],
+            "remaining_hours": fwd_period["remaining_hours"],
+            "complete": fwd_period["complete"],
             "metrics": fwd_metrics, "equity": points, "trades": trades,
             "open_positions": positions, "orders": orders[-500:], "decisions": last_decisions,
             "errors": errors[-500:], "uptime": uptime,

@@ -230,7 +230,8 @@ Yang diharapkan:
 
 Dashboard publik: `https://URL/` (halaman `public/index.html`). Halaman ini
 mengambil data dari `/api/dashboard`. Versi offline ada di
-`public/offline_dashboard.html` dan bisa dibuka langsung dari file.
+`dashboard_offline.html` (root) dan `public/offline_dashboard.html`; keduanya
+bisa dibuka langsung dari file tanpa internet.
 
 ---
 

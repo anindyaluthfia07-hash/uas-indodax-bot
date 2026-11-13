@@ -21,10 +21,28 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from core.config import load_strategy, parse_iso, save_json
+from core.period import FORWARD_TEST_END, forward_period
 from core.storage import LocalStorage
 
 SCHEDULE_OFFSET = 7 * 60  # menit ke-7 setelah candle close (UTC)
 SCHEDULE_TOLERANCE = 45 * 60
+
+
+def expected_candles_between(start_ts, end_ts, tf):
+    """Candle yang tutup di (start, end].
+
+    Candle yang open sebelum start tetapi tutup setelah start tetap dihitung,
+    karena candle itulah yang pertama bisa diproses bot setelah start.
+    """
+    first = int(math.floor(start_ts / tf) * tf)
+    while first + tf <= start_ts:
+        first += tf
+    out = []
+    t = first
+    while t + tf <= end_ts + 1e-6:
+        out.append(t)
+        t += tf
+    return out
 
 
 def fetch_json(url, secret=None):
@@ -84,15 +102,17 @@ def main():
         if e.get("t") and float(e["t"]) > end_ts:
             end_ts = float(e["t"])
 
-    # expected candle: open dengan close di (start, end]
-    first = int(math.floor(start_ts / tf) * tf)
-    while first + tf <= start_ts:
-        first += tf
-    expected = []
-    t = first
-    while t + tf <= end_ts + 1e-6:
-        expected.append(t)
-        t += tf
+    # Periode forward ditetapkan sampai 2026-11-14T05:00:00Z (12:00 WIB).
+    # Candle yang diharapkan dihitung sampai min(sekarang, akhir periode),
+    # bukan hanya sampai tick terakhir, supaya candle yang terlewat setelah
+    # tick terakhir tetap terhitung sebagai gap.
+    now = datetime.now(timezone.utc)
+    period_end_ts = parse_iso(FORWARD_TEST_END).timestamp()
+    analysis_end = min(now.timestamp(), period_end_ts)
+    fp = forward_period(start, now)
+
+    expected = expected_candles_between(start_ts, analysis_end, tf)
+    period_expected = expected_candles_between(start_ts, period_end_ts, tf)
     expected_set = set(expected)
 
     by_pair = {}
@@ -123,12 +143,14 @@ def main():
 
     out_pairs = {}
     all_on = 0
+    all_seen = 0
     for pair in cfg["universe"]:
         r = by_pair.get(pair, {"seen": set(), "on_time": set(), "late": {}, "duplicates": {}, "invalid": 0})
         missing = [x for x in expected if x not in r["seen"]]
         late = [(x, r["late"][x]) for x in expected if x in r["late"]]
         dup = {x: n for x, n in r["duplicates"].items() if n > 1}
         all_on += len(r["on_time"])
+        all_seen += len(expected_set & r["seen"])
         out_pairs[pair] = {
             "expected": len(expected), "on_time": len(r["on_time"]),
             "uptime": (len(r["on_time"]) / len(expected)) if expected else None,
@@ -155,13 +177,27 @@ def main():
         "generated_at": iso(datetime.now(timezone.utc).timestamp()),
         "forward_start": start,
         "forward_end": iso(end_ts),
+        "analysis_end": iso(analysis_end),
+        "period_end": FORWARD_TEST_END,
+        "period_end_wib": fp["target_end_wib"],
+        "period_days": fp["period_days"],
+        "elapsed_days": fp["elapsed_days"],
+        "remaining_hours": fp["remaining_hours"],
+        "complete": fp["complete"],
         "timeframe_seconds": tf,
         "duration_hours": (end_ts - start_ts) / 3600.0,
+        "duration_days": (end_ts - start_ts) / 86400.0,
+        "elapsed_hours": (analysis_end - start_ts) / 3600.0,
+        "elapsed_days": (analysis_end - start_ts) / 86400.0,
         "expected_candles": len(expected),
+        "expected_candles_period": len(period_expected),
         "pairs_expected": len(cfg["universe"]),
         "per_pair": out_pairs,
         "overall": {
             "uptime_mean": (all_on / (len(expected) * len(cfg["universe"]))) if expected and cfg["universe"] else None,
+            "processed_pair_candles": all_seen,
+            "coverage_of_elapsed": (all_seen / (len(expected) * len(cfg["universe"]))) if expected and cfg["universe"] else None,
+            "coverage_of_period": (all_seen / (len(period_expected) * len(cfg["universe"]))) if period_expected and cfg["universe"] else None,
         },
         "scheduler": {
             "expected_ticks": len(sched_expected),
@@ -177,8 +213,16 @@ def main():
     }
     save_json(a.out, out)
 
-    print("Forward   : %s -> %s (%.1f jam)" % (start, iso(end_ts), out["duration_hours"]))
-    print("Candle    : %d diharapkan per pair" % len(expected))
+    print("Periode   : %s -> %s (%.2f hari; %s)" % (
+        start, FORWARD_TEST_END, fp["period_days"] or 0,
+        "selesai" if fp["complete"] else "berjalan, sisa %.1f jam" % fp["remaining_hours"]))
+    print("Data      : %s -> %s (%.1f jam tercatat)" % (
+        start, iso(end_ts), (end_ts - start_ts) / 3600.0))
+    print("Candle    : %d diharapkan per pair (elapsed), %d per pair (satu periode)" % (
+        len(expected), len(period_expected)))
+    print("Cakupan   : %.1f%% dari candle yang sudah tutup, %.1f%% dari seluruh periode" % (
+        (out["overall"]["coverage_of_elapsed"] or 0) * 100,
+        (out["overall"]["coverage_of_period"] or 0) * 100))
     for pair in cfg["universe"]:
         p = out_pairs[pair]
         print("  %-9s uptime=%5.1f%% missing=%d late=%d duplikat=%d" % (

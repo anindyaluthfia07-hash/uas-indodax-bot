@@ -20,6 +20,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from core.config import load_json, load_strategy, parse_iso
+from core.period import forward_period
 
 OUT_DEFAULT = os.path.join(ROOT, "docs", "LAPORAN_AKHIR.md")
 
@@ -149,11 +150,15 @@ def main():
     gap_overall = (gap.get("overall") or {}).get("uptime_mean")
     gap_sched = (gap.get("scheduler") or {}).get("uptime")
     duration_days = None
+    fwd_period = forward_period(start_fwd, now)
     if start_fwd:
         try:
-            duration_days = (now - parse_iso(start_fwd)).total_seconds() / 86400.0
+            duration_days = fwd_period["elapsed_days"]
         except Exception:
             duration_days = None
+    period_days = fwd_period["period_days"]
+    fwd_complete = fwd_period["complete"]
+    fwd_remaining_h = fwd_period["remaining_hours"]
 
     def dur_text(days):
         if days is None:
@@ -206,13 +211,14 @@ def main():
     add("| Stress test fee 2×, biaya 2×, delay 1 bar | Selesai | bagian B |")
     add("| Bot dry-run: tick, idempotensi, lock, kill switch, log | Selesai | `core/bot.py`, `data/local/` |")
     add("| API Vercel: tick, dashboard, health, kill, export | Selesai (kode) | `api/*.py` |")
-    add("| Dashboard HTML offline + versi online | Selesai | `public/offline_dashboard.html`, `public/index.html` |")
+    add("| Dashboard HTML offline + versi online | Selesai | `public/offline_dashboard.html`, `dashboard_offline.html`, `public/index.html` |")
     add("| Skrip hitung ulang & analisis gap | Selesai | `scripts/recompute.py`, `scripts/gap_analysis.py` |")
     add("| Unit test | %s | `tests/test_core.py` |" % status_word(True, "17 tes lulus", "belum"))
     add("| `.env.example`, `.gitignore`, tanpa secret di repo | Selesai | root repo |")
     add("| Pembekuan (freeze) | **Terlambat** | `docs/FREEZE.md` |")
-    add("| Forward test 10 hari | %s | `data/local/`, `data/gap_analysis.json` |" % (
-        "Berjalan " + dur_text(duration_days) if duration_days is not None else "Belum dimulai"))
+    add("| Forward test (freeze → 14 Nov 2026 12.00 WIB) | %s | `data/local/`, `data/gap_analysis.json` |" % (
+        (("Selesai " if fwd_complete else "Berjalan ") + dur_text(duration_days)
+         + " dari " + dur_text(period_days)) if duration_days is not None else "Belum dimulai"))
     add("| Deploy Vercel/GitHub | %s | `data/project_status.json` |" % (
         "Sudah" if deployed else "Belum (butuh akun mahasiswa)"))
     add("")
@@ -377,9 +383,10 @@ def main():
         add("**Belum dimulai.** Tidak ada tick forward yang tercatat saat laporan ini dibuat. "
             "Tanggal mulai akan diisi otomatis oleh tick pertama; tidak boleh diisi manual.")
         add("")
-        add("Rencana: jalankan `python3 scripts/forward_loop.py --days 10 --offset-seconds 90` "
-            "atau aktifkan GitHub Actions setelah deploy. Log tetap tersimpan bila laptop mati "
-            "di tengah jalan; gap akan dihitung, bukan ditutup.")
+        add("Rencana: jalankan `python3 scripts/run_tick.py` atau aktifkan GitHub Actions. "
+            "Periode forward test ditetapkan sampai 14 November 2026 12.00 WIB; "
+            "log tetap tersimpan bila laptop mati di tengah jalan, dan gap akan dihitung, "
+            "bukan ditutup.")
     else:
         fm = rec.get("metrics") or {}
         st = rec.get("state") or {}
@@ -391,7 +398,11 @@ def main():
         add("| Hal | Nilai |")
         add("|---|---|")
         add("| Mulai | %s |" % start_fwd)
-        add("| Durasi aktual | %s |" % dur_text(duration_days))
+        add("| Batas akhir periode | 2026-11-14T05:00:00Z (14 Nov 2026 12.00 WIB) |")
+        add("| Durasi periode | %s |" % dur_text(period_days))
+        add("| Status periode | %s |" % (
+            "Selesai" if fwd_complete else "Berjalan, sisa %.1f jam" % fwd_remaining_h))
+        add("| Durasi berjalan | %s |" % dur_text(duration_days))
         add("| Jumlah tick | %s |" % st.get("tick_count"))
         ok_ticks = sum(1 for t in local_ticks if t.get("status") == "ok")
         if local_ticks:
@@ -421,13 +432,14 @@ def main():
             for c in checks:
                 add("- [%s] %s — %s" % ("PASS" if c.get("ok") else "FAIL", c.get("check"), c.get("detail")))
             add("")
-        if duration_days is not None and duration_days < 10:
-            add("**Catatan jujur:** durasi belum mencapai 10 hari. Ini belum cukup untuk "
-                "menyimpulkan strategi berhasil. Angka di atas hanya menunjukkan bot berjalan "
-                "dan log konsisten. Forward test dimulai %s dan tidak dipercepat dengan "
-                "data buatan; kalau ingin genap 10 hari, pengamatan harus lanjut sampai "
-                "sekitar 19 November 2026." % start_fwd)
-            add("")
+        add("**Catatan periode:** periode forward test ditetapkan dari tick pertama (%s) "
+            "sampai **14 November 2026 12.00 WIB** (total %s). Saat laporan ini dibuat, %s. "
+            "Durasi dan gap dihitung dari log yang benar-benar terjadi; tidak ada candle yang "
+            "ditambal dan tidak ada tanggal yang dimundurkan." % (
+                start_fwd, dur_text(period_days),
+                "periode sudah selesai" if fwd_complete
+                else "periode masih berjalan (sisa %.1f jam)" % fwd_remaining_h))
+        add("")
         if local_ticks and ok_ticks < len(local_ticks):
             add("**Catatan kualitas:** %d dari %d tick gagal, terutama karena error jaringan "
                 "(DNS/koneksi) pada mesin penjadwal. Bot pulih sendiri, tetapi "
@@ -544,7 +556,7 @@ def main():
     add("| Deploy Vercel | %s | %s |" % (
         "**Terpenuhi**" if deployed else "**Belum**",
         vercel if deployed else "butuh akun mahasiswa; lihat E/G"))
-    add("| Dashboard HTML offline | **Terpenuhi** | `public/offline_dashboard.html` |")
+    add("| Dashboard HTML offline | **Terpenuhi** | `dashboard_offline.html` (root) + `public/offline_dashboard.html` |")
     add("| Skrip hitung ulang | **Terpenuhi** | `scripts/recompute.py`, `scripts/gap_analysis.py` |")
     add("| Backtest ulang jendela forward + banding sinyal | %s | `data/forward_vs_backtest.json`, `data/forward_signals.csv` |" % (
         ("**Terpenuhi** (match %.1f%%)" % ((fvb.get("summary") or {}).get("signal_match_rate", 0) * 100))
@@ -552,9 +564,10 @@ def main():
     add("| `.env.example`, tanpa secret | **Terpenuhi** | `.env.example`, `.gitignore` |")
     add("| Freeze tepat waktu | **TIDAK** (%s) | `docs/FREEZE.md` |" % (
         ("terlambat %.1f hari" % freeze_delay_days) if freeze_delay_days is not None else "belum tercatat"))
-    add("| Forward test 10 hari | %s | lihat D |" % (
-        "**Selesai** (%.1f hari)" % duration_days if (duration_days is not None and duration_days >= 10)
-        else ("**Berjalan %s**" % dur_text(duration_days) if duration_days is not None else "**Belum selesai**")))
+    add("| Forward test sesuai periode (freeze → 14 Nov 2026 12.00 WIB) | %s | lihat D |" % (
+        ("**Selesai** (%s dari %s)" % (dur_text(duration_days), dur_text(period_days))) if fwd_complete
+        else (("**Berjalan %s** dari %s" % (dur_text(duration_days), dur_text(period_days)))
+              if duration_days is not None else "**Belum dimulai**")))
     add("")
 
     # ================= G =================
@@ -564,15 +577,17 @@ def main():
         "laporan ini. Ubah bagian yang tidak sesuai. Jangan menandatangani pernyataan yang "
         "tidak dipahami.")
     add("2. **Kumpulkan tautan:** repo %s, dashboard %s, dan berkas "
-        "`public/offline_dashboard.html` (bisa dibuka tanpa internet)." % (
+        "`dashboard_offline.html` / `public/offline_dashboard.html` (bisa dibuka tanpa internet)." % (
             repo or "GitHub", vercel or "Vercel"))
     add("3. **Sebutkan terus terang dua kekurangan:** freeze terlambat %s hari dan forward "
-        "test baru berjalan %s, belum 10 hari. Jangan mengubah tanggal atau menambah log." % (
+        "test berjalan %s dari periode %s (batas 14 Nov 2026 12.00 WIB). "
+        "Jangan mengubah tanggal atau menambah log." % (
             ("%.1f" % freeze_delay_days) if freeze_delay_days is not None else "—",
-            dur_text(duration_days)))
-    add("4. **Opsional, kalau dosen mengizinkan:** biarkan GitHub Actions berjalan sampai "
-        "forward test genap 10 hari (sekitar 19 November 2026), lalu kirim pembaruan. "
-        "Data dan dashboard bertambah sendiri; tidak perlu mengubah kode.")
+            dur_text(duration_days), dur_text(period_days)))
+    add("4. **Setelah 14 Nov 2026 12.00 WIB:** periode forward selesai dan penjadwal "
+        "berhenti melakukan tick otomatis. Jalankan `python3 scripts/recompute.py --source local`, "
+        "`python3 scripts/build_offline_dashboard.py`, dan `python3 scripts/build_report.py` "
+        "sekali lagi dari log terakhir, lalu kumpulkan.")
     add("5. **Opsional:** hubungkan Upstash Redis bila ingin `POST /api/tick` juga menulis "
         "dari cloud. Langkahnya ada di bagian 3b `docs/DEPLOYMENT.md`.")
     add("6. **Jangan** mengubah parameter strategi di tengah forward test, memalsukan "

@@ -2,8 +2,8 @@
  "meta": {
   "student": "Anindya Rahma Luthfia",
   "nim": "25110200036",
-  "generated_at": "2026-11-13T14:45:49Z",
-  "storage": "repo git (data/local) + Upstash opsional",
+  "generated_at": "2026-11-13T16:15:11Z",
+  "storage": "repo_snapshot",
   "strategy": "Donchian Breakout + EMA Trend Filter + ATR Trailing Stop (adaptasi UTS ke kripto IDR)",
   "timeframe": "240",
   "freeze": "2026-11-09T00:35:31Z",
@@ -17109,8 +17109,13 @@
  },
  "forward": {
   "start": "2026-11-09T00:35:58Z",
-  "end": "2026-11-13T14:45:49Z",
-  "duration_days": 4.590182079305803,
+  "end": "2026-11-13T12:06:07Z",
+  "duration_days": 4.652245189953703,
+  "target_end": "2026-11-14T05:00:00Z",
+  "target_end_wib": "2026-11-14T12:00:00+07:00",
+  "period_days": 5.183356481481481,
+  "remaining_hours": 12.746670996666667,
+  "complete": false,
   "metrics": {
    "initial_capital": 100000000.0,
    "final_equity": 100000000.0,
@@ -18540,9 +18545,9 @@
    }
   ],
   "uptime": {
-   "expected": 162,
+   "expected": 168,
    "on_time": 72,
-   "uptime": 0.4444444444444444,
+   "uptime": 0.42857142857142855,
    "processed_candles": 78,
    "pairs": [
     "bnbidr",
@@ -18659,6 +18664,10 @@
     },
     {
      "candle_time": 1794556800,
+     "on_time": false
+    },
+    {
+     "candle_time": 1794571200,
      "on_time": false
     }
    ],
@@ -18893,19 +18902,29 @@
   }
  },
  "gap": {
-  "generated_at": "2026-11-13T14:45:49Z",
+  "generated_at": "2026-11-13T16:15:11Z",
   "forward_start": "2026-11-09T00:35:58Z",
   "forward_end": "2026-11-13T12:06:07Z",
+  "analysis_end": "2026-11-13T16:15:11Z",
+  "period_end": "2026-11-14T05:00:00Z",
+  "period_end_wib": "2026-11-14T12:00:00+07:00",
+  "period_days": 5.183356481481481,
+  "elapsed_days": 4.65224203331051,
+  "remaining_hours": 12.746746756111111,
+  "complete": false,
   "timeframe_seconds": 14400,
   "duration_hours": 107.5025,
-  "expected_candles": 27,
+  "duration_days": 4.4792708333333335,
+  "elapsed_hours": 111.65380879945225,
+  "expected_candles": 28,
+  "expected_candles_period": 31,
   "pairs_expected": 6,
   "per_pair": {
    "btcidr": {
-    "expected": 27,
+    "expected": 28,
     "on_time": 12,
-    "uptime": 0.4444444444444444,
-    "missing_count": 15,
+    "uptime": 0.42857142857142855,
+    "missing_count": 16,
     "late_count": 0,
     "duplicate_actions": {},
     "invalid_decisions": 0,
@@ -18924,15 +18943,16 @@
      "2026-11-12T04:00:00Z",
      "2026-11-12T16:00:00Z",
      "2026-11-13T00:00:00Z",
-     "2026-11-13T04:00:00Z"
+     "2026-11-13T04:00:00Z",
+     "2026-11-13T12:00:00Z"
     ],
     "late_sample": []
    },
    "dogeidr": {
-    "expected": 27,
+    "expected": 28,
     "on_time": 12,
-    "uptime": 0.4444444444444444,
-    "missing_count": 15,
+    "uptime": 0.42857142857142855,
+    "missing_count": 16,
     "late_count": 0,
     "duplicate_actions": {},
     "invalid_decisions": 0,
@@ -18951,15 +18971,16 @@
      "2026-11-12T04:00:00Z",
      "2026-11-12T16:00:00Z",
      "2026-11-13T00:00:00Z",
-     "2026-11-13T04:00:00Z"
+     "2026-11-13T04:00:00Z",
+     "2026-11-13T12:00:00Z"
     ],
     "late_sample": []
    },
    "ethidr": {
-    "expected": 27,
+    "expected": 28,
     "on_time": 12,
-    "uptime": 0.4444444444444444,
-    "missing_count": 15,
+    "uptime": 0.42857142857142855,
+    "missing_count": 16,
     "late_count": 0,
     "duplicate_actions": {},
     "invalid_decisions": 0,
@@ -18978,15 +18999,16 @@
      "2026-11-12T04:00:00Z",
      "2026-11-12T16:00:00Z",
      "2026-11-13T00:00:00Z",
-     "2026-11-13T04:00:00Z"
+     "2026-11-13T04:00:00Z",
+     "2026-11-13T12:00:00Z"
     ],
     "late_sample": []
    },
    "xrpidr": {
-    "expected": 27,
+    "expected": 28,
     "on_time": 12,
-    "uptime": 0.4444444444444444,
-    "missing_count": 15,
+    "uptime": 0.42857142857142855,
+    "missing_count": 16,
     "late_count": 0,
     "duplicate_actions": {},
     "invalid_decisions": 0,
@@ -19005,15 +19027,16 @@
      "2026-11-12T04:00:00Z",
      "2026-11-12T16:00:00Z",
      "2026-11-13T00:00:00Z",
-     "2026-11-13T04:00:00Z"
+     "2026-11-13T04:00:00Z",
+     "2026-11-13T12:00:00Z"
     ],
     "late_sample": []
    },
    "bnbidr": {
-    "expected": 27,
+    "expected": 28,
     "on_time": 12,
-    "uptime": 0.4444444444444444,
-    "missing_count": 15,
+    "uptime": 0.42857142857142855,
+    "missing_count": 16,
     "late_count": 0,
     "duplicate_actions": {},
     "invalid_decisions": 0,
@@ -19032,15 +19055,16 @@
      "2026-11-12T04:00:00Z",
      "2026-11-12T16:00:00Z",
      "2026-11-13T00:00:00Z",
-     "2026-11-13T04:00:00Z"
+     "2026-11-13T04:00:00Z",
+     "2026-11-13T12:00:00Z"
     ],
     "late_sample": []
    },
    "trxidr": {
-    "expected": 27,
+    "expected": 28,
     "on_time": 12,
-    "uptime": 0.4444444444444444,
-    "missing_count": 15,
+    "uptime": 0.42857142857142855,
+    "missing_count": 16,
     "late_count": 0,
     "duplicate_actions": {},
     "invalid_decisions": 0,
@@ -19059,20 +19083,24 @@
      "2026-11-12T04:00:00Z",
      "2026-11-12T16:00:00Z",
      "2026-11-13T00:00:00Z",
-     "2026-11-13T04:00:00Z"
+     "2026-11-13T04:00:00Z",
+     "2026-11-13T12:00:00Z"
     ],
     "late_sample": []
    }
   },
   "overall": {
-   "uptime_mean": 0.4444444444444444
+   "uptime_mean": 0.42857142857142855,
+   "processed_pair_candles": 72,
+   "coverage_of_elapsed": 0.42857142857142855,
+   "coverage_of_period": 0.3870967741935484
   },
   "scheduler": {
-   "expected_ticks": 27,
+   "expected_ticks": 28,
    "hit": 16,
-   "missing": 11,
+   "missing": 12,
    "late": 9,
-   "uptime": 0.5925925925925926,
+   "uptime": 0.5714285714285714,
    "missing_sample": [
     "2026-11-09T08:07:00Z",
     "2026-11-09T12:07:00Z",
@@ -19084,7 +19112,8 @@
     "2026-11-12T12:07:00Z",
     "2026-11-12T20:07:00Z",
     "2026-11-13T04:07:00Z",
-    "2026-11-13T08:07:00Z"
+    "2026-11-13T08:07:00Z",
+    "2026-11-13T16:07:00Z"
    ],
    "late_sample": [
     {

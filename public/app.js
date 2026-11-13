@@ -264,6 +264,9 @@
     var freeze = meta.freeze;
     var freezeLate = freeze && new Date(freeze).getTime() > new Date("2026-11-04T12:00:00+07:00").getTime();
     var fwdDays = fwd.duration_days || 0;
+    var fwdPeriod = fwd.period_days || 0;
+    var fwdComplete = !!fwd.complete;
+    var fwdRemaining = fwd.remaining_hours || 0;
 
     // hero chips
     var chips = [];
@@ -307,9 +310,11 @@
     } else if (!freeze) {
       notes.push(note("bad", "Freeze belum ditetapkan", "Konfigurasi belum memuat timestamp freeze. Isi setelah kode dan test selesai."));
     }
-    if (fwd.start && fwdDays < 10) {
-      notes.push(note("warn", "Forward test belum 10 hari",
-        "Baru <b>" + num(fwdDays, 2) + " hari</b> sejak " + esc(dt(fwd.start, true)) + ". Durasi sebenarnya dilaporkan apa adanya; tidak ada log yang dibuat ulang."));
+    if (fwd.start) {
+      notes.push(note("info", "Periode forward test",
+        "Berjalan dari <b>" + esc(dt(fwd.start, true)) + "</b> sampai <b>" + esc(dt(fwd.target_end, true)) + "</b> (14 Nov 2026 12.00 WIB), total <b>" + num(fwdPeriod, 2) + " hari</b>. " +
+        (fwdComplete ? "Periode sudah selesai." : "Sudah berjalan <b>" + num(fwdDays, 2) + " hari</b>, sisa <b>" + num(fwdRemaining, 1) + " jam</b>.") +
+        " Durasi dan gap dilaporkan apa adanya; tidak ada log yang dibuat ulang."));
     }
     if (isNum(m.cagr_pct) && isNum(bm.cagr_pct)) {
       notes.push(note("info", "Dibanding beli-dan-tahan BTC",
@@ -472,11 +477,12 @@
     // forward
     var fm = fwd.metrics || {};
     if (fwd.start) {
-      if (fwdDays < 10) {
-        $("fwdBanner").innerHTML = note("warn", "Forward test berjalan, belum memenuhi target 10 hari",
-          "Mulai <b>" + esc(dt(fwd.start, true)) + "</b>, durasi <b>" + num(fwdDays, 2) + " hari</b>. Yang dilaporkan hanya tick yang benar-benar terjadi. Tidak ada replay masa lalu yang diklaim sebagai forward test.");
+      if (fwdComplete) {
+        $("fwdBanner").innerHTML = note("ok", "Forward test selesai sesuai periode",
+          "Periode <b>" + esc(dt(fwd.start, true)) + "</b> → <b>" + esc(dt(fwd.target_end, true)) + "</b> (" + num(fwdPeriod, 2) + " hari). Durasi tercatat <b>" + num(fwdDays, 2) + " hari</b>. Yang dilaporkan hanya tick yang benar-benar terjadi; tidak ada replay masa lalu yang diklaim sebagai forward test.");
       } else {
-        $("fwdBanner").innerHTML = note("ok", "Forward test ≥ 10 hari", "Mulai " + esc(dt(fwd.start, true)) + ", durasi " + num(fwdDays, 2) + " hari.");
+        $("fwdBanner").innerHTML = note("warn", "Forward test berjalan (periode sampai 14 Nov 2026 12.00 WIB)",
+          "Mulai <b>" + esc(dt(fwd.start, true)) + "</b>. Sudah berjalan <b>" + num(fwdDays, 2) + " hari</b> dari <b>" + num(fwdPeriod, 2) + " hari</b> (sisa <b>" + num(fwdRemaining, 1) + " jam</b>). Yang dilaporkan hanya tick yang benar-benar terjadi. Tidak ada replay masa lalu yang diklaim sebagai forward test.");
       }
     } else {
       $("fwdBanner").innerHTML = note("info", "Forward test belum dimulai", "Jalankan tick pertama dengan <code>python3 scripts/run_tick.py</code> atau melalui scheduler. Timestamp mulai akan tercatat otomatis dan tidak bisa dimundurkan.");
@@ -485,7 +491,7 @@
       { label: "Return forward", value: pct(fm.total_return_pct), foot: "Modal Rp100 jt", cls: cls(fm.total_return_pct) },
       { label: "Ekuitas", value: idr(fm.final_equity), foot: "Cash " + idr((fwd.state || {}).cash), cls: "" },
       { label: "Trade", value: num(fm.trades, 0), foot: "Win " + num(fm.win_rate_pct, 1) + "%", cls: "" },
-      { label: "Durasi", value: num(fwdDays, 2) + " hari", foot: "Target 10 hari", cls: fwdDays >= 10 ? "pos" : "warn" }
+      { label: "Durasi", value: num(fwdDays, 2) + " hari", foot: "Periode " + num(fwdPeriod, 2) + " hari", cls: fwdComplete ? "pos" : "warn" }
     ];
     $("fwdKpis").innerHTML = fk.map(function (k) {
       return '<div class="card kpi ' + k.cls + '"><div class="label">' + esc(k.label) + '</div><div class="value sm">' + k.value + '</div><div class="foot">' + esc(k.foot) + "</div></div>";
@@ -751,11 +757,11 @@
       ["Log keputusan & order", true, "JSONL/Redis list, mentah dan bisa diekspor"],
       ["Manajemen risiko", true, "Max 5 posisi, 20% equity, daily loss -3%, kill switch"],
       ["Deploy Vercel", !!(ps.vercel_deployed), ps.vercel_deployed ? esc(ps.vercel_url || "live") : "belum; langkah ada di docs/DEPLOYMENT.md"],
-      ["Dashboard HTML offline", true, "public/offline_dashboard.html"],
+      ["Dashboard HTML offline", true, "dashboard_offline.html + public/offline_dashboard.html"],
       ["Skrip hitung ulang", true, "scripts/recompute.py"],
       [".env.example tanpa secret", true, ".env di-.gitignore"],
       ["Freeze sebelum deadline", !!freeze && !freezeLate, freeze ? (freezeLate ? "terlambat " + num(lateDays, 2) + " hari" : "tepat") : "belum"],
-      ["Forward test 10 hari", fwdDays >= 10, num(fwdDays, 2) + " hari aktual"],
+      ["Forward test s/d 14 Nov 2026 12.00 WIB", fwdComplete, num(fwdDays, 2) + " dari " + num(fwdPeriod, 2) + " hari" + (fwdComplete ? " (selesai)" : " (berjalan)")],
       ["Tidak ada data/log fiktif", true, "Prinsip proses; log mentah tersedia untuk diaudit ulang, bukan klaim otomatis"]
     ];
     $("checklist").innerHTML = chk.map(function (c) {

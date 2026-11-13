@@ -18,6 +18,23 @@ Yang dicatat secara otomatis saat tick sukses pertama:
 Tidak ada backdate. Bila forward test baru dimulai setelah tenggat freeze, itu
 ditulis di laporan dan tidak diubah menjadi tanggal yang lebih awal.
 
+## Periode yang disepakati
+
+Forward test **tidak** ditargetkan 10 hari. Periodenya ditetapkan dari tick
+pertama (yang tercatat otomatis) sampai **14 November 2026 12.00 WIB**
+(`2026-11-14T05:00:00Z`). Konstanta ini ada di `core/period.py` dan hanya
+dipakai untuk menampilkan durasi, sisa waktu, dan status selesai — bukan untuk
+keputusan entry/exit.
+
+Setelah waktu itu:
+
+- GitHub Actions berhenti melakukan tick, menyegarkan laporan/dashboard sekali
+  lagi dari log terakhir, lalu menulis `data/forward_period_closed.json`;
+- selama marker itu ada, workflow tidak menambah data baru;
+- `scripts/run_tick.py` menolak tick setelah periode berakhir (kecuali `--force`
+  untuk keperluan uji);
+- `scripts/forward_loop.py` berhenti sendiri pada batas periode.
+
 ## Cara menjalankan
 
 ### A. Di laptop (paling sederhana, laptop harus menyala)
@@ -28,13 +45,14 @@ Satu tick:
 python3 scripts/run_tick.py
 ```
 
-Loop mengikuti candle 4 jam (default 10 hari, tick 90 detik setelah candle
-ditutup):
+Loop mengikuti candle 4 jam (tick 90 detik setelah candle ditutup, berhenti
+otomatis pada 14 Nov 2026 12.00 WIB):
 
 ```bash
-python3 scripts/forward_loop.py --days 10 --offset-seconds 90
+python3 scripts/forward_loop.py --offset-seconds 90
 ```
 
+`--days N` masih tersedia bila ingin membatasi lebih pendek dari periode.
 Hentikan dengan `Ctrl+C`; log yang sudah ada tetap tersimpan. Untuk melihat
 progres:
 
@@ -62,7 +80,11 @@ lalu isi secret/variable yang dijelaskan di `docs/DEPLOYMENT.md`.
 ## Definisi yang dipakai
 
 - **Candle yang diharapkan:** candle 4 jam yang tertutup di antara
-  `forward_test_start` dan waktu data terakhir.
+  `forward_test_start` dan `min(waktu sekarang, batas periode)`. Candle yang
+  terlewat setelah tick terakhir tetap dihitung sebagai gap.
+- **Cakupan periode:** candle yang benar-benar diproses dibagi seluruh candle
+  yang seharusnya ada sampai 14 Nov 2026 12.00 WIB — angka ini yang menunjukkan
+  betapa pendek/bolongnya forward test, bukan hanya uptime saat bot hidup.
 - **Uptime per pair:** candle yang diproses tepat waktu dibagi candle yang
   diharapkan. "Tepat waktu" = keputusan tercatat sebelum candle berikutnya
   tertutup.
@@ -97,7 +119,8 @@ CRON_SECRET=... python3 scripts/recompute.py --source url \
    bukan kesalahan yang boleh dibersihkan.
 3. **Jangan mengisi gap** dengan candle atau trade rekaan.
 4. **Jangan mengklaim durasi** yang belum terjadi. Durasi dihitung dari
-   `forward_test_start` sampai waktu export, bukan dari rencana.
+   `forward_test_start` sampai waktu export (dibatasi batas periode), bukan
+   dari rencana.
 5. **Kill switch** hanya memblokir entry baru; exit tetap dievaluasi supaya
    posisi bisa ditutup.
 

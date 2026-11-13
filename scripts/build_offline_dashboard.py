@@ -2,7 +2,8 @@
 """Bangun dashboard HTML mandiri (offline) dari payload dashboard.
 
 Output:
-  public/offline_dashboard.html  -> satu file, data tertanam, bisa dibuka file://
+  public/offline_dashboard.html  -> versi yang disajikan Vercel (/offline_dashboard.html)
+  dashboard_offline.html         -> salinan di root repo/ZIP, buka lewat file://
   public/dashboard_data.json     -> payload mentah untuk audit
   public/backtest_trades.csv     -> unduhan trade
   public/backtest_equity_daily.csv
@@ -36,6 +37,8 @@ def main():
     ap.add_argument("--source", choices=["local", "url"], default="local")
     ap.add_argument("--url", default=None)
     ap.add_argument("--out", default=os.path.join(ROOT, "public", "offline_dashboard.html"))
+    ap.add_argument("--out-root", default=os.path.join(ROOT, "dashboard_offline.html"),
+                    help="salinan kedua di root (untuk ZIP / dibuka via file://)")
     a = ap.parse_args()
 
     if a.source == "url":
@@ -44,9 +47,10 @@ def main():
         payload = fetch_json(a.url)
     else:
         payload = dashboard_payload(LocalStorage())
-        # Data yang sama di-commit ke repo dan dibundel ke Vercel; sebut sumber
-        # sebenarnya, bukan sekadar "local", supaya dashboard tidak menyesatkan.
-        payload.setdefault("meta", {})["storage"] = "repo git (data/local) + Upstash opsional"
+        # Vercel menyajikan payload dari snapshot repo yang sama (RepoSnapshotStorage).
+        # Samakan label penyimpanan agar isi dashboard offline identik dengan versi
+        # online; data mentahnya tetap berasal dari data/local yang di-commit.
+        payload.setdefault("meta", {})["storage"] = "repo_snapshot"
 
     public = os.path.join(ROOT, "public")
     os.makedirs(public, exist_ok=True)
@@ -56,6 +60,9 @@ def main():
         src = os.path.join(ROOT, "data", name)
         if os.path.exists(src):
             shutil.copyfile(src, os.path.join(public, name))
+            # Salinan di root agar tautan CSV pada dashboard_offline.html
+            # tetap berfungsi saat file dibuka langsung dari folder ZIP.
+            shutil.copyfile(src, os.path.join(ROOT, name))
 
     with open(os.path.join(public, "index.html"), "r", encoding="utf-8") as f:
         html = f.read()
@@ -76,6 +83,11 @@ def main():
 
     with open(a.out, "w", encoding="utf-8") as f:
         f.write(html)
+    if a.out_root and os.path.abspath(a.out_root) != os.path.abspath(a.out):
+        with open(a.out_root, "w", encoding="utf-8") as f:
+            f.write(html)
+        print("Root copy: %s (%.1f KB)" % (
+            a.out_root, os.path.getsize(a.out_root) / 1024))
 
     print("Payload  : %d pair, %d trade backtest, %d trade forward" % (
         len((payload.get("meta") or {}).get("universe") or []),
