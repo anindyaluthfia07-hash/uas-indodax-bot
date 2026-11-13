@@ -1,0 +1,4 @@
+# Log forward test bersifat append-only: satu baris = satu record.
+# Tick lokal dan tick GitHub Actions bisa menulis ke file yang sama, jadi
+# merge harus menggabungkan baris (union), bukan memilih salah satu sisi.
+data/local/*.jsonl merge=union
