@@ -232,6 +232,7 @@ tepat sebelum membuat ZIP agar laporan, dashboard, dan data konsisten:
 
 ```bash
 cd uas-indodax-bot
+git pull --rebase          # ambil tick terakhir dari GitHub Actions
 python3 -m unittest discover -s tests
 python3 scripts/forward_vs_backtest.py
 python3 scripts/recompute.py --source local
@@ -245,6 +246,12 @@ zip -r uas-indodax-bot_25110200036.zip uas-indodax-bot \
   -x "uas-indodax-bot/.env" "uas-indodax-bot/*.pem" "uas-indodax-bot/*.key" \
      "*/.DS_Store" "*/__pycache__/*" "*.pyc" "uas-indodax-bot/.vercel/*"
 ```
+
+Log JSONL ditandai `merge=union` di `.gitattributes`, jadi tick lokal dan tick
+GitHub Actions yang menulis ke file yang sama akan digabung per baris, bukan
+saling menimpa. Kalau `git pull --rebase` sempat bentrok pada file lain, hentikan
+dan periksa manual — jangan `git reset --hard`, karena perubahan yang belum
+di-commit bisa hilang.
 
 > **Akses repo:** repo GitHub saat ini **privat** (URL mengembalikan 404 tanpa
 > login). Sebelum mengumpulkan, ubah ke publik lewat *Settings → General →
