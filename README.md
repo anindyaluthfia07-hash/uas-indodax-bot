@@ -253,10 +253,12 @@ saling menimpa. Kalau `git pull --rebase` sempat bentrok pada file lain, hentika
 dan periksa manual — jangan `git reset --hard`, karena perubahan yang belum
 di-commit bisa hilang.
 
-> **Akses repo:** repo GitHub saat ini **privat** (URL mengembalikan 404 tanpa
-> login). Sebelum mengumpulkan, ubah ke publik lewat *Settings → General →
-> Danger Zone → Change visibility*, atau undang dosen sebagai collaborator.
-> Tanpa itu, tautan repo tidak bisa dibuka penilai.
+> **Akses repo:** repo GitHub sudah **publik** dan bisa dibuka tanpa login
+> (diverifikasi 13 Nov 2026: halaman repo, `README.md`, dan
+> `docs/LAPORAN_AKHIR.md` mengembalikan HTTP 200 secara anonim). Bila suatu saat
+> diubah kembali menjadi privat, ubah lewat *Settings → General → Danger Zone →
+> Change visibility*, atau undang dosen sebagai collaborator — tanpa itu tautan
+> repo tidak bisa dibuka penilai.
 
 Setelah ZIP dibuat, cek isinya: `.git` harus ada (bukti freeze), `data/local/`
 harus berisi log mentah, dan tidak boleh ada `.env` atau kunci.
