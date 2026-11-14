@@ -1,27 +1,27 @@
 {
- "generated_at": "2026-11-14T01:09:09Z",
+ "generated_at": "2026-11-14T11:23:26Z",
  "forward_start": "2026-11-09T00:35:58Z",
  "forward_end": "2026-11-14T00:51:40Z",
- "analysis_end": "2026-11-14T01:09:09Z",
+ "analysis_end": "2026-11-14T05:00:00Z",
  "period_end": "2026-11-14T05:00:00Z",
  "period_end_wib": "2026-11-14T12:00:00+07:00",
  "period_days": 5.183356481481481,
- "elapsed_days": 5.023055435833004,
- "remaining_hours": 3.847225095555556,
- "complete": false,
+ "elapsed_days": 5.183356481481481,
+ "remaining_hours": 0.0,
+ "complete": true,
  "timeframe_seconds": 14400,
  "duration_hours": 120.26166666666667,
  "duration_days": 5.010902777777778,
- "elapsed_hours": 120.5533304599921,
- "expected_candles": 30,
+ "elapsed_hours": 124.40055555555556,
+ "expected_candles": 31,
  "expected_candles_period": 31,
  "pairs_expected": 6,
  "per_pair": {
   "btcidr": {
-   "expected": 30,
+   "expected": 31,
    "on_time": 14,
-   "uptime": 0.4666666666666667,
-   "missing_count": 16,
+   "uptime": 0.45161290322580644,
+   "missing_count": 17,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -41,15 +41,16 @@
     "2026-11-12T16:00:00Z",
     "2026-11-13T00:00:00Z",
     "2026-11-13T04:00:00Z",
-    "2026-11-13T16:00:00Z"
+    "2026-11-13T16:00:00Z",
+    "2026-11-14T00:00:00Z"
    ],
    "late_sample": []
   },
   "dogeidr": {
-   "expected": 30,
+   "expected": 31,
    "on_time": 14,
-   "uptime": 0.4666666666666667,
-   "missing_count": 16,
+   "uptime": 0.45161290322580644,
+   "missing_count": 17,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -69,15 +70,16 @@
     "2026-11-12T16:00:00Z",
     "2026-11-13T00:00:00Z",
     "2026-11-13T04:00:00Z",
-    "2026-11-13T16:00:00Z"
+    "2026-11-13T16:00:00Z",
+    "2026-11-14T00:00:00Z"
    ],
    "late_sample": []
   },
   "ethidr": {
-   "expected": 30,
+   "expected": 31,
    "on_time": 14,
-   "uptime": 0.4666666666666667,
-   "missing_count": 16,
+   "uptime": 0.45161290322580644,
+   "missing_count": 17,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -97,15 +99,16 @@
     "2026-11-12T16:00:00Z",
     "2026-11-13T00:00:00Z",
     "2026-11-13T04:00:00Z",
-    "2026-11-13T16:00:00Z"
+    "2026-11-13T16:00:00Z",
+    "2026-11-14T00:00:00Z"
    ],
    "late_sample": []
   },
   "xrpidr": {
-   "expected": 30,
+   "expected": 31,
    "on_time": 14,
-   "uptime": 0.4666666666666667,
-   "missing_count": 16,
+   "uptime": 0.45161290322580644,
+   "missing_count": 17,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -125,15 +128,16 @@
     "2026-11-12T16:00:00Z",
     "2026-11-13T00:00:00Z",
     "2026-11-13T04:00:00Z",
-    "2026-11-13T16:00:00Z"
+    "2026-11-13T16:00:00Z",
+    "2026-11-14T00:00:00Z"
    ],
    "late_sample": []
   },
   "bnbidr": {
-   "expected": 30,
+   "expected": 31,
    "on_time": 14,
-   "uptime": 0.4666666666666667,
-   "missing_count": 16,
+   "uptime": 0.45161290322580644,
+   "missing_count": 17,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -153,15 +157,16 @@
     "2026-11-12T16:00:00Z",
     "2026-11-13T00:00:00Z",
     "2026-11-13T04:00:00Z",
-    "2026-11-13T16:00:00Z"
+    "2026-11-13T16:00:00Z",
+    "2026-11-14T00:00:00Z"
    ],
    "late_sample": []
   },
   "trxidr": {
-   "expected": 30,
+   "expected": 31,
    "on_time": 14,
-   "uptime": 0.4666666666666667,
-   "missing_count": 16,
+   "uptime": 0.45161290322580644,
+   "missing_count": 17,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -181,23 +186,24 @@
     "2026-11-12T16:00:00Z",
     "2026-11-13T00:00:00Z",
     "2026-11-13T04:00:00Z",
-    "2026-11-13T16:00:00Z"
+    "2026-11-13T16:00:00Z",
+    "2026-11-14T00:00:00Z"
    ],
    "late_sample": []
   }
  },
  "overall": {
-  "uptime_mean": 0.4666666666666667,
+  "uptime_mean": 0.45161290322580644,
   "processed_pair_candles": 84,
-  "coverage_of_elapsed": 0.4666666666666667,
+  "coverage_of_elapsed": 0.45161290322580644,
   "coverage_of_period": 0.45161290322580644
  },
  "scheduler": {
-  "expected_ticks": 30,
+  "expected_ticks": 31,
   "hit": 19,
-  "missing": 11,
+  "missing": 12,
   "late": 11,
-  "uptime": 0.6333333333333333,
+  "uptime": 0.6129032258064516,
   "missing_sample": [
    "2026-11-09T08:07:00Z",
    "2026-11-09T12:07:00Z",
@@ -209,7 +215,8 @@
    "2026-11-12T12:07:00Z",
    "2026-11-12T20:07:00Z",
    "2026-11-13T04:07:00Z",
-   "2026-11-13T08:07:00Z"
+   "2026-11-13T08:07:00Z",
+   "2026-11-14T04:07:00Z"
   ],
   "late_sample": [
    {
