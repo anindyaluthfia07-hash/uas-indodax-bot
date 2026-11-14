@@ -4,23 +4,23 @@
  "cash": 100000000.0,
  "positions": {},
  "last_processed": {
-  "btcidr": 1794571200,
-  "dogeidr": 1794571200,
-  "ethidr": 1794571200,
-  "xrpidr": 1794571200,
-  "bnbidr": 1794571200,
-  "trxidr": 1794571200
+  "btcidr": 1794600000,
+  "dogeidr": 1794600000,
+  "ethidr": 1794600000,
+  "xrpidr": 1794600000,
+  "bnbidr": 1794600000,
+  "trxidr": 1794600000
  },
  "last_prices": {
-  "btcidr": 1260000000.0,
-  "dogeidr": 1197.0,
-  "ethidr": 35584000.0,
-  "xrpidr": 18761.0,
-  "bnbidr": 11568414.0,
-  "trxidr": 5710.0
+  "btcidr": 1248639000.0,
+  "dogeidr": 1181.0,
+  "ethidr": 35301000.0,
+  "xrpidr": 18494.0,
+  "bnbidr": 11486871.0,
+  "trxidr": 5706.0
  },
- "last_tick": "2026-11-13T19:37:11Z",
- "tick_count": 19,
+ "last_tick": "2026-11-14T00:51:40Z",
+ "tick_count": 20,
  "day_date_wib": "2026-11-14",
  "day_start_equity": 100000000.0,
  "daily_loss_blocked": false,

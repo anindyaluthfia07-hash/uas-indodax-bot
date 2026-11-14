@@ -1,27 +1,27 @@
 {
- "generated_at": "2026-11-13T19:37:26Z",
+ "generated_at": "2026-11-14T00:51:54Z",
  "forward_start": "2026-11-09T00:35:58Z",
- "forward_end": "2026-11-13T19:37:11Z",
- "analysis_end": "2026-11-13T19:37:26Z",
+ "forward_end": "2026-11-14T00:51:40Z",
+ "analysis_end": "2026-11-14T00:51:54Z",
  "period_end": "2026-11-14T05:00:00Z",
  "period_end_wib": "2026-11-14T12:00:00+07:00",
  "period_days": 5.183356481481481,
- "elapsed_days": 4.792690732012744,
- "remaining_hours": 9.375977987222221,
+ "elapsed_days": 5.011071884491377,
+ "remaining_hours": 4.134830327777777,
  "complete": false,
  "timeframe_seconds": 14400,
- "duration_hours": 115.02027777777778,
- "duration_days": 4.792511574074074,
- "elapsed_hours": 115.02457756830586,
- "expected_candles": 28,
+ "duration_hours": 120.26166666666667,
+ "duration_days": 5.010902777777778,
+ "elapsed_hours": 120.26572522779306,
+ "expected_candles": 30,
  "expected_candles_period": 31,
  "pairs_expected": 6,
  "per_pair": {
   "btcidr": {
-   "expected": 28,
-   "on_time": 13,
-   "uptime": 0.4642857142857143,
-   "missing_count": 15,
+   "expected": 30,
+   "on_time": 14,
+   "uptime": 0.4666666666666667,
+   "missing_count": 16,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -40,15 +40,16 @@
     "2026-11-12T04:00:00Z",
     "2026-11-12T16:00:00Z",
     "2026-11-13T00:00:00Z",
-    "2026-11-13T04:00:00Z"
+    "2026-11-13T04:00:00Z",
+    "2026-11-13T16:00:00Z"
    ],
    "late_sample": []
   },
   "dogeidr": {
-   "expected": 28,
-   "on_time": 13,
-   "uptime": 0.4642857142857143,
-   "missing_count": 15,
+   "expected": 30,
+   "on_time": 14,
+   "uptime": 0.4666666666666667,
+   "missing_count": 16,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -67,15 +68,16 @@
     "2026-11-12T04:00:00Z",
     "2026-11-12T16:00:00Z",
     "2026-11-13T00:00:00Z",
-    "2026-11-13T04:00:00Z"
+    "2026-11-13T04:00:00Z",
+    "2026-11-13T16:00:00Z"
    ],
    "late_sample": []
   },
   "ethidr": {
-   "expected": 28,
-   "on_time": 13,
-   "uptime": 0.4642857142857143,
-   "missing_count": 15,
+   "expected": 30,
+   "on_time": 14,
+   "uptime": 0.4666666666666667,
+   "missing_count": 16,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -94,15 +96,16 @@
     "2026-11-12T04:00:00Z",
     "2026-11-12T16:00:00Z",
     "2026-11-13T00:00:00Z",
-    "2026-11-13T04:00:00Z"
+    "2026-11-13T04:00:00Z",
+    "2026-11-13T16:00:00Z"
    ],
    "late_sample": []
   },
   "xrpidr": {
-   "expected": 28,
-   "on_time": 13,
-   "uptime": 0.4642857142857143,
-   "missing_count": 15,
+   "expected": 30,
+   "on_time": 14,
+   "uptime": 0.4666666666666667,
+   "missing_count": 16,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -121,15 +124,16 @@
     "2026-11-12T04:00:00Z",
     "2026-11-12T16:00:00Z",
     "2026-11-13T00:00:00Z",
-    "2026-11-13T04:00:00Z"
+    "2026-11-13T04:00:00Z",
+    "2026-11-13T16:00:00Z"
    ],
    "late_sample": []
   },
   "bnbidr": {
-   "expected": 28,
-   "on_time": 13,
-   "uptime": 0.4642857142857143,
-   "missing_count": 15,
+   "expected": 30,
+   "on_time": 14,
+   "uptime": 0.4666666666666667,
+   "missing_count": 16,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -148,15 +152,16 @@
     "2026-11-12T04:00:00Z",
     "2026-11-12T16:00:00Z",
     "2026-11-13T00:00:00Z",
-    "2026-11-13T04:00:00Z"
+    "2026-11-13T04:00:00Z",
+    "2026-11-13T16:00:00Z"
    ],
    "late_sample": []
   },
   "trxidr": {
-   "expected": 28,
-   "on_time": 13,
-   "uptime": 0.4642857142857143,
-   "missing_count": 15,
+   "expected": 30,
+   "on_time": 14,
+   "uptime": 0.4666666666666667,
+   "missing_count": 16,
    "late_count": 0,
    "duplicate_actions": {},
    "invalid_decisions": 0,
@@ -175,23 +180,24 @@
     "2026-11-12T04:00:00Z",
     "2026-11-12T16:00:00Z",
     "2026-11-13T00:00:00Z",
-    "2026-11-13T04:00:00Z"
+    "2026-11-13T04:00:00Z",
+    "2026-11-13T16:00:00Z"
    ],
    "late_sample": []
   }
  },
  "overall": {
-  "uptime_mean": 0.4642857142857143,
-  "processed_pair_candles": 78,
-  "coverage_of_elapsed": 0.4642857142857143,
-  "coverage_of_period": 0.41935483870967744
+  "uptime_mean": 0.4666666666666667,
+  "processed_pair_candles": 84,
+  "coverage_of_elapsed": 0.4666666666666667,
+  "coverage_of_period": 0.45161290322580644
  },
  "scheduler": {
-  "expected_ticks": 28,
-  "hit": 17,
+  "expected_ticks": 30,
+  "hit": 19,
   "missing": 11,
-  "late": 10,
-  "uptime": 0.6071428571428571,
+  "late": 11,
+  "uptime": 0.6333333333333333,
   "missing_sample": [
    "2026-11-09T08:07:00Z",
    "2026-11-09T12:07:00Z",
@@ -255,6 +261,11 @@
     "expected": "2026-11-13T16:07:00Z",
     "actual": "2026-11-13T16:19:00Z",
     "late_seconds": 720
+   },
+   {
+    "expected": "2026-11-14T00:07:00Z",
+    "actual": "2026-11-14T00:51:40Z",
+    "late_seconds": 2680
    }
   ],
   "definition": "tick dihitung tepat waktu bila terjadi dalam ±45 menit dari candle close + 7 menit"
