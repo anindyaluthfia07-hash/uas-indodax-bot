@@ -242,7 +242,10 @@ python3 -m unittest discover -s tests
 python3 scripts/forward_vs_backtest.py
 python3 scripts/recompute.py --source local
 python3 scripts/gap_analysis.py --source local
-python3 scripts/build_offline_dashboard.py
+# Bangun offline dari payload live yang sedang disajikan Vercel, supaya
+# durasi/sisa waktu persis sama dengan dashboard online saat itu.
+python3 scripts/build_offline_dashboard.py --source url \
+  --url https://uas-indodax-bot-25110200036.vercel.app/api/dashboard
 python3 scripts/build_report.py
 git add -A && git commit -m "final: regenerasi dari log terakhir" && git push
 cd ..
@@ -251,6 +254,11 @@ zip -r uas-indodax-bot_25110200036.zip uas-indodax-bot \
   -x "uas-indodax-bot/.env" "uas-indodax-bot/*.pem" "uas-indodax-bot/*.key" \
      "*/.DS_Store" "*/__pycache__/*" "*.pyc" "uas-indodax-bot/.vercel/*"
 ```
+
+Jika laptop sedang tanpa internet, jalankan
+`python3 scripts/build_offline_dashboard.py` (tanpa `--source url`). Hasilnya
+tetap bisa dibuka offline; hanya angka turunan waktu (durasi/sisa jam) yang
+dihitung saat build, bukan saat dashboard online dibuka.
 
 Log JSONL ditandai `merge=union` di `.gitattributes`, jadi tick lokal dan tick
 GitHub Actions yang menulis ke file yang sama akan digabung per baris, bukan
